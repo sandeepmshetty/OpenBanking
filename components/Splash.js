@@ -18,7 +18,7 @@ export default class Splash extends Component {
 
                 <View style={styles.secondContainer} >
 
-                    <Image style={{ flex: 1, resizeMode: "cover", }} source={require('../assets/bg_app.png')} />
+                    
 
                 </View>
                 <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center', }} >
@@ -26,7 +26,7 @@ export default class Splash extends Component {
 
                         <Image source={require('../assets/icon.png')} style={styles.image} />
 
-                        <Text style={{ textAlign: 'center', fontSize: 18 }} > React Native Sample Drawer App </Text>
+                        <Text style={styles.textStyle} > Welcome to Genpact Open Bank </Text>
 
                     </View>
 
@@ -37,9 +37,15 @@ export default class Splash extends Component {
 }
 
 const styles = StyleSheet.create({
+    textStyle:{
+        textAlign: 'center',
+        fontSize: 20 ,
+        color: 'white'
+    },
     container: {
         flex: 1,
         backgroundColor: '#eee'
+        
     },
 
     secondContainer: {
@@ -48,12 +54,13 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: '100%',
+        backgroundColor: '#083261'
     },
 
     image: {
         marginBottom: 20,
-        height: 100,
-        width: 100,
+        height: 250,
+        width: 250,
 
     },
 });
