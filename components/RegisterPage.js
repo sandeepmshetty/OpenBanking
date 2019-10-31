@@ -1,18 +1,28 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, Switch } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, {Component} from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    Switch
+} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
+import {Button} from 'react-native-material-ui';
 
 export default class RegisterPage extends Component {
 
     constructor() {
         super();
         this.state = {
-            switch1Value: false,
+            switch1Value: false
         }
     }
 
     toggleSwitch1 = (value) => {
-        this.setState({ switch1Value: value })
+        this.setState({switch1Value: value})
         console.log('Switch 1 is: ' + value)
     }
 
@@ -20,12 +30,11 @@ export default class RegisterPage extends Component {
         return (
             <View
                 style={{
-                    flex: 1,
-                    backgroundColor: '#eee',
-                }}
-            >
+                flex: 1,
+                backgroundColor: '#eee'
+            }}>
 
-                <View
+                {/*<View
                     style={{
                         position: 'absolute',
                         top: 0,
@@ -43,50 +52,73 @@ export default class RegisterPage extends Component {
                         source={require('../assets/bg_app.png')}
                     />
 
-                </View>
-
+                    </View>*/}
 
                 <View
                     style={{
-                        flex: 1,
-                        backgroundColor: 'transparent',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <KeyboardAwareScrollView>
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Image source={require('../assets/icon.png')} style={styles.image} />
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: '#1E345C'
+                }}></View>
 
-                            <Text
-                                style={{
-                                    textAlign: 'center',
-                                    fontSize: 22,
-                                }}
-                            >
-                                Veuillez vous enregister s'il vous plait
+                <View
+                    style={{
+                    flex: 1,
+                    backgroundColor: 'transparent',
+                    justifyContent: 'center'
+                }}>
+                    <KeyboardAwareScrollView>
+                        <View
+                            style={{
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Image source={require('../assets/icon.png')} style={styles.image}/>
+
+                            <Text style={{ color:'white', textAlign: 'center', fontSize: 22}}>
+                                Registration Form
                             </Text>
                         </View>
 
-                        <View style={styles.main}>
-                            <Text>Nom complet</Text>
-                            <TextInput underlineColorAndroid='transparent' style={styles.input} />
+                        <View  style={{
+                                        backgroundColor: '#DF6263',
+                                        margin: 20,
+                                        padding: 10,
+                                        paddingTop:0,
+                                        borderRadius: 5
+                                     }}>
+                            <Text style={{ color:'white', marginTop: 5}}>Name</Text>
+                            <TextField/>
 
-                            <Text>Email</Text>
-                            <TextInput underlineColorAndroid='transparent' style={styles.input} />
+                            <Text style={{ color:'white'}}>Email</Text>
+                            <TextField/>
 
-                            <Text>Mot de passe</Text>
-                            <TextInput underlineColorAndroid='transparent' style={styles.input} secureTextEntry={true} />
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                            <Text style={{ color:'white'}}>Password</Text>
+                            <TextField secureTextEntry={true}/>
+                            <View
+                                style={{
+                                flexDirection: 'row',
+                                alignItems: 'flex-start'
+                            }}>
 
-                                <Switch onValueChange={this.toggleSwitch1} onTintColor="#fcc358"
-                                    value={this.state.switch1Value} />
-                                <Text style={{ alignSelf: 'center', textAlign: 'left' }}>J'accepte les termes et conditions</Text>
+                                <Switch
+                                    onValueChange={this.toggleSwitch1}
+                                    trackColor="#fcc358"
+                                    value={this.state.switch1Value}/>
+                                <Text
+                                    style={{
+                                    color: 'white',
+                                    alignSelf: 'center',
+                                    textAlign: 'left'
+                                }}>I agree to the terms and conditions</Text>
 
                             </View>
-                            <TouchableOpacity style={styles.buttonContainer}>
-                                <Text style={styles.buttonText}> VALIDER </Text>
-                            </TouchableOpacity>
-
+                            <View style={styles.buttonStyle}>
+                                <Button raised primary text="Register"/>
+                            </View>
                         </View>
                     </KeyboardAwareScrollView>
                 </View>
@@ -97,6 +129,9 @@ export default class RegisterPage extends Component {
 }
 
 const styles = StyleSheet.create({
+    buttonStyle: {
+        marginTop: 20
+      },
     input: {
         height: 45,
         borderColor: 'gray',
@@ -106,17 +141,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingLeft: 5,
         paddingRight: 5,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF'
     },
     main: {
-        margin: 20,
+        margin: 20
     },
     image: {
         marginBottom: 20,
         marginTop: 50,
         height: 80,
-        width: 80,
-
+        width: 80
     },
 
     buttonContainer: {
@@ -138,12 +172,11 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontSize: 18,
-        backgroundColor: 'gray',
-
+        backgroundColor: 'gray'
     },
     copyright: {
         textAlign: 'center',
         margin: 20,
-        fontSize: 14,
-    },
+        fontSize: 14
+    }
 });

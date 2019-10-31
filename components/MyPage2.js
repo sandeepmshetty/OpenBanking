@@ -8,7 +8,14 @@ class MyPage2 extends Component {
   render() {
     return (
       <View style={styles.container}>
-
+        <View style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: '#1E345C'
+                }}></View>
         <Card style={styles.card}>
           <CardItem>
             <Left>
@@ -46,6 +53,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1,
   },
   paragraph: {
     margin: 24,
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 100,
+    marginTop: 30,
     borderRadius: 5
   },
 

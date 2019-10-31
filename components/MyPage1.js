@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Body } from "native-base";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { createStackNavigator } from 'react-navigation'
-
-
-
-
+import { createStackNavigator } from 'react-navigation';
 
 class MyPage1 extends Component {
 
   constructor(props) {
     super(props)
   }
-
 
   render() {
 
@@ -26,7 +21,7 @@ class MyPage1 extends Component {
         }}
       >
 
-        <View
+        {/*<View
           style={{
             position: 'absolute',
             top: 0,
@@ -44,7 +39,17 @@ class MyPage1 extends Component {
             source={require('../assets/bg_app.png')}
           />
 
-        </View>
+          </View>*/}
+
+        <View
+                    style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: '#1E345C'
+                }}></View>
 
         <View style={styles.container}>
 
@@ -69,7 +74,7 @@ class MyPage1 extends Component {
             </Text>
 
           <Card style={styles.card}>
-            <CardItem>
+            <CardItem style={{backgroundColor: '#DF6263', borderRadius: 5}}>
               <Body>
                 <Text style={styles.cardTitle}>
                   Date de naissance
@@ -82,7 +87,7 @@ class MyPage1 extends Component {
           </Card>
 
           <Card style={styles.card}>
-            <CardItem>
+            <CardItem style={{backgroundColor: '#DF6263', borderRadius: 5}}>
               <Body>
                 <Text style={styles.cardTitle}>
                   Adresse
@@ -95,7 +100,7 @@ class MyPage1 extends Component {
           </Card>
 
           <Card style={styles.card}>
-            <CardItem>
+            <CardItem style={{backgroundColor: '#DF6263', borderRadius: 5}}>
               <Body>
                 <Text style={styles.cardTitle}>
                   Matricule
@@ -108,7 +113,7 @@ class MyPage1 extends Component {
           </Card>
 
           <Card style={styles.card}>
-            <CardItem>
+            <CardItem  style={{backgroundColor: '#DF6263', borderRadius: 5}}>
               <Body>
                 <Text style={styles.cardTitle}>
                   Numero de telephone
@@ -141,12 +146,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#000000',
+    color: 'white',
   },
 
   emailText: {
     fontSize: 16,
-    color: '#000000',
+    color: 'white',
     textAlign: 'center',
     marginBottom: 5,
   },
@@ -156,7 +161,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginLeft: 20,
     marginRight: 20,
-    borderRadius: 5
+    borderRadius: 5,
+    backgroundColor: '#DF6263'
   },
 
   cardRegime: {
@@ -177,12 +183,12 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     fontSize: 18,
-    color: '#000000'
+    color: 'white'
   },
 
   cardText: {
     fontSize: 22,
-    color: 'grey',
+    color: 'white',
     fontWeight: 'bold'
   }
 

@@ -115,10 +115,7 @@ class LoginScreen extends Component {
               }}>
                 <Image source={require('../assets/icon.png')} style={styles.image}/>
               </View>
-              {/*<View style={styles.loginHeader}>
-                 {myIcon}
-              </View>*/}
-
+              
               <View
                 style={{
                 backgroundColor: '#DF6263',
