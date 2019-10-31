@@ -18,6 +18,7 @@ import {createStackNavigator, NavigationActions, StackActions} from 'react-navig
 import HomePage from './HomePage';
 import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Colors from './constants/colors';
 
 import { Button } from 'react-native-material-ui';
 
