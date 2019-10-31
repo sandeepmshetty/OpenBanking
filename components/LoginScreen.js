@@ -6,28 +6,24 @@ import {
   TextInput,
   StyleSheet,
   Alert,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
-import {
-  TextField,
-  FilledTextField,
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {createStackNavigator, NavigationActions, StackActions} from 'react-navigation';
 import HomePage from './HomePage';
 import RegisterPage from './RegisterPage';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
 
-import { Button } from 'react-native-material-ui';
+import {Button} from 'react-native-material-ui';
 
 class LoginScreen extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      email: 'johndoe@gmail.com',
       password: ''
     }
   }
@@ -67,7 +63,7 @@ class LoginScreen extends Component {
 
   auth() {
     if (this.state.email === '' || this.state.matricule === '') {
-      this.callAlert("Login Error", "Please enter valid mail Id", console.log("Error, Enter valid mail id"));
+      this.callAlert("Login Error", "Invalid field value", console.log("Error, Invalid field value"));
     } else if (this.state.email.toLowerCase() === 'johndoe@gmail.com' && this.state.password === '123456') {
       this.navigateToHomePage()
     } else {
@@ -87,58 +83,103 @@ class LoginScreen extends Component {
   render() {
     const resizeMode = 'cover';
     const text = 'LOGIN';
-    const myIcon = <Icon name="login" size={80} color="white" />;
+    const emailIcon = <Icon name="email" size={20} color="white"/>;
+    const passwordIcon = <Icon name="lock-open" size={20} color="white" />
 
     return (
-      <View  style={{
-        flex: 1,
-        backgroundColor: '#eee',
-      }}>
-      <View
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#1E345C'
-      }}
-    >
-
-    </View>
       <View style={{
         flex: 1,
-        backgroundColor: 'transparent',
-        justifyContent: 'center',
+        backgroundColor: '#eee'
       }}>
-        <KeyboardAwareScrollView>
-           <View style={styles.main}>
-           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Image source={require('../assets/icon.png')} style={styles.image} />
-            </View>
+        <View
+          style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: '#1E345C'
+        }}></View>
+        <View
+          style={{
+          flex: 1,
+          backgroundColor: 'transparent',
+          justifyContent: 'center'
+        }}>
+          <KeyboardAwareScrollView>
+            <View style={styles.main}>
+              <View
+                style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Image source={require('../assets/icon.png')} style={styles.image}/>
+              </View>
               {/*<View style={styles.loginHeader}>
                  {myIcon}
               </View>*/}
-            
-              <View style={{backgroundColor: '#DF6263', padding: 10, borderRadius: 5}}>              
-                <TextField placeholder="Email"  value="johndoe@gmail.com" onChangeText={(text) => this.setEmail(text)} placeholder="Email"/>
-                <TextField placeholder="Password" onChangeText={(text) => this.setPassword(text)} placeholder="Password" secureTextEntry={true}/>
 
-                <View>
-                   <Button raised primary text="Sign In" style={styles.buttonStyle} onPress={() => this.auth()}/>
-                   <Button accent text="Register" style={styles.buttonStyle} onPress={() => this.navigateToRegisterPage()}/>
+              <View
+                style={{
+                backgroundColor: '#DF6263',
+                padding: 10,
+                paddingTop:0,
+                borderRadius: 5
+              }}>
+                <View
+                  style={{
+                  flex: 1,
+                  flexDirection: 'row'
+                }}>
+                  <View style={{ flex: 1,marginTop: 35, marginRight: -10}}>
+                    {emailIcon}
+                  </View>
+                  <View style={{flex: 8,marginTop: 0}}>
+                    <TextField
+                      placeholder="Email"
+                      value="johndoe@gmail.com"
+                      onChangeText={(text) => this.setEmail(text)}
+                      placeholder="Email"/>
+                  </View>
+                </View>
+                <View
+                  style={{
+                  flex: 1,
+                  flexDirection: 'row'
+                }}>
+                  <View style={{ flex: 1,marginTop: 35, marginRight: -10}}>
+                    {passwordIcon}
+                  </View>
+                  <View style={{flex: 8,marginTop: 0}}>
+                <TextField
+                  placeholder="Password"
+                  onChangeText={(text) => this.setPassword(text)}
+                  placeholder="Password"
+                  secureTextEntry={true}/>
+                </View>
+                </View>
+
+                <View style={styles.buttonStyle}>
+                  <Button raised primary text="Sign In" onPress={() => this.auth()}/>
+                </View>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    raised
+                    backgroundColor='#F00'
+                    text="Register"
+                    onPress={() => this.navigateToRegisterPage()}/>
                 </View>
               </View>
             </View>
           </KeyboardAwareScrollView>
-      </View>
+        </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  buttonStyle:{
-    height: 45
+  buttonStyle: {
+    marginTop: 10
   },
   image: {
     marginBottom: 20,
@@ -157,8 +198,8 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     backgroundColor: '#FFFFFF'
   },
-  loginHeader:{
-    paddingVertical:10,
+  loginHeader: {
+    paddingVertical: 10,
     backgroundColor: '#3480eb',
     justifyContent: 'center',
     alignItems: 'center'
@@ -167,7 +208,7 @@ const styles = StyleSheet.create({
     margin: 20
   },
   image: {
-    marginBottom: 20, 
+    marginBottom: 20,
     marginTop: 50,
     height: 150,
     width: 150
@@ -212,10 +253,10 @@ export default LoginStack = createStackNavigator({
   LoginScreen: {
     screen: LoginScreen,
     navigationOptions: {
-      headerTitle: "Genpact Open Bank"
+      headerTitle: "Welcome to Genpact Open Bank"
     }
   },
-  
+
   HomePage: {
     screen: HomePage,
     navigationOptions: {
