@@ -24,7 +24,7 @@ class LoginScreen extends Component {
     super(props)
     this.state = {
       email: 'johndoe@gmail.com',
-      password: ''
+      password: '123456'
     }
   }
 
@@ -151,7 +151,7 @@ class LoginScreen extends Component {
                 <TextField
                   placeholder="Password"
                   onChangeText={(text) => this.setPassword(text)}
-                  placeholder="Password"
+                  value="123456"
                   secureTextEntry={true}/>
                 </View>
                 </View>
