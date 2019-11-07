@@ -9,7 +9,7 @@ import MyPage3 from './MyPage3';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
 
-import AddCardsView from './Views/AddCardsView';
+import DashboardView from './Views/DashboardView';
 import FillCardDetailsView from './Views/FillCardDetailsView';
 import ListOfCardsView from './Views/ListOfCardsView';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';

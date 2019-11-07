@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
 import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
@@ -21,352 +28,375 @@ class ListOfCardsView extends Component {
         return (
             <View>
                 <ScrollView style={styles.card}>
-                    <CardItem style={styles.cardItem}>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Visa &bull; &bull; &bull; &bull; 6408
-                                </Text>
                                 <View
                                     style={{
-                                    marginLeft: 10,
-                                    marginTop: 5,
-                                    flexDirection: 'row'
+                                    flex: 3.5
                                 }}>
-                                    <View>
-                                        {defaultIcon}
+                                    <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Visa &bull; &bull; &bull; &bull; 6408
+                                    </Text>
+                                    <View
+                                        style={{
+                                        marginLeft: 10,
+                                        marginTop: 5,
+                                        flexDirection: 'row'
+                                    }}>
+                                        <View>
+                                            {defaultIcon}
+                                        </View>
+                                        <Text style={styles.cardDefaultText}>
+                                            Default
+                                        </Text>
                                     </View>
-                                    <Text style={styles.cardDefaultText}>
-                                        Default
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
+                                style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
+                            }}>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Discover &bull; &bull; &bull; &bull; 7805
                                     </Text>
                                 </View>
-                            </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Maestro &bull; &bull; &bull; &bull; 9507
+                                    </Text>
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
                                 style={{
-                                flex: 9
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Text style={styles.cardText}>
-                                    Discover &bull; &bull; &bull; &bull; 7805
-                                </Text>
-                            </View>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Master &bull; &bull; &bull; &bull; 5478
+                                    </Text>
+                                </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                            </View>
-                            <View
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Visa &bull; &bull; &bull; &bull; 6408
+                                    </Text>
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
                                 style={{
-                                flex: 9
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Text style={styles.cardText}>
-                                    Maestro &bull; &bull; &bull; &bull; 9507
-                                </Text>
-                            </View>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Discover &bull; &bull; &bull; &bull; 7805
+                                    </Text>
+                                </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Maestro &bull; &bull; &bull; &bull; 9507
+                                    </Text>
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
                                 style={{
-                                flex: 9
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Text style={styles.cardText}>
-                                    Master &bull; &bull; &bull; &bull; 5478
-                                </Text>
-                            </View>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Master &bull; &bull; &bull; &bull; 5478
+                                    </Text>
+                                </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Visa &bull; &bull; &bull; &bull; 6408
+                                    </Text>
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
                                 style={{
-                                flex: 9
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Text style={styles.cardText}>
-                                    Visa &bull; &bull; &bull; &bull; 6408
-                                </Text>
-                            </View>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Discover &bull; &bull; &bull; &bull; 7805
+                                    </Text>
+                                </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
 
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
+                            <Body
                                 style={{
-                                flex: 3.5
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Maestro &bull; &bull; &bull; &bull; 9507
+                                    </Text>
+                                </View>
+
+                            </Body>
+
+                        </CardItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <CardItem style={styles.cardItem}>
+
+                            <Body
                                 style={{
-                                flex: 9
+                                flex: 1,
+                                flexDirection: 'row',
+                                marginTop: -5,
+                                marginLeft: -10
                             }}>
-                                <Text style={styles.cardText}>
-                                    Discover &bull; &bull; &bull; &bull; 7805
-                                </Text>
-                            </View>
+                                <View
+                                    style={{
+                                    flex: 3.5
+                                }}>
+                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9
+                                }}>
+                                    <Text style={styles.cardText}>
+                                        Master &bull; &bull; &bull; &bull; 5478
+                                    </Text>
+                                </View>
 
-                        </Body>
+                            </Body>
 
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Maestro &bull; &bull; &bull; &bull; 9507
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Master &bull; &bull; &bull; &bull; 5478
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Visa &bull; &bull; &bull; &bull; 6408
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Discover &bull; &bull; &bull; &bull; 7805
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Maestro &bull; &bull; &bull; &bull; 9507
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-                    <CardItem style={styles.cardItem}>
-
-                        <Body
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            marginTop: -5,
-                            marginLeft: -10
-                        }}>
-                            <View
-                                style={{
-                                flex: 3.5
-                            }}>
-                                <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 9
-                            }}>
-                                <Text style={styles.cardText}>
-                                    Master &bull; &bull; &bull; &bull; 5478
-                                </Text>
-                            </View>
-
-                        </Body>
-
-                    </CardItem>
-
+                        </CardItem>
+                    </TouchableOpacity>
                 </ScrollView>
 
-                <View>
+                <View style={{
+                      marginLeft: 5,
+                      marginRight: 5
+                    }}>
                     <Button
-                        style={{marginLeft:20,
-                            marginRight:20,
-                        height: 45
-                    }}
+                      
                         raised
                         primary
                         text="Add Card"/>
