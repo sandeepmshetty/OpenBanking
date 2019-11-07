@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
 import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
@@ -21,7 +21,6 @@ class FillCardDetailsView extends Component {
 
         return (
             <View>
-
                 <View>
                     <Text style={styles.wordBold}>Add credit card or debit card</Text>
                 </View>
@@ -30,10 +29,10 @@ class FillCardDetailsView extends Component {
                         Please make sure cardholder name and other information is as exactly as it
                         appears on card</Text>
                 </View>
-                <View
+                <ScrollView
                     style={{
                     backgroundColor: '#DF6263',
-                    height: '83%',
+                    height: '82%',
                     margin: 10,
                     padding: 10,
                     overflowY: 'auto',
@@ -244,7 +243,7 @@ class FillCardDetailsView extends Component {
                             <TextField label='Phone Number'/>
                         </View>
                     </View>
-                </View>
+                </ScrollView>
                 <View style={{marginLeft:10, marginRight:10}} >
                       <Button raised primary text="Save" />
                 </View>

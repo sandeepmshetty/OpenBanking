@@ -11,6 +11,7 @@ import MyPage5 from './MyPage5';
 
 import AddCardsView from './Views/AddCardsView';
 import FillCardDetailsView from './Views/FillCardDetailsView';
+import ListOfCardsView from './Views/ListOfCardsView';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 let resizeMode = 'cover';
@@ -34,7 +35,7 @@ class HomePage extends Component {
 
         <View style={styles.container}>
           <View style={styles.card}>
-            <FillCardDetailsView/>
+            <ListOfCardsView/>
           </View>
         </View>
       </View>
