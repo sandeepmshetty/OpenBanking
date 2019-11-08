@@ -5,7 +5,7 @@ import {Card, CardItem, Body} from "native-base";
 import DrawerContainer from './DrawerContainer';
 import MyPage1 from './MyPage1';
 import MyPage2 from './MyPage2';
-import MyPage3 from './MyPage3';
+import Dashboard from './Dashboard';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
 
@@ -63,7 +63,7 @@ const HomeStack = createStackNavigator({
   HomePage: {
     screen: HomePage,
     navigationOptions: ({navigation}) => ({
-      headerTitle: "Home Page", headerLeft: <View>
+      headerTitle: "Add Card", headerLeft: <View>
           <TouchableOpacity
             onPress={() => {
             navigation.toggleDrawer()
@@ -73,28 +73,4 @@ const HomeStack = createStackNavigator({
   }
 });
 
-const DrawerStack = createDrawerNavigator({
-  HomePage: {
-    screen: HomeStack
-  },
-  MyPage1: {
-    screen: MyPage1
-  },
-  MyPage2: {
-    screen: MyPage2
-  },
-  MyPage3: {
-    screen: MyPage3
-  },
-  MyPage4: {
-    screen: MyPage4
-  },
-  MyPage5: {
-    screen: MyPage5
-  }
-}, {
-  gesturesEnabled: false,
-  contentComponent: DrawerContainer
-})
 
-export default DrawerStack
