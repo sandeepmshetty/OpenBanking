@@ -1,8 +1,8 @@
 {
+  "urlRandomness": "bn-ya9",
   "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "ui-2vs",
   "https": false
 }

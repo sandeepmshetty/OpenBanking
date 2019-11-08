@@ -1,45 +1,23 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from 'react-navigation'
-
+import CardDetailsView from './Views/CardDetailsView';
 class MyPage5 extends Component {
     render() {
         return (
-            <View
+            <View style={{ flex: 1, backgroundColor: '#eee',}}>
+            <ImageBackground
+                source={require('../assets/bg_gradient.png')}
                 style={{
-                    flex: 1,
-                    backgroundColor: '#eee',
-                }}
-            >
-
-                <View
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                    }}
-                >
-
-                    <Image
-                        style={{
-                            flex: 1,
-                            resizeMode: 'cover',
-                        }}
-                        source={require('../assets/bg_app.png')}
-                    />
-
-                </View>
-
+                padding: 10,
+                paddingTop:0,
+                borderRadius: 5
+              }}>
                 <View style={styles.container}>
-
-                    <Text style={styles.text}>Page 5 !</Text>
-
-
+                    <CardDetailsView/>
                 </View>
-
+                </ImageBackground>
             </View>
         );
     }
