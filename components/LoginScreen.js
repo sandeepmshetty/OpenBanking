@@ -6,12 +6,13 @@ import {
   TextInput,
   StyleSheet,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {createStackNavigator, NavigationActions, StackActions} from 'react-navigation';
-import HomePage from './HomePage';
+import Dashboard from './Dashboard';
 import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
@@ -44,7 +45,7 @@ class LoginScreen extends Component {
 
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({routeName: 'HomePage'})]
+      actions: [NavigationActions.navigate({routeName: 'Dashboard'})]
     });
 
     this
@@ -98,7 +99,7 @@ class LoginScreen extends Component {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: '#1E345C'
+          backgroundColor: '#200000'
         }}></View>
         <View
           style={{
@@ -116,13 +117,14 @@ class LoginScreen extends Component {
                 <Image source={require('../assets/icon.png')} style={styles.image}/>
               </View>
               
-              <View
+              <ImageBackground
+                source={require('../assets/bg_gradient.png')}
                 style={{
-                backgroundColor: '#DF6263',
                 padding: 10,
                 paddingTop:0,
                 borderRadius: 5
               }}>
+                
                 <View
                   style={{
                   flex: 1,
@@ -166,7 +168,7 @@ class LoginScreen extends Component {
                     text="Register"
                     onPress={() => this.navigateToRegisterPage()}/>
                 </View>
-              </View>
+              </ImageBackground>
             </View>
           </KeyboardAwareScrollView>
         </View>
@@ -250,17 +252,23 @@ export default LoginStack = createStackNavigator({
   LoginScreen: {
     screen: LoginScreen,
     navigationOptions: {
-      headerTitle: "Welcome to Genpact Open Bank"
+      headerTitle: "Welcome to Open Banking",
+      headerStyle: {
+        backgroundColor: '#200000'
+      },
+      headerTitleStyle: {
+        color: '#f3be2d',
+      },
     }
   },
 
-  HomePage: {
-    screen: HomePage,
+  
+  Dashboard: {
+    screen: Dashboard,
     navigationOptions: {
       header: null
     }
   },
-
   RegisterPage: {
     screen: RegisterPage,
     navigationOptions: {

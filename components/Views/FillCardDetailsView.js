@@ -32,7 +32,7 @@ class FillCardDetailsView extends Component {
                 </View>
                 <View
                     style={{
-                    backgroundColor: '#DF6263',
+                    backgroundColor: '#5073b2',
                     height: '83%',
                     margin: 10,
                     padding: 10,
