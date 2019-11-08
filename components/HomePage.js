@@ -9,9 +9,11 @@ import Dashboard from './Dashboard';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
 
-import AddCardsView from './Views/AddCardsView';
+import DashboardView from './Views/DashboardView';
 import FillCardDetailsView from './Views/FillCardDetailsView';
+import ListOfCardsView from './Views/ListOfCardsView';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import CardDetailsView from './Views/CardDetailsView';
 
 let resizeMode = 'cover';
 
@@ -34,7 +36,7 @@ class HomePage extends Component {
 
         <View style={styles.container}>
           <View style={styles.card}>
-            <FillCardDetailsView/>
+            <CardDetailsView/>
           </View>
         </View>
       </View>

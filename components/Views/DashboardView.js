@@ -4,7 +4,7 @@ import { Card, CardItem, Body } from "native-base";
 import { createStackNavigator } from 'react-navigation';
 import { Button } from 'react-native-material-ui';
 
-class AddCardsView extends Component {
+class DashboardView extends Component {
 
     constructor(props) {
       super(props)
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
                     },
                  });
 
-export default AddCardsView;
+export default DashboardView;
