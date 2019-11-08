@@ -26,7 +26,7 @@ class FillCardDetailsView extends Component {
                 </View>
                 <View>
                     <Text style={styles.gop_info_text}>
-                        Please make sure cardholder name and other information is as exactly as it
+                        Please make sure cardholder name and other information is exactly as it
                         appears on card</Text>
                 </View>
                 <ScrollView

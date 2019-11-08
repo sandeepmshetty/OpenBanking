@@ -27,7 +27,7 @@ class ListOfCardsView extends Component {
 
         return (
             <View>
-                <ScrollView style={styles.card}>
+                <KeyboardAwareScrollView style={styles.card}>
                     <TouchableOpacity>
                         <CardItem style={styles.cardItem}>
 
@@ -389,17 +389,14 @@ class ListOfCardsView extends Component {
 
                         </CardItem>
                     </TouchableOpacity>
-                </ScrollView>
+                </KeyboardAwareScrollView>
 
-                <View style={{
-                      marginLeft: 5,
-                      marginRight: 5
-                    }}>
-                    <Button
-                      
-                        raised
-                        primary
-                        text="Add Card"/>
+                <View
+                    style={{
+                    marginLeft: 5,
+                    marginRight: 5
+                }}>
+                    <Button raised primary text="Add Card"/>
                 </View>
             </View>
         )

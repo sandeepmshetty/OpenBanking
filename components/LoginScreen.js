@@ -84,7 +84,7 @@ class LoginScreen extends Component {
     const resizeMode = 'cover';
     const text = 'LOGIN';
     const emailIcon = <Icon name="email" size={20} color="white"/>;
-    const passwordIcon = <Icon name="lock-open" size={20} color="white" />
+    const passwordIcon = <Icon name="lock-open" size={20} color="white"/>
 
     return (
       <View style={{
@@ -115,12 +115,12 @@ class LoginScreen extends Component {
               }}>
                 <Image source={require('../assets/icon.png')} style={styles.image}/>
               </View>
-              
+
               <View
                 style={{
                 backgroundColor: '#DF6263',
                 padding: 10,
-                paddingTop:0,
+                paddingTop: 0,
                 borderRadius: 5
               }}>
                 <View
@@ -128,10 +128,19 @@ class LoginScreen extends Component {
                   flex: 1,
                   flexDirection: 'row'
                 }}>
-                  <View style={{ flex: 1,marginTop: 35, marginRight: -10}}>
+                  <View
+                    style={{
+                    flex: 1,
+                    marginTop: 35,
+                    marginRight: -10
+                  }}>
                     {emailIcon}
                   </View>
-                  <View style={{flex: 8,marginTop: 0}}>
+                  <View
+                    style={{
+                    flex: 8,
+                    marginTop: 0
+                  }}>
                     <TextField
                       placeholder="Email"
                       value="johndoe@gmail.com"
@@ -144,16 +153,25 @@ class LoginScreen extends Component {
                   flex: 1,
                   flexDirection: 'row'
                 }}>
-                  <View style={{ flex: 1,marginTop: 35, marginRight: -10}}>
+                  <View
+                    style={{
+                    flex: 1,
+                    marginTop: 35,
+                    marginRight: -10
+                  }}>
                     {passwordIcon}
                   </View>
-                  <View style={{flex: 8,marginTop: 0}}>
-                <TextField
-                  placeholder="Password"
-                  onChangeText={(text) => this.setPassword(text)}
-                  value="123456"
-                  secureTextEntry={true}/>
-                </View>
+                  <View
+                    style={{
+                    flex: 8,
+                    marginTop: 0
+                  }}>
+                    <TextField
+                      placeholder="Password"
+                      onChangeText={(text) => this.setPassword(text)}
+                      value="123456"
+                      secureTextEntry={true}/>
+                  </View>
                 </View>
 
                 <View style={styles.buttonStyle}>
