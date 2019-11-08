@@ -1,0 +1,39 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "android-studio": "react-native run-android"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
+    "expo": "^35.0.0",
+    "native-base": "^2.13.8",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-dynamic-vector-icons": "^0.2.1",
+    "react-native-improved-text-input": "0.0.1",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-material-textfield": "^0.16.1",
+    "react-native-material-ui": "^1.30.1",
+    "react-native-snap-carousel": "^3.8.4",
+<<<<<<< HEAD
+    "react-native-swiper": "^1.5.14",
+    "react-native-table-component": "^1.2.1",
+=======
+>>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-web": "^0.11.7",
+    "react-navigation": "^2.18.3",
+    "react-navigation-stack": "^1.10.3",
+    "react-navigation-tabs": "^2.5.6"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^7.1.0"
+  },
+  "private": true
+}
