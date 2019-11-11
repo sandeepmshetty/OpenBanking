@@ -7,7 +7,7 @@ import MyPage1 from './MyPage1';
 import MyPage2 from './MyPage2';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
-import AddCardsView from './Views/AddCardsView';
+import DashboardView from './Views/DashboardView';
 class Dashboard extends Component {
   render() {
     return (
@@ -21,7 +21,7 @@ class Dashboard extends Component {
           }}>
           <View style={styles.container}>
             <View style={styles.card}>
-              <AddCardsView/>
+              <DashboardView/>
             </View>
           </View>
         </ImageBackground>
