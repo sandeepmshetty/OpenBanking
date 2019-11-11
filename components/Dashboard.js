@@ -28,7 +28,7 @@ class Dashboard extends Component {
   }
 }
 
-const HomeStack = createStackNavigator({
+const DashBoardStack = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
     navigationOptions: ({navigation}) => ({
@@ -44,7 +44,7 @@ const HomeStack = createStackNavigator({
 
 const DrawerStack = createDrawerNavigator({
   Dashboard: {
-    screen: HomeStack
+    screen: DashBoardStack
   },
   MyPage1: {
     screen: MyPage1

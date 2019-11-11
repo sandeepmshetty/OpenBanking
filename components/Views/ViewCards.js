@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import FaIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-class ListOfCardsView extends Component {
+class ViewCards extends Component {
 
     constructor(props) {
         super(props)
@@ -391,15 +391,12 @@ class ListOfCardsView extends Component {
                     </TouchableOpacity>
                 </ScrollView>
 
-                <View style={{
-                      marginLeft: 5,
-                      marginRight: 5
-                    }}>
-                    <Button
-                      
-                        raised
-                        primary
-                        text="Add Card"/>
+                <View
+                    style={{
+                    marginLeft: 5,
+                    marginRight: 5
+                }}>
+                    <Button raised primary text="Add Card"/>
                 </View>
             </View>
         )
@@ -446,4 +443,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListOfCardsView;
+export default ViewCards;
