@@ -1,12 +1,5 @@
-import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ImageBackground
-} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {createDrawerNavigator, createStackNavigator} from 'react-navigation'
 import DrawerContainer from './DrawerContainer';
@@ -24,13 +17,54 @@ class Dashboard extends Component {
         style={styles.main}>
         <DashboardView/>
       </ImageBackground>
+      <View style={{ flex: 1, backgroundColor: '#eee', }}>
+        <ImageBackground
+          source={require('../assets/bg_gradient.png')}
+          style={{
+            padding: 10,
+            paddingTop: 0,
+            borderRadius: 5
+          }}>
+          <View style={styles.container}>
+            <View style={styles.card}>
+              <DashboardView/>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
     );
   }
 }
 
-const DashBoardStack = createStackNavigator({
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  text: {
+    margin: 30,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#34495e',
+  },
+  card: {
+    alignSelf: 'stretch',
+    backgroundColor: 'transparent',
+    borderWidth:0,
+    borderColor:'transparent'
+  }
+
+
+});
+
+
+const HomeStack = createStackNavigator({
+
   Dashboard: {
     screen: Dashboard,
+    
     navigationOptions: ({navigation}) => ({
       headerTitle: "Dashboard", headerLeft: <View>
           <TouchableOpacity
@@ -39,12 +73,13 @@ const DashBoardStack = createStackNavigator({
           }}><Icon name='menu' size={35}/></TouchableOpacity>
         </View>
     })
-  }
+  },
+
 });
 
 const DrawerStack = createDrawerNavigator({
   Dashboard: {
-    screen: DashBoardStack
+    screen: HomeStack
   },
   MyPage1: {
     screen: MyPage1

@@ -119,7 +119,6 @@ class LoginScreen extends Component {
               
               <ImageBackground
                 source={require('../assets/bg_gradient.png')}
-
                 style={{
                 padding: 10,
                 paddingTop: 0,
