@@ -27,11 +27,7 @@ class ListOfCardsView extends Component {
 
         return (
             <View>
-<<<<<<< HEAD
                 <ScrollView style={styles.card}>
-=======
-                <KeyboardAwareScrollView style={styles.card}>
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
                     <TouchableOpacity>
                         <CardItem style={styles.cardItem}>
 
@@ -393,7 +389,6 @@ class ListOfCardsView extends Component {
 
                         </CardItem>
                     </TouchableOpacity>
-<<<<<<< HEAD
                 </ScrollView>
 
                 <View style={{
@@ -405,16 +400,6 @@ class ListOfCardsView extends Component {
                         raised
                         primary
                         text="Add Card"/>
-=======
-                </KeyboardAwareScrollView>
-
-                <View
-                    style={{
-                    marginLeft: 5,
-                    marginRight: 5
-                }}>
-                    <Button raised primary text="Add Card"/>
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
                 </View>
             </View>
         )
@@ -440,21 +425,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'white',
         marginTop: 5,
-<<<<<<< HEAD
         marginLeft: 20
-=======
-        marginLeft: 10
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
     },
 
     cardDefaultText: {
         fontSize: 16,
         color: 'white',
-<<<<<<< HEAD
         marginLeft: 20
-=======
-        marginLeft: 10
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
     },
 
     cardImage: {
@@ -462,11 +439,7 @@ const styles = StyleSheet.create({
         width: 100
     },
     cardItem: {
-<<<<<<< HEAD
         backgroundColor: '#5073b2',
-=======
-        backgroundColor: '#DF6263',
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
         borderRadius: 5,
         padding: 0,
         marginBottom: 5
