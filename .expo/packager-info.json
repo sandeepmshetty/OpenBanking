@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 5788,
-  "expoServerNgrokUrl": "https://ui-2vs.anonymous.openbanking.exp.direct",
-  "packagerNgrokUrl": "https://packager.ui-2vs.anonymous.openbanking.exp.direct",
-  "ngrokPid": 7520,
+  "packagerPid": 23364,
+  "expoServerNgrokUrl": "https://sa-c77.anonymous.openbanking.exp.direct",
+  "packagerNgrokUrl": "https://packager.sa-c77.anonymous.openbanking.exp.direct",
+  "ngrokPid": 18316,
   "devToolsPort": 19002
 }
