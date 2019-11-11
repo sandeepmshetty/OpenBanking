@@ -116,14 +116,10 @@ class LoginScreen extends Component {
               }}>
                 <Image source={require('../assets/icon.png')} style={styles.image}/>
               </View>
-<<<<<<< HEAD
               
               <ImageBackground
                 source={require('../assets/bg_gradient.png')}
-=======
 
-              <View
->>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
                 style={{
                 padding: 10,
                 paddingTop: 0,
