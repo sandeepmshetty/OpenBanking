@@ -29,7 +29,7 @@ export default Page1Stack = createStackNavigator({
   MyPage1: {
     screen: MyPage1,
     navigationOptions: ({navigation}) => ({
-      headerTitle: "List of Cards", headerLeft: <View>
+      headerTitle: "Your Cards", headerLeft: <View>
           <TouchableOpacity
             onPress={() => {
             navigation.toggleDrawer()

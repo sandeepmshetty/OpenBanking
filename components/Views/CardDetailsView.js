@@ -144,7 +144,7 @@ class CardDetailsView extends Component {
                     marginTop: 5,
                     marginLeft: 20,
                     marginRight: 10,
-                    height:55
+                    height: 55
                 }}>
 
                     <Body>

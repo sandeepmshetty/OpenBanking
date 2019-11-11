@@ -15,15 +15,15 @@ import MyPage2 from './MyPage2';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
 import DashboardView from './Views/DashboardView';
-import styles from  './UtilComponents/main.style';
+import styles from './UtilComponents/main.style';
 class Dashboard extends Component {
   render() {
     return (
-        <ImageBackground
-          source={require('../assets/bg_gradient.png')}
-          style={styles.main}>
-              <DashboardView/>
-        </ImageBackground>
+      <ImageBackground
+        source={require('../assets/bg_gradient.png')}
+        style={styles.main}>
+        <DashboardView/>
+      </ImageBackground>
     );
   }
 }
@@ -32,7 +32,7 @@ const DashBoardStack = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
     navigationOptions: ({navigation}) => ({
-      headerTitle: "DashBoard", headerLeft: <View>
+      headerTitle: "Dashboard", headerLeft: <View>
           <TouchableOpacity
             onPress={() => {
             navigation.toggleDrawer()
