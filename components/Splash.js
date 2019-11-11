@@ -26,7 +26,7 @@ export default class Splash extends Component {
 
                         <Image source={require('../assets/icon.png')} style={styles.image} />
 
-                        <Text style={styles.textStyle} > Welcome to Genpact Open Bank </Text>
+                        <Text style={styles.textStyle} > Welcome to Open Banking </Text>
 
                     </View>
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: '#083261'
+        backgroundColor: '#000000'
     },
 
     image: {

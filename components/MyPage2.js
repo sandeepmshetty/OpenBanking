@@ -1,49 +1,42 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from 'react-navigation'
-import { Card, CardItem, Thumbnail, Left, Body, Button } from 'native-base';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import Swiper from 'react-native-swiper';
 
 class MyPage2 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: ['Date', 'Transaction', 'C/D'],
+      widthArr: [160, 160, 80]
+    }
+  }
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: '#1E345C'
-                }}></View>
-        <Card style={styles.card}>
-          <CardItem>
-            <Left>
-              <Thumbnail source={require('../assets/avatar.png')} />
-              <Body>
-                <Text>John Doe</Text>
-                <Text style={{ color: 'grey' }}>April 15, 2018</Text>
-              </Body>
-            </Left>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Image source={require('../assets/bg_drawer.png')} style={{ height: 200, width: 200, flex: 1 }} />
-              <Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem>
-            <Left>
-              <TouchableOpacity>
-                <Icon name='github-circle' size={35} />
-                <Text style={{ color: '#87838B' }}>1,926 stars</Text>
-              </TouchableOpacity>
-            </Left>
-          </CardItem>
-        </Card>
+    const state = this.state;
+    const tableData = [];
+    for (let i = 0; i < 10; i += 1) {
+      const rowData = [];
 
+      rowData.push(`25/05/2019`);
+      rowData.push(`TFL Transport`);
+      rowData.push(`£54`);
+      tableData.push(rowData);
+    }
+    return (
+
+      <View style={{ flex: 1, backgroundColor: '#eee', }}>
+        <ImageBackground
+          source={require('../assets/bg_gradient.png')}
+          style={{
+            padding: 10,
+            paddingTop: 0,
+            borderRadius: 5
+          }}>
+          <View style={styles.container}>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -51,33 +44,48 @@ class MyPage2 extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
     flex: 1,
-  },
-  paragraph: {
-    margin: 24,
-    marginTop: 0,
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
-  },
-  logo: {
-    backgroundColor: "#056ecf",
-    height: 128,
-    width: 128,
+    borderWidth: 0,
+    borderColor: 'transparent',
+    padding: 10
   },
 
   card: {
-    height: 350,
     alignSelf: 'stretch',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 30,
-    borderRadius: 5
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    borderColor: 'transparent'
   },
-
+  header: { height: 50, backgroundColor: '#f3be2d' },
+  text: { color: 'white', paddingLeft: 10, textAlign: 'left', fontWeight: 'bold', fontSize: 15 },
+  dataWrapper: { marginTop: -1 },
+  row: { height: 40, backgroundColor: '#5073b2' },
+  wrapper: {
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cards: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 360,
+    height: 220,
+  }
 });
 
 
@@ -86,7 +94,7 @@ export default Page2Stack = createStackNavigator({
   MyPage2: {
     screen: MyPage2,
     navigationOptions: ({ navigation }) => ({
-      headerTitle: "My Page 2",
+      headerTitle: "Detailed Transactions",
       headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
     })
   },

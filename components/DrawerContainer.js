@@ -41,13 +41,13 @@ export default class DrawerContainer extends React.Component {
                 <TouchableOpacity>
                   <Image source={require("../assets/icon.png")}
                     style={{
-                      borderWidth: 1,
                       borderColor: 'rgba(0,0,0,0.2)',
                       alignItems: 'center',
                       justifyContent: 'center',
                       width: 75,
                       height: 75,
                       borderRadius: 100,
+                      paddingTop: 20
                     }}
                   />
                 </TouchableOpacity>
@@ -66,45 +66,41 @@ export default class DrawerContainer extends React.Component {
 
 
             <View style={styles.navSectionStyle}>
-              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('HomePage')}>
-                <Icon name='home' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Home</Text>
+              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('Dashboard')}>
+                <Icon name='animation' size={iconSize} style={styles.drawerIcon} />
+                <Text style={styles.navItemStyle}>DashBoard</Text>
               </TouchableOpacity>
+
             </View>
 
-            <Text style={styles.sectionHeadingStyle}> Section 1 </Text>
-
+            
             <View style={styles.navSectionStyle}>
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage1')}>
                 <Icon name='account' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Page 1</Text>
+                <Text style={styles.navItemStyle} >View Cards</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage2')}>
                 <Icon name='clipboard-text' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle}>Page 2</Text>
+                <Text style={styles.navItemStyle}>Transactions</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage3')}>
-                <Icon name='animation' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle}>Page 3</Text>
-              </TouchableOpacity>
+              
 
             </View>
 
-            <Text style={styles.sectionHeadingStyle}> Section 2 </Text>
-
+            
             <View style={styles.navSectionStyle}>
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage4')}>
                 <Icon name='rss' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Page 4</Text>
+                <Text style={styles.navItemStyle} >Profile</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.drawerMenu} onPress={this.navigateToScreen('MyPage5')}>
                 <Icon name='application' size={iconSize} style={styles.drawerIcon} />
-                <Text style={styles.navItemStyle} >Page 5</Text>
+                <Text style={styles.navItemStyle} >Logout</Text>
               </TouchableOpacity>
 
             </View>

@@ -31,8 +31,13 @@ class FillCardDetailsView extends Component {
                 </View>
                 <ScrollView
                     style={{
+<<<<<<< HEAD
+                    backgroundColor: '#5073b2',
+                    height: '83%',
+=======
                     backgroundColor: '#DF6263',
                     height: '82%',
+>>>>>>> 6a43784fe8a5d313d669a2708fd63ba0d2e1dc3d
                     margin: 10,
                     padding: 10,
                     overflowY: 'auto',
