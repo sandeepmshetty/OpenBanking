@@ -115,7 +115,7 @@ export default class DrawerContainer extends React.Component {
 
               {/*<TouchableOpacity
                 style={styles.drawerMenu}
-                onPress={this.navigateToScreen('MyPage4')}>
+                onPress={this.navigateToScreen('LoginScreen')}>
                 <Icon name='rss' size={iconSize} style={styles.drawerIcon}/>
                 <Text style={styles.navItemStyle}>Profile</Text>
               </TouchableOpacity>*/}
@@ -126,9 +126,10 @@ export default class DrawerContainer extends React.Component {
         </ScrollView>
 
         <View style={styles.footerContainer}>
-          <TouchableOpacity style={styles.drawerMenu}>
+          <TouchableOpacity style={styles.drawerMenu}
+                             onPress={this.navigateToScreen('LoginScreen')}>
             <Icon name='logout' size={iconSize} style={styles.drawerIcon}/>
-            <Text style={styles.navItemStyle}>Code For Fun !</Text>
+            <Text style={styles.navItemStyle}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
