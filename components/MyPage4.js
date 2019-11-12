@@ -6,7 +6,6 @@ import { createStackNavigator } from 'react-navigation'
 class MyPage4 extends Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#eee', }}>
         <ImageBackground
           source={require('../assets/bg_gradient.png')}
           style={{
@@ -14,11 +13,8 @@ class MyPage4 extends Component {
             paddingTop: 0,
             borderRadius: 5
           }}>
-          <View style={styles.container}>
             <Text style={styles.text}>My Page 4</Text>
-          </View>
         </ImageBackground>
-      </View>
     );
   }
 }

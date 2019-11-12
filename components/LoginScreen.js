@@ -16,7 +16,6 @@ import Dashboard from './Dashboard';
 import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
-
 import {Button} from 'react-native-material-ui';
 
 class LoginScreen extends Component {

@@ -16,49 +16,10 @@ class Dashboard extends Component {
         source={require('../assets/bg_gradient.png')}
         style={styles.main}>
         <DashboardView/>
-      </ImageBackground>
-      <View style={{ flex: 1, backgroundColor: '#eee', }}>
-        <ImageBackground
-          source={require('../assets/bg_gradient.png')}
-          style={{
-            padding: 10,
-            paddingTop: 0,
-            borderRadius: 5
-          }}>
-          <View style={styles.container}>
-            <View style={styles.card}>
-              <DashboardView/>
-            </View>
-          </View>
-        </ImageBackground>
-      </View>
+      </ImageBackground>      
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  text: {
-    margin: 30,
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
-  },
-  card: {
-    alignSelf: 'stretch',
-    backgroundColor: 'transparent',
-    borderWidth:0,
-    borderColor:'transparent'
-  }
-
-
-});
-
 
 const HomeStack = createStackNavigator({
 
