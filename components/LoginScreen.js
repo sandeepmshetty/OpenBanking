@@ -91,15 +91,15 @@ class LoginScreen extends Component {
         flex: 1,
         backgroundColor: '#eee'
       }}>
-        <View
+        <ImageBackground
+          source={require('../assets/bg_gradient.png')}
           style={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%',
-          backgroundColor: '#200000'
-        }}></View>
+          height: '100%'
+        }}></ImageBackground>
         <View
           style={{
           flex: 1,
@@ -115,15 +115,14 @@ class LoginScreen extends Component {
               }}>
                 <Image source={require('../assets/icon.png')} style={styles.image}/>
               </View>
-              
-              <ImageBackground
-                source={require('../assets/bg_gradient.png')}
+
+              <View
                 style={{
-                padding: 10,
+                padding: 5,
                 paddingTop: 0,
                 borderRadius: 5
               }}>
-                
+
                 <View
                   style={{
                   flex: 1,
@@ -144,9 +143,11 @@ class LoginScreen extends Component {
                   }}>
                     <TextField
                       placeholder="Email"
+                      label="Email"
+                      baseColor='white'
+                      textColor='white'
                       value="johndoe@gmail.com"
-                      onChangeText={(text) => this.setEmail(text)}
-                      placeholder="Email"/>
+                      onChangeText={(text) => this.setEmail(text)}/>
                   </View>
                 </View>
                 <View
@@ -168,6 +169,9 @@ class LoginScreen extends Component {
                     marginTop: 0
                   }}>
                     <TextField
+                      baseColor='white'
+                      textColor='white'
+                      label="Password"
                       placeholder="Password"
                       onChangeText={(text) => this.setPassword(text)}
                       value="123456"
@@ -176,16 +180,28 @@ class LoginScreen extends Component {
                 </View>
 
                 <View style={styles.buttonStyle}>
-                  <Button raised primary text="Sign In" onPress={() => this.auth()}/>
+                  <Button
+                    style={{
+                    container: {
+                      height: 45
+                    }
+                  }}
+                    raised
+                    primary
+                    text="Sign In"
+                    onPress={() => this.auth()}/>
                 </View>
                 <View style={styles.buttonStyle}>
-                  <Button
-                    raised
-                    backgroundColor='#F00'
-                    text="Register"
-                    onPress={() => this.navigateToRegisterPage()}/>
+                  <Text
+                    style={{
+                    color: 'white',
+                    textAlign: 'right',
+                    alignSelf: 'stretch'
+                  }}
+                    onPress={() => this.navigateToRegisterPage()}>Don't have an account yet ?</Text>
+
                 </View>
-              </ImageBackground>
+              </View>
             </View>
           </KeyboardAwareScrollView>
         </View>
@@ -269,17 +285,10 @@ export default LoginStack = createStackNavigator({
   LoginScreen: {
     screen: LoginScreen,
     navigationOptions: {
-      headerTitle: "Welcome to Open Banking",
-      headerStyle: {
-        backgroundColor: '#200000'
-      },
-      headerTitleStyle: {
-        color: '#f3be2d',
-      },
+      header: null
     }
   },
 
-  
   Dashboard: {
     screen: Dashboard,
     navigationOptions: {

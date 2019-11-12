@@ -6,7 +6,8 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    Switch
+    Switch,
+    ImageBackground
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
@@ -54,15 +55,15 @@ export default class RegisterPage extends Component {
 
                     </View>*/}
 
-                <View
+                <ImageBackground
+                    source={require('../assets/bg_gradient.png')}
                     style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
-                    backgroundColor: '#1E345C'
-                }}></View>
+                    height: '100%'
+                }}></ImageBackground>
 
                 <View
                     style={{
@@ -78,26 +79,39 @@ export default class RegisterPage extends Component {
                         }}>
                             <Image source={require('../assets/icon.png')} style={styles.image}/>
 
-                            <Text style={{ color:'white', textAlign: 'center', fontSize: 22}}>
+                            <Text
+                                style={{
+                                color: 'white',
+                                textAlign: 'center',
+                                fontSize: 22
+                            }}>
                                 Registration Form
                             </Text>
                         </View>
 
-                        <View  style={{
-                                        backgroundColor: '#DF6263',
-                                        margin: 20,
-                                        padding: 10,
-                                        paddingTop:0,
-                                        borderRadius: 5
-                                     }}>
-                            <Text style={{ color:'white', marginTop: 5}}>Name</Text>
-                            <TextField/>
+                        <View
+                            style={{
+                            backgroundColor: 'transparent',
+                            margin: 20,
+                            padding: 10,
+                            paddingTop: 0,
+                            borderRadius: 5
+                        }}>
 
-                            <Text style={{ color:'white'}}>Email</Text>
-                            <TextField/>
+                            <TextField baseColor='white' label="Name" textColor='white' placeholder="Name"/>
 
-                            <Text style={{ color:'white'}}>Password</Text>
-                            <TextField secureTextEntry={true}/>
+                            <TextField
+                                baseColor='white'
+                                label="Email"
+                                textColor='white'
+                                placeholder="Email"/>
+
+                            <TextField
+                                baseColor='white'
+                                label="Password"
+                                textColor='white'
+                                placeholder="Password"
+                                secureTextEntry={true}/>
                             <View
                                 style={{
                                 flexDirection: 'row',
@@ -117,7 +131,15 @@ export default class RegisterPage extends Component {
 
                             </View>
                             <View style={styles.buttonStyle}>
-                                <Button raised primary text="Register"/>
+                                <Button
+                                    style={{
+                                    container: {
+                                        height: 45
+                                    }
+                                }}
+                                    raised
+                                    primary
+                                    text="Register"/>
                             </View>
                         </View>
                     </KeyboardAwareScrollView>
@@ -131,7 +153,7 @@ export default class RegisterPage extends Component {
 const styles = StyleSheet.create({
     buttonStyle: {
         marginTop: 20
-      },
+    },
     input: {
         height: 45,
         borderColor: 'gray',

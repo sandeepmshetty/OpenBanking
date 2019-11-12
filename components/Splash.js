@@ -1,32 +1,41 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
-
+import React, {Component} from 'react';
+import {Text, View, StyleSheet, Image, ImageBackground} from 'react-native';
 
 export default class Splash extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            fontLoaded: false,
+            fontLoaded: false
         };
     }
-
 
     render() {
         return (
             <View style={styles.container}>
 
-                <View style={styles.secondContainer} >
+                <ImageBackground
+                    source={require('../assets/bg_gradient.png')}
+                    style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%'
+                }}></ImageBackground>
+                <View
+                    style={{
+                    flex: 1,
+                    backgroundColor: 'transparent',
+                    justifyContent: 'center'
+                }}>
+                    <View
+                        style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
 
-                    
-
-                </View>
-                <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'center', }} >
-                    <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-
-                        <Image source={require('../assets/icon.png')} style={styles.image} />
-
-                        <Text style={styles.textStyle} > Welcome to Open Banking </Text>
+                        <Image source={require('../assets/icon.png')} style={styles.image}/>
 
                     </View>
 
@@ -37,15 +46,15 @@ export default class Splash extends Component {
 }
 
 const styles = StyleSheet.create({
-    textStyle:{
+    textStyle: {
         textAlign: 'center',
-        fontSize: 20 ,
+        fontSize: 20,
         color: 'white'
     },
     container: {
         flex: 1,
         backgroundColor: '#eee'
-        
+
     },
 
     secondContainer: {
@@ -60,7 +69,6 @@ const styles = StyleSheet.create({
     image: {
         marginBottom: 20,
         height: 250,
-        width: 250,
-
-    },
+        width: 250
+    }
 });
