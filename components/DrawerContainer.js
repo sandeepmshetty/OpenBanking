@@ -89,6 +89,13 @@ export default class DrawerContainer extends React.Component {
                 <Text style={styles.navItemStyle}>Dashboard</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity
+                style={styles.drawerMenu}
+                onPress={this.navigateToScreen('MyPage5')}>
+                <Icon name='application' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Add Card</Text>
+              </TouchableOpacity>
+
             </View>
 
             <View style={styles.navSectionStyle}>
@@ -97,13 +104,6 @@ export default class DrawerContainer extends React.Component {
                 onPress={this.navigateToScreen('MyPage1')}>
                 <Icon name='account' size={iconSize} style={styles.drawerIcon}/>
                 <Text style={styles.navItemStyle}>View Cards</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.drawerMenu}
-                onPress={this.navigateToScreen('MyPage5')}>
-                <Icon name='application' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Fill Card Details</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -126,8 +126,9 @@ export default class DrawerContainer extends React.Component {
         </ScrollView>
 
         <View style={styles.footerContainer}>
-          <TouchableOpacity style={styles.drawerMenu}
-                             onPress={this.navigateToScreen('LoginScreen')}>
+          <TouchableOpacity
+            style={styles.drawerMenu}
+            onPress={this.navigateToScreen('LoginScreen')}>
             <Icon name='logout' size={iconSize} style={styles.drawerIcon}/>
             <Text style={styles.navItemStyle}>Logout</Text>
           </TouchableOpacity>

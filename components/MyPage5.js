@@ -9,7 +9,6 @@ class MyPage5 extends Component {
     render() {
         return (
             <ImageBackground
-                source={require('../assets/bg_gradient.png')}
                 style={styles.main}>
                     <FillCardDetailsView/>
                 </ImageBackground>
