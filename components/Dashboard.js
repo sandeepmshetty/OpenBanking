@@ -12,11 +12,11 @@ import styles from './UtilComponents/main.style';
 class Dashboard extends Component {
   render() {
     return (
-      <ImageBackground
-        source={require('../assets/bg_gradient.png')}
+      <View
+        
         style={styles.main}>
         <DashboardView/>
-      </ImageBackground>      
+      </View>      
     );
   }
 }

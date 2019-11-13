@@ -5,7 +5,8 @@ import {
     View,
     Image,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator} from 'react-navigation';
@@ -29,15 +30,12 @@ class ListOfCardsView extends Component {
             <View>
                 <ScrollView style={styles.card}>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
+
                                 <View
                                     style={{
                                     flex: 3.5
@@ -53,7 +51,7 @@ class ListOfCardsView extends Component {
                                     </Text>
                                     <View
                                         style={{
-                                        marginLeft: 10,
+                                        marginLeft: 20,
                                         marginTop: 5,
                                         flexDirection: 'row'
                                     }}>
@@ -68,18 +66,13 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
-
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -97,18 +90,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -126,18 +115,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -155,18 +140,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -184,18 +165,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -213,18 +190,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -242,18 +215,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -271,18 +240,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -300,18 +265,13 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
-
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -329,18 +289,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -358,18 +314,14 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <CardItem style={styles.cardItem}>
+                        <ImageBackground
+                            style={styles.cardItem}
+                            source={require('../../assets/bg_gradient.png')}>
 
-                            <Body
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                marginTop: -5,
-                                marginLeft: -10
-                            }}>
+                            <Body style={styles.cardBody}>
                                 <View
                                     style={{
                                     flex: 3.5
@@ -387,19 +339,20 @@ class ListOfCardsView extends Component {
 
                             </Body>
 
-                        </CardItem>
+                        </ImageBackground>
                     </TouchableOpacity>
                 </ScrollView>
 
-                <View style={{
-                      marginLeft: 5,
-                      marginRight: 5
-                    }}>
-                    <Button
-                      
-                        raised
-                        primary
-                        text="Add Card"/>
+                <View
+                    style={{
+                    marginLeft: 5,
+                    marginRight: 5
+                }}>
+                    <Button  style={{
+            container: {
+              height: 45
+            }
+          }} raised primary text="Add Card"/>
                 </View>
             </View>
         )
@@ -408,7 +361,7 @@ class ListOfCardsView extends Component {
 
 const styles = StyleSheet.create({
     card: {
-        height: '93%',
+        height: '92%',
         alignSelf: 'stretch',
         margin: 5,
         marginBottom: 10,
@@ -439,10 +392,16 @@ const styles = StyleSheet.create({
         width: 100
     },
     cardItem: {
-        backgroundColor: '#5073b2',
+        flex: 1,
+        overflow: 'hidden',
         borderRadius: 5,
-        padding: 0,
-        marginBottom: 5
+        height: 85,
+        marginBottom: 10
+    },
+    cardBody: {
+        flex: 1,
+        flexDirection: 'row',
+        margin: 5
     }
 });
 

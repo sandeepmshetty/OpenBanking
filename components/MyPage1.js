@@ -17,7 +17,6 @@ class MyPage1 extends Component {
     return (
 
       <ImageBackground
-        source={require('../assets/bg_gradient.png')}
         style={styles.main}>
             <ListOfCardsView />
         </ImageBackground>
