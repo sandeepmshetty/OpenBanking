@@ -12,7 +12,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator} from 'react-navigation';
+import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,6 +21,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SliderEntry from '../UtilComponents/SliderEntry';
 import styles, {colors} from '../UtilComponents/index.style';
+import FillCardDetailsView from './FillCardDetailsView';
+import DrawerContainer from '../DrawerContainer';
+import mainstyles from '../UtilComponents/main.style';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 1;
@@ -105,6 +108,7 @@ class CardDetailsView extends Component {
             color="white"/>;
 
         return (
+            <View style={mainstyles.main}>
             <View style={{
                 marginLeft: -10
             }}><Carousel
@@ -788,6 +792,7 @@ class CardDetailsView extends Component {
                     </TouchableOpacity>
                 </KeyboardAwareScrollView>
             </View>
+               </View>                     
         )
     }
 }
@@ -873,4 +878,30 @@ const ENTRIES1 = [
         logo: require('../../assets/maestro.png')
     }
 ];
-export default CardDetailsView;
+
+const CardDetailsViewStack = createStackNavigator({
+
+    CardDetailsView: {
+        screen: CardDetailsView,
+
+        navigationOptions: ({navigation}) => ({
+            headerTitle: "Cards View", headerLeft: <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                        navigation.toggleDrawer()
+                    }}><Icon name='menu' size={35}/></TouchableOpacity>
+                </View>
+        })
+    }
+});
+
+const DrawerStack = createDrawerNavigator({
+    CardDetailsView: {
+        screen: CardDetailsViewStack
+    }
+}, {
+    gesturesEnabled: false,
+    contentComponent: DrawerContainer
+})
+
+export default DrawerStack

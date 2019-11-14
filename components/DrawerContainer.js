@@ -88,24 +88,9 @@ export default class DrawerContainer extends React.Component {
                 <Icon name='animation' size={iconSize} style={styles.drawerIcon}/>
                 <Text style={styles.navItemStyle}>Dashboard</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.drawerMenu}
-                onPress={this.navigateToScreen('MyPage5')}>
-                <Icon name='application' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Add Card</Text>
-              </TouchableOpacity>
-
             </View>
 
             <View style={styles.navSectionStyle}>
-              <TouchableOpacity
-                style={styles.drawerMenu}
-                onPress={this.navigateToScreen('MyPage1')}>
-                <Icon name='account' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>View Cards</Text>
-              </TouchableOpacity>
-
               <TouchableOpacity
                 style={styles.drawerMenu}
                 onPress={this.navigateToScreen('MyPage2')}>

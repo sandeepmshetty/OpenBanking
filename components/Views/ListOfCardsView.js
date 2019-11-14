@@ -9,12 +9,15 @@ import {
     ImageBackground
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator} from 'react-navigation';
+import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FaIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import DrawerContainer from '../DrawerContainer';
+import mainstyles from '../UtilComponents/main.style';
+import CardDetailsView from './CardDetailsView';
 
 class ListOfCardsView extends Component {
 
@@ -22,14 +25,28 @@ class ListOfCardsView extends Component {
         super(props)
     }
 
+    navigateToCardDetailsViewPage = () => {
+        this
+            .props
+            .navigation
+            .navigate('CardDetailsView');
+    }
+
+    navigateToAddCardPage = () => {
+        this
+            .props
+            .navigation
+            .navigate('FillCardDetailsView');
+    }
+
     render() {
 
         const defaultIcon = <FaIcons name="first-order" size={20} color="white"/>;
 
         return (
-            <View>
+            <View style={mainstyles.main}>
                 <ScrollView style={styles.card}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -348,11 +365,16 @@ class ListOfCardsView extends Component {
                     marginLeft: 5,
                     marginRight: 5
                 }}>
-                    <Button  style={{
-            container: {
-              height: 45
-            }
-          }} raised primary text="Add Card"/>
+                    <Button
+                        onPress={() => this.navigateToAddCardPage()}
+                        style={{
+                        container: {
+                            height: 45
+                        }
+                    }}
+                        raised
+                        primary
+                        text="Add Card"/>
                 </View>
             </View>
         )
@@ -405,4 +427,32 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListOfCardsView;
+const ListOfCardsViewStack = createStackNavigator({
+
+    ListOfCardsView: {
+        screen: ListOfCardsView,
+
+        navigationOptions: ({navigation}) => ({
+            headerTitle: "Your Cards", headerLeft: <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                        navigation.toggleDrawer()
+                    }}><Icon name='menu' size={35}/></TouchableOpacity>
+                </View>
+        })
+    }
+});
+
+const DrawerStack = createDrawerNavigator({
+    ListOfCardsView: {
+        screen: ListOfCardsViewStack
+    },
+    CardDetailsView: {
+        screen: CardDetailsView
+    }
+}, {
+    gesturesEnabled: false,
+    contentComponent: DrawerContainer
+})
+
+export default DrawerStack

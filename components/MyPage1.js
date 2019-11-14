@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from
 import { Card, CardItem, Body } from "native-base";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from 'react-navigation';
-import ListOfCardsView from './Views/ListOfCardsView';
 import styles from './UtilComponents/main.style';
 
 class MyPage1 extends Component {
@@ -18,7 +17,7 @@ class MyPage1 extends Component {
 
       <ImageBackground
         style={styles.main}>
-            <ListOfCardsView />
+            
         </ImageBackground>
     );
   }

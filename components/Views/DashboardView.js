@@ -11,11 +11,19 @@ import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import styles from '../UtilComponents/main.style';
+import FillCardDetailsView from './FillCardDetailsView';
 
 class DashboardView extends Component {
 
   constructor(props) {
     super(props)
+  }
+
+  navigateToAddCardPage = () => {
+    this
+      .props
+      .navigation
+      .navigate('FillCardDetailsView');
   }
 
   render() {
@@ -25,81 +33,80 @@ class DashboardView extends Component {
           <Text style={localStyles.wordBold}>Lets add a Payment Card</Text>
         </View>
         <View style={localStyles.image}>
-          
-            <ImageBackground
-                    imageStyle={{
-                    borderRadius: 10
-                }}
-                    style={{
-                    flex: 1,
-                    borderRadius: 5,
-                    width: '100%',
-                    height: '100%'
-                }}
-                    source={require('../../assets/mastercard.jpg')}>
-                    <View
-                        style={{
-                        flex: 1,
-                        flexDirection: 'row'
-                    }}>
-                        <Text
-                            style={{
-                            marginLeft: 30,
-                            marginTop: 30,
-                            fontSize: 25
-                        }}>VISA</Text>
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end',
-                            marginRight: 10,
-                            marginTop: -15
-                        }}>
-                            <Image
-                                source={require('../../assets/hsbc.jpg')}
-                                resizeMode='contain'
-                                style={{
-                                height: 100,
-                                width: 80
-                            }}/>
-                        </View>
-                    </View>
-                    <View
-                        style={{
-                        flex: 1,
-                        flexDirection: 'row'
-                    }}>
-                        <View
-                            style={{
-                            flex: 1,
-                            justifyContent: 'flex-end',
-                            marginLeft: 40,
-                            marginBottom: 36
-                        }}>
-                            <Text
-                                style={{
-                                fontSize: 17
-                            }}>&bull; &bull; &bull; &bull; XXXX</Text>
-                        </View>
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end',
-                            marginRight: 10,
-                            marginTop:10
-                        }}>
-                            <Image
-                                source={require('../../assets/american_express.png')}
-                                resizeMode='contain'
-                                style={{
-                                height: 100,
-                                width: 80
-                            }}/>
-                        </View>
-                    </View>
-                </ImageBackground>
+
+          <ImageBackground
+            imageStyle={{
+            borderRadius: 10
+          }}
+            style={{
+            flex: 1,
+            borderRadius: 5,
+            width: '100%',
+            height: '100%'
+          }}
+            source={require('../../assets/mastercard.jpg')}>
+            <View
+              style={{
+              flex: 1,
+              flexDirection: 'row'
+            }}>
+              <Text
+                style={{
+                marginLeft: 30,
+                marginTop: 30,
+                fontSize: 25
+              }}>VISA</Text>
+              <View
+                style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                marginRight: 10,
+                marginTop: -15
+              }}>
+                <Image
+                  source={require('../../assets/hsbc.jpg')}
+                  resizeMode='contain'
+                  style={{
+                  height: 100,
+                  width: 80
+                }}/>
+              </View>
+            </View>
+            <View
+              style={{
+              flex: 1,
+              flexDirection: 'row'
+            }}>
+              <View
+                style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginLeft: 40,
+                marginBottom: 36
+              }}>
+                <Text style={{
+                  fontSize: 17
+                }}>&bull; &bull; &bull; &bull; XXXX</Text>
+              </View>
+              <View
+                style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                marginRight: 10,
+                marginTop: 10
+              }}>
+                <Image
+                  source={require('../../assets/american_express.png')}
+                  resizeMode='contain'
+                  style={{
+                  height: 100,
+                  width: 80
+                }}/>
+              </View>
+            </View>
+          </ImageBackground>
         </View>
         <View>
           <Button
@@ -110,7 +117,8 @@ class DashboardView extends Component {
           }}
             raised
             primary
-            text="Add Card"/>
+            text="Add Card"
+            onPress={() => this.navigateToAddCardPage()}/>
         </View>
       </View>
     )
@@ -134,4 +142,17 @@ const localStyles = StyleSheet.create({
   }
 });
 
-export default DashboardView;
+export default DashboardStack = createStackNavigator({
+  DashboardView: {
+    screen: DashboardView,
+    navigationOptions: {
+      header: null
+    }
+  },
+  FillCardDetailsView: {
+    screen: FillCardDetailsView,
+    navigationOptions: {
+      headerTitle: "Add Card Details"
+    }
+  }
+});

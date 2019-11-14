@@ -5,21 +5,34 @@ import {
     View,
     Image,
     ScrollView,
-    ImageBackground
+    ImageBackground,
+    TouchableOpacity
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator} from 'react-navigation';
+import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FaIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from '../UtilComponents/main.style';
-
+import MyPage1 from '../MyPage1';
+import MyPage2 from '../MyPage2';
+import MyPage4 from '../MyPage4';
+import MyPage5 from '../MyPage5';
+import DrawerContainer from '../DrawerContainer';
+import ListOfCardsView from './ListOfCardsView';
 class FillCardDetailsView extends Component {
 
     constructor(props) {
         super(props)
+    }
+
+    navigateToListOfCardPage = () => {
+        this
+            .props
+            .navigation
+            .navigate('ListOfCardsView');
     }
 
     render() {
@@ -28,7 +41,7 @@ class FillCardDetailsView extends Component {
         const visaIcon = <FaIcons name="cc-visa" size={30} color="white"/>;
 
         return (
-            <View>
+            <View style={styles.main}>
                 <View>
                     <Text style={localstyles.wordBold}>Add credit card or debit card</Text>
                 </View>
@@ -48,7 +61,12 @@ class FillCardDetailsView extends Component {
                 }}>
                     <ImageBackground
                         source={require('../../assets/bg_gradient.png')}
-                        style={styles.main} style={{overflow:'hidden', borderRadius:10, padding:5 }}>
+                        style={styles.main}
+                        style={{
+                        overflow: 'hidden',
+                        borderRadius: 10,
+                        padding: 5
+                    }}>
                         <View
                             style={{
                             flex: 1,
@@ -73,8 +91,11 @@ class FillCardDetailsView extends Component {
                                     flex: 10,
                                     marginTop: 0
                                 }}>
-                                    <TextField label='Card number' baseColor='white'
-                                            textColor='white' keyboardType='phone-pad'/>
+                                    <TextField
+                                        label='Card number'
+                                        baseColor='white'
+                                        textColor='white'
+                                        keyboardType='phone-pad'/>
                                 </View>
                                 <View
                                     style={{
@@ -101,9 +122,7 @@ class FillCardDetailsView extends Component {
                                 flex: 4,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='MM/YY'/>
+                                <TextField baseColor='white' textColor='white' label='MM/YY'/>
                             </View>
                             <View
                                 style={{
@@ -116,8 +135,7 @@ class FillCardDetailsView extends Component {
                                 flex: 4,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white' label='CVC'/>
+                                <TextField baseColor='white' textColor='white' label='CVC'/>
                             </View>
                         </View>
 
@@ -137,9 +155,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                             label='Name'/>
+                                <TextField baseColor='white' textColor='white' label='Name'/>
                             </View>
                         </View>
                         <View
@@ -158,9 +174,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='Country'/>
+                                <TextField baseColor='white' textColor='white' label='Country'/>
                             </View>
                         </View>
                         <View
@@ -179,9 +193,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='Street address'/>
+                                <TextField baseColor='white' textColor='white' label='Street address'/>
                             </View>
                         </View>
                         <View
@@ -200,9 +212,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='Apt./Suite'/>
+                                <TextField baseColor='white' textColor='white' label='Apt./Suite'/>
                             </View>
                         </View>
 
@@ -222,9 +232,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='City/Town'/>
+                                <TextField baseColor='white' textColor='white' label='City/Town'/>
                             </View>
                         </View>
 
@@ -244,9 +252,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white'
-                                            textColor='white'
-                                            label='Postal Code'/>
+                                <TextField baseColor='white' textColor='white' label='Postal Code'/>
                             </View>
                         </View>
 
@@ -266,9 +272,7 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField  baseColor='white'
-                                            textColor='white'
-                                            label='Phone Number'/>
+                                <TextField baseColor='white' textColor='white' label='Phone Number'/>
                             </View>
                         </View>
                     </ImageBackground>
@@ -278,12 +282,16 @@ class FillCardDetailsView extends Component {
                     marginLeft: 10,
                     marginRight: 10
                 }}>
-                    <Button  style={{
-                                    container: {
-                                        height: 45
-                                    }
-                                }}
-                                raised primary text="Save"/>
+                    <Button
+                        style={{
+                        container: {
+                            height: 45
+                        }
+                    }}
+                        onPress={() => this.navigateToListOfCardPage()}
+                        raised
+                        primary
+                        text="Save"/>
                 </View>
             </View>
         )
@@ -302,8 +310,36 @@ const localstyles = StyleSheet.create({
         color: 'lightgray',
         textAlign: 'center',
         fontSize: 15,
-        margin:1
+        margin: 1
     }
 });
 
-export default FillCardDetailsView;
+const FillCardDetailsViewStack = createStackNavigator({
+
+    FillCardDetailsView: {
+        screen: FillCardDetailsView,
+
+        navigationOptions: ({navigation}) => ({
+            headerTitle: "Add card details", headerLeft: <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                        navigation.toggleDrawer()
+                    }}><Icon name='menu' size={35}/></TouchableOpacity>
+                </View>
+        })
+    }
+});
+
+const DrawerStack = createDrawerNavigator({
+    FillCardDetailsView: {
+        screen: FillCardDetailsViewStack
+    },
+    ListOfCardsView:{
+        screen: ListOfCardsView
+    }
+}, {
+    gesturesEnabled: false,
+    contentComponent: DrawerContainer
+})
+
+export default DrawerStack

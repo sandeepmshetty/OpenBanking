@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import {createStackNavigator} from 'react-navigation'
-import CardDetailsView from './Views/CardDetailsView';
+import {createStackNavigator} from 'react-navigation';
 import styles from './UtilComponents/main.style';
 
 class MyPage2 extends Component {
@@ -30,7 +29,7 @@ class MyPage2 extends Component {
       <ImageBackground
         source={require('../assets/bg_gradient.png')}
         style={styles.main}>
-        <CardDetailsView/>
+       
       </ImageBackground>
     );
   }
