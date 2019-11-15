@@ -19,7 +19,15 @@ export default Page5Stack = createStackNavigator({
         screen: MyPage5,
         navigationOptions: ({ navigation }) => ({
             headerTitle: "Add card details",
-            headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+            headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} color='white'/></TouchableOpacity></View>,
+            headerStyle: {
+              backgroundColor: '#131642',
+              color: 'white'
+            },
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            color: 'white'
+              }
         })
     },
 

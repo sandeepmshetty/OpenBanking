@@ -69,8 +69,16 @@ const HomeStack = createStackNavigator({
           <TouchableOpacity
             onPress={() => {
             navigation.toggleDrawer()
-          }}><Icon name='menu' size={35}/></TouchableOpacity>
-        </View>
+          }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+        </View>,
+        headerStyle: {
+          backgroundColor: '#131642',
+          color: 'white'
+        },
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        color: 'white'
+          }
     })
   }
 });

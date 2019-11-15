@@ -40,7 +40,15 @@ export default Page4Stack = createStackNavigator({
     screen: MyPage4,
     navigationOptions: ({ navigation }) => ({
       headerTitle: "My Page 4",
-      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} /></TouchableOpacity></View>
+      headerLeft: <View><TouchableOpacity onPress={() => { navigation.toggleDrawer() }}><Icon name='menu' size={35} color='white'/></TouchableOpacity></View>,
+      headerStyle: {
+        backgroundColor: '#131642',
+        color: 'white'
+      },
+      headerTitleStyle: {
+          fontWeight: 'bold',
+      color: 'white'
+        }
     })
   },
 
