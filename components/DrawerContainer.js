@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import mainstyles from './UtilComponents/main.style';
 
 let iconSize = 25;
 
@@ -31,18 +32,18 @@ export default class DrawerContainer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <View>
+        <ScrollView style={{ backgroundColor: '#131642'}}>
+          <View >
 
             <ImageBackground
               style={{
               flex: 1,
               width: '100%',
-              height: 170,
+              height: 250,
               alignItems: 'flex-start',
               justifyContent: 'center'
             }}
-              source={require('../assets/bg_drawer.png')}>
+              source={require('../assets/bg_gradient.png')}>
 
               <View style={{
                 marginLeft: 10
@@ -51,13 +52,10 @@ export default class DrawerContainer extends React.Component {
                   <Image
                     source={require("../assets/icon.png")}
                     style={{
-                    borderColor: 'rgba(0,0,0,0.2)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 75,
-                    height: 75,
-                    borderRadius: 100,
-                    paddingTop: 20
+                    width: 120,
+                    height: 130,
+                    marginTop:40,
+                    paddingTop: 50,
                   }}/>
                 </TouchableOpacity>
 
@@ -65,7 +63,7 @@ export default class DrawerContainer extends React.Component {
                   style={{
                   color: 'white',
                   fontSize: 14,
-                  marginTop: 10
+                  marginTop: 20
                 }}>
                   John Doe
                 </Text>
@@ -130,14 +128,15 @@ const styles = StyleSheet.create({
 
   navItemStyle: {
     padding: 15,
-    marginLeft: 20
+    marginLeft: 20,
+    color: 'white'
   },
   navSectionStyle: {
     marginLeft: 20
   },
 
   drawerIcon: {
-    color: "grey"
+    color: "white"
   },
 
   drawerMenu: {
@@ -148,11 +147,13 @@ const styles = StyleSheet.create({
   sectionHeadingStyle: {
     paddingVertical: 10,
     paddingHorizontal: 5,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: 'red',
     color: '#003759'
   },
   footerContainer: {
     padding: 20,
-    backgroundColor: '#fcc358'
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#131642'
   }
 })
