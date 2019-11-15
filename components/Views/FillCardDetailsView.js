@@ -22,6 +22,7 @@ import MyPage4 from '../MyPage4';
 import MyPage5 from '../MyPage5';
 import DrawerContainer from '../DrawerContainer';
 import ListOfCardsView from './ListOfCardsView';
+import DashboardView from './DashboardView';
 class FillCardDetailsView extends Component {
 
     constructor(props) {
@@ -334,7 +335,7 @@ const DrawerStack = createDrawerNavigator({
     FillCardDetailsView: {
         screen: FillCardDetailsViewStack
     },
-    ListOfCardsView:{
+    ListOfCardsView: {
         screen: ListOfCardsView
     }
 }, {

@@ -12,6 +12,8 @@ import {createStackNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import styles from '../UtilComponents/main.style';
 import FillCardDetailsView from './FillCardDetailsView';
+import ListOfCardsView from './ListOfCardsView';
+import CardDetailsView from './CardDetailsView';
 
 class DashboardView extends Component {
 
@@ -154,5 +156,11 @@ export default DashboardStack = createStackNavigator({
     navigationOptions: {
       headerTitle: "Add Card Details"
     }
+  },
+  ListOfCardsView:{
+    screen: ListOfCardsView
+  },
+  CardDetailsView:{
+    screen: CardDetailsView
   }
 });

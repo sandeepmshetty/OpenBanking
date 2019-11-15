@@ -18,6 +18,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
 import CardDetailsView from './CardDetailsView';
+import Dashboard from '../Dashboard'; 
 
 class ListOfCardsView extends Component {
 
@@ -85,7 +86,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -109,7 +110,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -134,7 +135,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -159,7 +160,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -184,7 +185,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -209,7 +210,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -234,7 +235,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()} >
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -259,7 +260,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -284,7 +285,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -308,7 +309,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -333,7 +334,7 @@ class ListOfCardsView extends Component {
 
                         </ImageBackground>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -447,9 +448,10 @@ const DrawerStack = createDrawerNavigator({
     ListOfCardsView: {
         screen: ListOfCardsViewStack
     },
-    CardDetailsView: {
+    CardDetailsView:{
         screen: CardDetailsView
     }
+
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
