@@ -23,8 +23,8 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
-      password: ''
+      email: 'johndoe@gmail.com',
+      password: '123456'
     }
   }
 
@@ -166,6 +166,7 @@ class LoginScreen extends Component {
                       label="UserName"
                       baseColor='white'
                       textColor='white'
+                      value="johndoe@gmail.com"
                       onChangeText={(text) => this.setEmail(text)} />
                   </View>
                 </View>
@@ -191,6 +192,7 @@ class LoginScreen extends Component {
                       baseColor='white'
                       textColor='white'
                       label="Password"
+                      value="123456"
                       onChangeText={(text) => this.setPassword(text)}
                       secureTextEntry={true} />
                   </View>
