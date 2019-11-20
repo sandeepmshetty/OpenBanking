@@ -243,24 +243,20 @@ const ENTRIES1 = [
     {
         slideText: 'Welcome to the future of money',
         slideSubText: 'OB combines all your cards info one smart card and smart app.',
-        logo: require('../assets/Gob_slide.jpg')
+        logo: require('../assets/Gob_slide.png')
     }, {
         slideText: 'All your cards in one',
         slideSubText: 'Upload all your Mastercard & Visa cards to the Curve app.',
-        logo: require('../assets/Gob_slide.jpg')
+        logo: require('../assets/Gob_slide_1.png')
     }, {
         slideText: 'Instant notifications',
         slideSubText: 'Use only one card with real-time notification from all your cards.',
-        logo: require('../assets/Gob_slide.jpg')
+        logo: require('../assets/Gob_slide_2.png')
     }, {
         slideText: 'Spend Abroad With Zero Fees',
         slideSubText: 'Spend with Curve anywhere in the world, for free. You wont be charged any additi' +
                 'onal fees. Terms & conditions apply',
-        logo: require('../assets/Gob_slide.jpg')
-    }, {
-        slideText: 'Spend Abroad With Zero Fees',
-        slideSubText: 'Spend with Curve anywhere in the world',
-        logo: require('../assets/Gob_slide.jpg')
+        logo: require('../assets/Gob_slide_3.png')
     }
 ];
 
