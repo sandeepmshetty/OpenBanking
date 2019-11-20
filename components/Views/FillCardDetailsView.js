@@ -150,130 +150,13 @@ class FillCardDetailsView extends Component {
                                 flex: 1,
                                 marginTop: 35,
                                 marginRight: -10
-                            }}>{locationIcon}</View>
+                            }}></View>
                             <View
                                 style={{
                                 flex: 10,
                                 marginTop: 0
                             }}>
                                 <TextField baseColor='white' textColor='white' label='Name'/>
-                            </View>
-                        </View>
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='Country'/>
-                            </View>
-                        </View>
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='Street address'/>
-                            </View>
-                        </View>
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='Apt./Suite'/>
-                            </View>
-                        </View>
-
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='City/Town'/>
-                            </View>
-                        </View>
-
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='Postal Code'/>
-                            </View>
-                        </View>
-
-                        <View
-                            style={{
-                            flex: 1,
-                            flexDirection: 'row'
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                marginTop: 35,
-                                marginRight: -10
-                            }}></View>
-                            <View
-                                style={{
-                                flex: 10,
-                                marginTop: 0
-                            }}>
-                                <TextField baseColor='white' textColor='white' label='Phone Number'/>
                             </View>
                         </View>
                     </ImageBackground>
