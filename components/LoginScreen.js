@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   View,
@@ -9,22 +9,22 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {createStackNavigator, NavigationActions, StackActions} from 'react-navigation';
+import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { createStackNavigator, NavigationActions, StackActions } from 'react-navigation';
 import Dashboard from './Dashboard';
 import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
-import {Button} from 'react-native-material-ui';
+import { Button } from 'react-native-material-ui';
 
 class LoginScreen extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      email: 'johndoe@gmail.com',
-      password: '123456'
+      email: '',
+      password: ''
     }
   }
 
@@ -33,18 +33,18 @@ class LoginScreen extends Component {
   }
 
   setEmail(email) {
-    this.setState({email})
+    this.setState({ email })
   }
 
   setPassword(password) {
-    this.setState({password})
+    this.setState({ password })
   }
 
   navigateToHomePage = () => {
 
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({routeName: 'Dashboard'})]
+      actions: [NavigationActions.navigate({ routeName: 'Dashboard' })]
     });
 
     this
@@ -62,12 +62,33 @@ class LoginScreen extends Component {
   }
 
   auth() {
+    
     if (this.state.email === '' || this.state.matricule === '') {
       this.callAlert("Login Error", "Invalid field value", console.log("Error, Invalid field value"));
-    } else if (this.state.email.toLowerCase() === 'johndoe@gmail.com' && this.state.password === '123456') {
-      this.navigateToHomePage()
     } else {
-      this.callAlert("Error", "User does not exists", console.log("Error, User does not exists"));
+      fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/loginUser', {  
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: this.state.email,
+          password: this.state.password,
+        })
+      })
+      .then(res => res.json())
+      .then((responseJson) => {
+        if(responseJson.response === this.state.email){
+          this.navigateToHomePage()
+        } else {
+          this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+        }
+      })
+      .then((data) => {
+          this.setState({ contacts: data })
+      })
+      .catch(console.log)
     }
   }
 
@@ -77,14 +98,14 @@ class LoginScreen extends Component {
         text: 'OK',
         onPress: () => func
       }
-    ], {cancelable: false})
+    ], { cancelable: false })
   }
 
   render() {
     const resizeMode = 'cover';
     const text = 'LOGIN';
-    const emailIcon = <Icon name="email" size={20} color="white"/>;
-    const passwordIcon = <Icon name="lock-open" size={20} color="white"/>
+    const personIcon = <Icon name="person" size={20} color="white" />;
+    const passwordIcon = <Icon name="lock-open" size={20} color="white" />
 
     return (
       <View style={{
@@ -94,110 +115,106 @@ class LoginScreen extends Component {
         <ImageBackground
           source={require('../assets/bg_gradient.png')}
           style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%'
-        }}></ImageBackground>
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%'
+          }}></ImageBackground>
         <View
           style={{
-          flex: 1,
-          backgroundColor: 'transparent',
-          justifyContent: 'center'
-        }}>
+            flex: 1,
+            backgroundColor: 'transparent',
+            justifyContent: 'center'
+          }}>
           <KeyboardAwareScrollView>
             <View style={styles.main}>
               <View
                 style={{
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-                <Image source={require('../assets/icon.png')} style={styles.image}/>
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <Image source={require('../assets/icon.png')} style={styles.image} />
               </View>
 
               <View
                 style={{
-                padding: 5,
-                paddingTop: 0,
-                borderRadius: 5
-              }}>
+                  padding: 5,
+                  paddingTop: 0,
+                  borderRadius: 5
+                }}>
 
                 <View
                   style={{
-                  flex: 1,
-                  flexDirection: 'row'
-                }}>
+                    flex: 1,
+                    flexDirection: 'row'
+                  }}>
                   <View
                     style={{
-                    flex: 1,
-                    marginTop: 35,
-                    marginRight: -10
-                  }}>
-                    {emailIcon}
+                      flex: 1,
+                      marginTop: 35,
+                      marginRight: -10
+                    }}>
+                    {personIcon}
                   </View>
                   <View
                     style={{
-                    flex: 8,
-                    marginTop: 0
-                  }}>
+                      flex: 8,
+                      marginTop: 0
+                    }}>
                     <TextField
-                      placeholder="Email"
-                      label="Email"
+                      label="UserName"
                       baseColor='white'
                       textColor='white'
-                      value="johndoe@gmail.com"
-                      onChangeText={(text) => this.setEmail(text)}/>
+                      onChangeText={(text) => this.setEmail(text)} />
                   </View>
                 </View>
                 <View
                   style={{
-                  flex: 1,
-                  flexDirection: 'row'
-                }}>
+                    flex: 1,
+                    flexDirection: 'row'
+                  }}>
                   <View
                     style={{
-                    flex: 1,
-                    marginTop: 35,
-                    marginRight: -10
-                  }}>
+                      flex: 1,
+                      marginTop: 35,
+                      marginRight: -10
+                    }}>
                     {passwordIcon}
                   </View>
                   <View
                     style={{
-                    flex: 8,
-                    marginTop: 0
-                  }}>
+                      flex: 8,
+                      marginTop: 0
+                    }}>
                     <TextField
                       baseColor='white'
                       textColor='white'
                       label="Password"
-                      placeholder="Password"
                       onChangeText={(text) => this.setPassword(text)}
-                      value="123456"
-                      secureTextEntry={true}/>
+                      secureTextEntry={true} />
                   </View>
                 </View>
 
                 <View style={styles.buttonStyle}>
                   <Button
                     style={{
-                    container: {
-                      height: 45
-                    }
-                  }}
+                      container: {
+                        height: 45
+                      }
+                    }}
                     raised
                     primary
                     text="Sign In"
-                    onPress={() => this.auth()}/>
+                    onPress={() => this.auth()} />
                 </View>
                 <View style={styles.buttonStyle}>
                   <Text
                     style={{
-                    color: 'white',
-                    textAlign: 'right',
-                    alignSelf: 'stretch'
-                  }}
+                      color: 'white',
+                      textAlign: 'right',
+                      alignSelf: 'stretch'
+                    }}
                     onPress={() => this.navigateToRegisterPage()}>Don't have an account yet ?</Text>
 
                 </View>
@@ -298,7 +315,15 @@ export default LoginStack = createStackNavigator({
   RegisterPage: {
     screen: RegisterPage,
     navigationOptions: {
-      headerTitle: "Registration"
+      headerTitle: "Registration",
+      headerStyle: {
+        backgroundColor: '#131642',
+        color: 'white'
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
+      }
     }
 
   }
