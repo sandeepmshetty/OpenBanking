@@ -2,6 +2,7 @@ import React from 'react';
 import { AppRegistry, StyleSheet } from 'react-native';
 import Splash from './components/Splash';
 import Login from './components/LoginScreen';
+import WelcomeScreen from './components/WelcomeScreen';
 import { View } from 'native-base';
 
 
@@ -26,7 +27,7 @@ export default class App extends React.Component {
       return <View style={styles.mainContainer}>{mainScreen}</View>
 
     } else {
-      mainScreen = <View style={styles.mainContainer}><Login /></View>
+      mainScreen = <View style={styles.mainContainer}><WelcomeScreen /></View>
     }
     return mainScreen
 
