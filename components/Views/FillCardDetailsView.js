@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
+import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator } from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';

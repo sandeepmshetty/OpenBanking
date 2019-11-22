@@ -26,11 +26,11 @@ import ListOfCardsView from './Views/ListOfCardsView';
 import DrawerContainer from './DrawerContainer';
 import mainstyles from './UtilComponents/main.style';
 import Dashboard from './Dashboard';
-import LoginScreen from './LoginScreen';
+import LoginScreen from './LoginScreen'; 
 import RegisterPage from './RegisterPage';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
-const SLIDER_1_FIRST_ITEM = 1;
+const SLIDER_1_FIRST_ITEM = 0;
 
 class WelcomeScreen extends Component {
 
@@ -77,11 +77,11 @@ class WelcomeScreen extends Component {
 
     navigateToLoginPage = () => {
         this
-          .props
-          .navigation
-          .navigate('LoginScreen');
-    
-      }
+            .props
+            .navigation
+            .navigate('LoginScreen');
+
+    }
 
     _renderItemWithParallax({
         item,
@@ -139,14 +139,14 @@ class WelcomeScreen extends Component {
                     firstItem={ENTRIES1.length}
                     initialScrollIndex={ENTRIES1.length}
                     useScrollView={true}
-                    inactiveSlideScale={1}s
+                    inactiveSlideScale={1}
                     inactiveSlideOpacity={0}
                     horizontal={true}
                     containerCustomStyle={styles.slider}
                     contentContainerCustomStyle={styles.sliderContentContainer}
                     loopClonesPerSide={ENTRIES1.length}
                     autoplay={false}
-                    onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}/>
+                    onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}s/>
                     <Pagination
                         dotsLength={ENTRIES1.length}
                         activeDotIndex={slider1ActiveSlide}
@@ -159,26 +159,32 @@ class WelcomeScreen extends Component {
                         carouselRef={this._slider1Ref}
                         tappableDots={!!this._slider1Ref}/>
                 </View>
-                <View style={{marginTop:10, marginRight:10, marginLeft:10}}>
-                <Button
+                <View
                     style={{
-                    container: {
-                        height: 45
-                    }
-                }}
-                    raised
-                    primary
-                    text="Continue"/>
-                    </View>
-                    <View>
+                    marginTop: 10,
+                    marginRight: 10,
+                    marginLeft: 10
+                }}>
+                    <Button
+                        style={{
+                        container: {
+                            height: 45
+                        }
+                    }}
+                        raised
+                        primary
+                        onPress={() => this.navigateToLoginPage()}
+                        text="Continue"/>
+                </View>
+                <View>
                     <Text
-                    style={{
-                    marginTop:10,
-                    color: 'white',
-                    textAlign: 'center',
-                    alignSelf: 'stretch'
-                  }}
-                    onPress={() => this.navigateToLoginPage()}>I already have an account</Text>
+                        style={{
+                        marginTop: 10,
+                        color: 'white',
+                        textAlign: 'center',
+                        alignSelf: 'stretch'
+                    }}
+                        onPress={() => this.navigateToLoginPage()}>I already have an account</Text>
                 </View>
             </View>
         )
@@ -277,7 +283,7 @@ export default WelcomeScreenStack = createStackNavigator({
     RegisterPage: {
         screen: RegisterPage,
         navigationOptions: {
-          headerTitle: "Registration"
+            headerTitle: "Registration"
         }
-      }
+    }
 });

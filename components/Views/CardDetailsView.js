@@ -13,7 +13,7 @@ import {
     ImageBackground
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator, createDrawerNavigator} from 'react-navigation';
+import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -25,9 +25,11 @@ import styles, {colors} from '../UtilComponents/index.style';
 import ListOfCardsView from './ListOfCardsView';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
+import FillCardDetailsView from './FillCardDetailsView';
+import DashboardView from './DashboardView';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
-const SLIDER_1_FIRST_ITEM = 1;
+const SLIDER_1_FIRST_ITEM = 0;
 
 class CardDetailsView extends Component {
 
@@ -72,15 +74,30 @@ class CardDetailsView extends Component {
         return Math.round(value);
     }
 
+    navigateToAddCardPage = () => {
+        const fillcardAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'CardDetailsView'})]
+        });
+
+        this
+            .props
+            .navigation
+            .dispatch(fillcardAction);
+    }
+
     _renderItemWithParallax({
         item,
         index
     }, parallaxProps) {
-        return (<SliderEntry
-            data={item}
-            even={(index + 1) % 2 === 0}
-            parallax={true}
-            parallaxProps={parallaxProps}/>);
+        return (
+            <TouchableOpacity onPress={this.navigateToAddCardPage}>
+                <SliderEntry
+                    data={item}
+                    even={(index + 1) % 2 === 0}
+                    parallax={true}
+                    parallaxProps={parallaxProps}/></TouchableOpacity>
+        );
     }
 
     render() {
@@ -97,9 +114,11 @@ class CardDetailsView extends Component {
             name="arrow-right"
             size={15}
             style={{
-                marginTop: 5
-            }}
-            style={{position: 'absolute'}}
+            marginTop: 5
+        }}
+            style={{
+            position: 'absolute'
+        }}
             color="white"/>;
         const defaultIcon = <FaIcons
             name="star"
@@ -141,624 +160,613 @@ class CardDetailsView extends Component {
                         inactiveDotScale={0.6}
                         carouselRef={this._slider1Ref}
                         tappableDots={!!this._slider1Ref}/>
-                    <ImageBackground
-                        source={require('../../assets/bg_gradient.png')}
-                        style={{
-                        overflow: 'hidden',
-                        borderRadius: 5,
-                        marginBottom: 0,
-                        marginTop: 0,
-                        marginLeft: 20,
-                        marginRight: 10,
-                        padding: 7,
-                        height: 40
-                    }}>
-
-                        
-
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
+                    <View style={cardstyles.card}>
+                        {slider1ActiveSlide < (ENTRIES1.length - 1)
+                            ? (
                                 <View>
-                                    {defaultIcon}
+                                    <ImageBackground
+                                        source={require('../../assets/bg_gradient.png')}
+                                        style={{
+                                        overflow: 'hidden',
+                                        borderRadius: 5,
+                                        marginBottom: 10,
+                                        marginTop: 0,
+                                        padding: 7,
+                                        height: 40
+                                    }}>
+
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            flexDirection: 'row'
+                                        }}>
+                                            <View>
+                                                {defaultIcon}
+                                            </View>
+                                            <View
+                                                style={{
+                                                flex: 7
+                                            }}>
+                                                <Text style={cardstyles.cardText}>HSBC Advance</Text>
+                                            </View>
+
+                                            <View
+                                                style={{
+                                                flex: 7,
+                                                marginLeft: 25
+                                            }}>
+                                                <Text style={cardstyles.cardText}>
+                                                    6452718
+                                                </Text>
+                                            </View>
+                                            <View
+                                                style={{
+                                                flex: 4,
+                                                marginLeft: 25
+                                            }}>
+                                                <Text style={cardstyles.cardText}>
+                                                    510.45$
+                                                </Text>
+                                            </View>
+                                        </View>
+
+                                    </ImageBackground>
+
+                                    <KeyboardAwareScrollView>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}>
+                                                        {received}
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>10 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Wilko London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>10 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}>
+                                                        {received}
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>12 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>12 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>13 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>14 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>15 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>16 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>11 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>16 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}></View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>10 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}>
+                                                        {received}
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>10 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity>
+                                            <ImageBackground
+                                                source={require('../../assets/bg_gradient.png')}
+                                                style={cardstyles.imageItem}>
+
+                                                <View style={cardstyles.rowView}>
+                                                    <View
+                                                        style={{
+                                                        marginLeft: 10,
+                                                        marginTop: 5
+                                                    }}>
+                                                        {received}
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 7,
+                                                        marginLeft: 10
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>10 June 2019</Text>
+                                                    </View>
+
+                                                    <View
+                                                        style={{
+                                                        flex: 7
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            Tesco London
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                        flex: 3
+                                                    }}>
+                                                        <Text style={cardstyles.cardText}>
+                                                            10.45$
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                    </KeyboardAwareScrollView>
                                 </View>
+                            )
+                            : <ImageBackground
+                                source={require('../../assets/bg_gradient.png')}
+                                style={{
+                                height: '100%',
+                                overflow: 'hidden',
+                                borderRadius: 10,
+                                padding: 5
+                            }}>
                                 <View
                                     style={{
-                                    flex: 7
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
                                 }}>
-                                    <Text style={cardstyles.cardText}>HSBC Advance</Text>
+                                    <Text
+                                        style={{
+                                        color: 'white',
+                                        textAlign: 'center',
+                                        alignSelf: 'stretch',
+                                        fontSize:22
+                                    }}>All Your Card in One</Text>
+                                    <Text
+                                        style={{
+                                        color: '#75d4e7',
+                                        textAlign: 'center',
+                                        alignSelf: 'stretch',
+                                        marginTop:5,
+                                        fontSize:18
+                                    }}
+                                        onPress={() => this.navigateToAddCardPage()}>Add New Card</Text>
                                 </View>
-
-                                <View
-                                    style={{
-                                    flex: 7,
-                                    marginLeft:25
-                                }}>
-                                    <Text style={cardstyles.cardText}>
-                                        6452718
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 4,
-                                    marginLeft:25
-                                }}>
-                                    <Text style={cardstyles.cardText}>
-                                        510.45$
-                                    </Text>
-                                </View>
-                            </View>
-
-                        
-
-                    </ImageBackground>
-                    <KeyboardAwareScrollView style={cardstyles.card}>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}>
-                                            {received}
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 7,
-                                            marginLeft:10
-                                        }}>
-                                            <Text style={cardstyles.cardText}>10 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Wilko London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
                             </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                            style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>10 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}>
-                                            {received}
-                                        </View>
-
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>12 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>12 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>13 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>14 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>15 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>16 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>11 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>16 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}></View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>10 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}>
-                                            {received}
-                                        </View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>10 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-
-                                
-
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <ImageBackground
-                                source={require('../../assets/bg_gradient.png')}
-                                style={cardstyles.imageItem}>
-
-                                
-
-                                    <View
-                                        style={cardstyles.rowView}>
-                                        <View style={{
-                                            marginLeft:10,
-                                            marginTop:5
-                                        }}>
-                                            {received}
-                                        </View>
-                                        <View
-                                             style={{
-                                                flex: 7,
-                                                marginLeft:10
-                                            }}>
-                                            <Text style={cardstyles.cardText}>10 June 2019</Text>
-                                        </View>
-
-                                        <View
-                                            style={{
-                                            flex: 7
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                Tesco London
-                                            </Text>
-                                        </View>
-                                        <View
-                                            style={{
-                                            flex: 3
-                                        }}>
-                                            <Text style={cardstyles.cardText}>
-                                                10.45$
-                                            </Text>
-                                        </View>
-                                    </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                    </KeyboardAwareScrollView>
+}
+                    </View>
                 </View>
             </View>
         )
@@ -767,12 +775,12 @@ class CardDetailsView extends Component {
 
 const cardstyles = StyleSheet.create({
     card: {
-        height: '55%',
+        height: '51%',
         alignSelf: 'stretch',
         marginLeft: 20,
         marginRight: 10,
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 30,
         borderWidth: 0,
         borderColor: 'transparent',
         backgroundColor: 'transparent'
@@ -813,7 +821,7 @@ const cardstyles = StyleSheet.create({
         marginBottom: 10,
         paddingTop: 5
     },
-    rowView : {
+    rowView: {
         flex: 1,
         flexDirection: 'row'
     }
@@ -825,37 +833,50 @@ const ENTRIES1 = [
         cardHolderName: 'John Doe',
         cardNumber: '1234',
         bankName: 'HSBC UK',
-        logo: require('../../assets/visalogo.jpg')
+        logo: require('../../assets/visalogo.jpg'),
+        isAddCard: false
     }, {
         cardType: 'Mastercard',
         cardHolderName: 'John Smith',
         cardNumber: '1234',
         bankName: 'Lloyd UK',
-        logo: require('../../assets/mastercardlogo.png')
+        logo: require('../../assets/mastercardlogo.png'),
+        isAddCard: false
     }, {
         cardType: 'Discover',
         cardHolderName: 'Veronica Doe',
         cardNumber: '4561',
         bankName: 'HDFC India',
-        logo: require('../../assets/discoverlogo.jpg')
+        logo: require('../../assets/discoverlogo.jpg'),
+        isAddCard: false
     }, {
         cardType: 'American Express',
         cardHolderName: 'Dany Joe',
         cardNumber: '4534',
         bankName: 'ICICI India',
-        logo: require('../../assets/american_express.png')
+        logo: require('../../assets/american_express.png'),
+        isAddCard: false
     }, {
         cardType: 'VISA',
         cardHolderName: 'John Smith',
         cardNumber: '8741',
         bankName: 'LLoyds UK',
-        logo: require('../../assets/visalogo.jpg')
+        logo: require('../../assets/visalogo.jpg'),
+        isAddCard: false
     }, {
         cardType: 'Maestro',
         cardHolderName: 'John Dan',
         cardNumber: '2147',
         bankName: 'HSBC UK',
-        logo: require('../../assets/maestro.png')
+        logo: require('../../assets/maestro.png'),
+        isAddCard: false
+    }, {
+        cardType: '',
+        cardHolderName: '',
+        cardNumber: '',
+        bankName: '',
+        logo: require('../../assets/maestro.png'),
+        isAddCard: true
     }
 ];
 
@@ -866,27 +887,31 @@ const CardDetailsViewStack = createStackNavigator({
 
         navigationOptions: ({navigation}) => ({
             headerTitle: "Cards View", headerLeft: <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                        navigation.toggleDrawer()
-                    }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
-                </View>,
-        headerStyle: {
-          backgroundColor: '#131642',
-          color: 'white'
-        },
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        color: 'white'
-          }
+                <TouchableOpacity
+                    onPress={() => {
+                    navigation.toggleDrawer()
+                }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+            </View>,
+            headerStyle: {
+                backgroundColor: '#131642',
+                color: 'white'
+            },
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                color: 'white'
+            }
         })
     }
 });
 
 const DrawerStack = createDrawerNavigator({
     CardDetailsView: {
-        screen: CardDetailsViewStack
+        screen: CardDetailsViewStack,
+        navigationOptions: {
+            header: null
+        }
     }
+
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
