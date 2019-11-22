@@ -25,7 +25,7 @@ import styles, {colors} from '../UtilComponents/index.style';
 import ListOfCardsView from './ListOfCardsView';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
-import FillCardDetailsView from './FillCardDetailsView';
+import FillCardDetailsView1 from './FillCardDetailsView1';
 import DashboardView from './DashboardView';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
@@ -75,7 +75,7 @@ class CardDetailsView extends Component {
     }
 
     navigateToAddCardPage = () => {
-        const fillcardAction = StackActions.reset({
+        /*const fillcardAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({routeName: 'CardDetailsView'})]
         });
@@ -83,7 +83,12 @@ class CardDetailsView extends Component {
         this
             .props
             .navigation
-            .dispatch(fillcardAction);
+            .dispatch(fillcardAction);*/
+
+            this
+            .props
+            .navigation
+            .navigate('FillCardDetailsView1');
     }
 
     _renderItemWithParallax({
@@ -910,7 +915,13 @@ const DrawerStack = createDrawerNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    },
+    FillCardDetailsView1: {
+      screen: FillCardDetailsView1,
+      navigationOptions: {
+        headerTitle: "Add Card Details"
+      }
+    },
 
 }, {
     gesturesEnabled: false,
