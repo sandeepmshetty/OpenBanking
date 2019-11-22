@@ -320,6 +320,7 @@ export default LoginStack = createStackNavigator({
         backgroundColor: '#131642',
         color: 'white'
       },
+      headerTintColor: 'white',
       headerTitleStyle: {
         fontWeight: 'bold',
         color: 'white'

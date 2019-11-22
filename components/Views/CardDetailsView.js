@@ -796,7 +796,7 @@ const cardstyles = StyleSheet.create({
     },
 
     cardText: {
-        fontSize: 15,
+        fontSize: 13,
         color: 'white',
         marginTop: 5,
         marginLeft: 10

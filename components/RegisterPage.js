@@ -125,16 +125,14 @@ export default class RegisterPage extends Component {
                         top: 0,
                         left: 0,
                         width: '100%',
-                        height: '100%'
+                        height: '100%',
+                        flex: 1,
+                        backgroundColor: '131642',
+                        justifyContent: 'center'
                     }}>
 
-                    <View
-                        style={{
-                            flex: 1,
-                            backgroundColor: '131642',
-                            justifyContent: 'center'
-                        }}>
-                        <KeyboardAwareScrollView>
+                    <KeyboardAwareScrollView>
+                        
                             <View
                                 style={{
                                     justifyContent: 'center',
@@ -159,7 +157,8 @@ export default class RegisterPage extends Component {
                                     margin: 20,
                                     padding: 10,
                                     paddingTop: 0,
-                                    borderRadius: 5
+                                    overflow: 'hidden',
+                                    borderRadius: 10
                                 }}>
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                     <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
@@ -216,8 +215,8 @@ export default class RegisterPage extends Component {
                                         text="Register" onPress={() => this.register()} />
                                 </View>
                             </ImageBackground>
-                        </KeyboardAwareScrollView>
-                    </View>
+                        
+                    </KeyboardAwareScrollView>
                 </View>
             </View>
         );
