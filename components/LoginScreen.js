@@ -23,8 +23,8 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: 'johndoe@gmail.com',
-      password: '123456'
+      email: '',
+      password: ''
     }
   }
 
@@ -64,7 +64,7 @@ class LoginScreen extends Component {
   auth() {
     
     if (this.state.email === '' || this.state.matricule === '') {
-      this.callAlert("Login Error", "Invalid field value", console.log("Error, Invalid field value"));
+      this.callAlert("Login Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
     } else {
       fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/loginUser', {  
         method: 'POST',
@@ -166,7 +166,6 @@ class LoginScreen extends Component {
                       label="UserName"
                       baseColor='white'
                       textColor='white'
-                      value="johndoe@gmail.com"
                       onChangeText={(text) => this.setEmail(text)} />
                   </View>
                 </View>
@@ -192,7 +191,6 @@ class LoginScreen extends Component {
                       baseColor='white'
                       textColor='white'
                       label="Password"
-                      value="123456"
                       onChangeText={(text) => this.setPassword(text)}
                       secureTextEntry={true} />
                   </View>

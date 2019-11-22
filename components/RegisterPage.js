@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Text,
     View,
@@ -6,13 +6,17 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
+    Alert,
     Switch,
     ImageBackground
 } from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
-import {Button} from 'react-native-material-ui';
+import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
+import { Button } from 'react-native-material-ui';
+import {NavigationActions} from 'react-navigation';
+
+import Dashboard from './Dashboard';
 
 export default class RegisterPage extends Component {
 
@@ -35,40 +39,55 @@ export default class RegisterPage extends Component {
         this.setState({ password })
     }
     toggleSwitch1 = (value) => {
-        this.setState({switch1Value: value})
+        this.setState({ switch1Value: value })
         console.log('Switch 1 is: ' + value)
     }
-    register() {
-    
-        if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
-          this.callAlert("Login Error", "Invalid field value", console.log("Error, Invalid field value"));
-        } else {
-          fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/signUpUser', {  
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: this.state.name,
-                password: this.state.password,
-                email:this.state.email
-            })
-          })
-          .then(res => res.json())
-          .then((responseJson) => {
-            if(responseJson.response === this.state.email){
-              this.navigateToHomePage()
-            } else {
-              this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+    navigateToLogin = () => {
+        this
+      .props
+      .navigation
+      .navigate('LoginScreen');
+    }
+    callAlert(title, message, func) {
+        Alert.alert(title, message, [
+            {
+                text: 'OK',
+                onPress: () => func
             }
-          })
-          .then((data) => {
-              this.setState({ contacts: data })
-          })
-          .catch(console.log)
+        ], { cancelable: false })
+    }
+    register() {
+
+        if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
+            this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
+        } else {
+            fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/signUpUser', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: this.state.name,
+                    password: this.state.password,
+                    email: this.state.email
+                })
+            })
+                .then(res => res.json())
+                .then((responseJson) => {
+                    if (responseJson.response === 'Success') {
+                        Alert.alert("User Created Successfully !")
+                        this.navigateToLogin()
+                    } else {
+                        this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+                    }
+                })
+                .then((data) => {
+                    this.setState({ contacts: data })
+                })
+                .catch(console.log)
         }
-      }
+    }
     render() {
         const personIcon = <Icon name="person" size={20} color="white" />;
         const passwordIcon = <Icon name="lock-open" size={20} color="white" />
@@ -76,9 +95,9 @@ export default class RegisterPage extends Component {
         return (
             <View
                 style={{
-                flex: 1,
-                backgroundColor: '#131642'
-            }}>
+                    flex: 1,
+                    backgroundColor: '#131642'
+                }}>
 
                 {/*<View
                     style={{
@@ -102,103 +121,103 @@ export default class RegisterPage extends Component {
 
                 <View
                     style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%'
-                }}>
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%'
+                    }}>
 
-                <View
-                    style={{
-                    flex: 1,
-                    backgroundColor: '131642',
-                    justifyContent: 'center'
-                }}>
-                    <KeyboardAwareScrollView>
-                        <View
-                            style={{
-                            justifyContent: 'center',
-                            alignItems: 'center'
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: '131642',
+                            justifyContent: 'center'
                         }}>
-                            <Image source={require('../assets/icon.png')} style={styles.image}/>
-
-                            <Text
-                                style={{
-                                color: 'white',
-                                textAlign: 'center',
-                                fontSize: 22
-                            }}>
-                                Registration Form
-                            </Text>
-                        </View>
-
-                        <ImageBackground
-                            source={require('../assets/bg_gradient.png')}
-                            style={{
-                            backgroundColor: 'transparent',
-                            margin: 20,
-                            padding: 10,
-                            paddingTop: 0,
-                            borderRadius: 5
-                        }}>
-                        <View style={{ flex: 1, flexDirection: 'row'}}>
-                        <View style={{ flex: 1, marginTop: 35, marginRight: -10}}>
-                            {personIcon}
-                        </View>
-                        <View style={{ flex: 8, marginTop: 0 }}>
-                            <TextField baseColor='white' label="Name" textColor='white' onChangeText={(text) => this.setName(text)}/>
-                        </View>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row'}}>
-                        <View style={{ flex: 1, marginTop: 35, marginRight: -10}}>
-                            {emailIcon}
-                        </View>
-                        <View style={{ flex: 8, marginTop: 0 }}>
-                            <TextField baseColor='white' label="Email" textColor='white' onChangeText={(text) => this.setEmail(text)}/>
-                        </View>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row'}}>
-                        <View style={{ flex: 1, marginTop: 35, marginRight: -10}}>
-                            {passwordIcon}
-                        </View>
-                        <View style={{ flex: 8, marginTop: 0 }}>
-                            <TextField baseColor='white' label="Password" textColor='white' onChangeText={(text) => this.setPassword(text)}
-                                secureTextEntry={true}/>
-                        </View>
-                        </View>
+                        <KeyboardAwareScrollView>
                             <View
                                 style={{
-                                flexDirection: 'row',
-                                alignItems: 'flex-start'
-                            }}>
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                <Image source={require('../assets/icon.png')} style={styles.image} />
 
-                                <Switch
-                                    onValueChange={this.toggleSwitch1}
-                                    trackColor="#fcc358"
-                                    value={this.state.switch1Value}/>
                                 <Text
                                     style={{
-                                    color: 'white',
-                                    alignSelf: 'center',
-                                    textAlign: 'left'
-                                }}>I agree to the terms and conditions</Text>
+                                        color: 'white',
+                                        textAlign: 'center',
+                                        fontSize: 22
+                                    }}>
+                                    Registration Form
+                            </Text>
+                            </View>
 
-                            </View>
-                            <View style={styles.buttonStyle}>
-                                <Button
+                            <ImageBackground
+                                source={require('../assets/bg_gradient.png')}
+                                style={{
+                                    backgroundColor: 'transparent',
+                                    margin: 20,
+                                    padding: 10,
+                                    paddingTop: 0,
+                                    borderRadius: 5
+                                }}>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
+                                        {personIcon}
+                                    </View>
+                                    <View style={{ flex: 8, marginTop: 0 }}>
+                                        <TextField baseColor='white' label="Name" textColor='white' onChangeText={(text) => this.setName(text)} />
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
+                                        {emailIcon}
+                                    </View>
+                                    <View style={{ flex: 8, marginTop: 0 }}>
+                                        <TextField baseColor='white' label="Email" textColor='white' onChangeText={(text) => this.setEmail(text)} />
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
+                                        {passwordIcon}
+                                    </View>
+                                    <View style={{ flex: 8, marginTop: 0 }}>
+                                        <TextField baseColor='white' label="Password" textColor='white' onChangeText={(text) => this.setPassword(text)}
+                                            secureTextEntry={true} />
+                                    </View>
+                                </View>
+                                <View
                                     style={{
-                                    container: {
-                                        height: 45
-                                    }
-                                }}
-                                    raised
-                                    primary
-                                    text="Register" onPress={() => this.register()}/>
-                            </View>
-                        </ImageBackground>
-                    </KeyboardAwareScrollView>
-                </View>
+                                        flexDirection: 'row',
+                                        alignItems: 'flex-start'
+                                    }}>
+
+                                    <Switch
+                                        onValueChange={this.toggleSwitch1}
+                                        trackColor="#fcc358"
+                                        value={this.state.switch1Value} />
+                                    <Text
+                                        style={{
+                                            color: 'white',
+                                            alignSelf: 'center',
+                                            textAlign: 'left'
+                                        }}>I agree to the terms and conditions</Text>
+
+                                </View>
+                                <View style={styles.buttonStyle}>
+                                    <Button
+                                        style={{
+                                            container: {
+                                                height: 45
+                                            }
+                                        }}
+                                        raised
+                                        primary
+                                        text="Register" onPress={() => this.register()} />
+                                </View>
+                            </ImageBackground>
+                        </KeyboardAwareScrollView>
+                    </View>
                 </View>
             </View>
         );
