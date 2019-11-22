@@ -138,16 +138,7 @@ export default class RegisterPage extends Component {
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}>
-                                <Image source={require('../assets/icon.png')} style={styles.image} />
-
-                                <Text
-                                    style={{
-                                        color: 'white',
-                                        textAlign: 'center',
-                                        fontSize: 22
-                                    }}>
-                                    Registration Form
-                            </Text>
+                                <Image source={require('../assets/icon.png')} style={styles.image} />                               
                             </View>
 
                             <ImageBackground
@@ -242,10 +233,10 @@ const styles = StyleSheet.create({
         margin: 20
     },
     image: {
-        marginBottom: 20,
-        marginTop: 50,
-        height: 80,
-        width: 80
+        marginBottom: 0,
+        marginTop: 20,
+        height: 100,
+        width: 100
     },
 
     buttonContainer: {
