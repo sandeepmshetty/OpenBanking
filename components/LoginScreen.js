@@ -112,15 +112,16 @@ class LoginScreen extends Component {
         flex: 1,
         backgroundColor: '#eee'
       }}>
-        <ImageBackground
+        <View
           source={require('../assets/bg_gradient.png')}
           style={{
             position: 'absolute',
-            top: 0,
+            top: 0,            
+            backgroundColor: '#131642',
             left: 0,
             width: '100%',
             height: '100%'
-          }}></ImageBackground>
+          }}></View>
         <View
           style={{
             flex: 1,

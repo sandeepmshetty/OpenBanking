@@ -14,15 +14,15 @@ export default class Splash extends Component {
         return (
             <View style={styles.container}>
 
-                <ImageBackground
-                    source={require('../assets/bg_gradient.png')}
+                <View
                     style={{
                     position: 'absolute',
+                    backgroundColor: '#131642',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%'
-                }}></ImageBackground>
+                }}></View>
                 <View
                     style={{
                     flex: 1,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#eee'
+        backgroundColor: '#131642'
 
     },
 
