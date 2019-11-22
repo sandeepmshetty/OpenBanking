@@ -744,6 +744,7 @@ class CardDetailsView extends Component {
                                 height: '100%',
                                 overflow: 'hidden',
                                 borderRadius: 10,
+                                marginTop:10,
                                 padding: 5
                             }}>
                                 <View
@@ -796,7 +797,7 @@ const cardstyles = StyleSheet.create({
     },
 
     cardText: {
-        fontSize: 13,
+        fontSize: 12,
         color: 'white',
         marginTop: 5,
         marginLeft: 10
@@ -891,7 +892,7 @@ const CardDetailsViewStack = createStackNavigator({
         screen: CardDetailsView,
 
         navigationOptions: ({navigation}) => ({
-            headerTitle: "Cards View", headerLeft: <View>
+            headerTitle: "Wallet", headerLeft: <View>
                 <TouchableOpacity
                     onPress={() => {
                     navigation.toggleDrawer()
