@@ -22,11 +22,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SliderEntry from '../UtilComponents/SliderEntry';
 import styles, {colors} from '../UtilComponents/index.style';
-import ListOfCardsView from './ListOfCardsView';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
-import FillCardDetailsView1 from './FillCardDetailsView1';
-import DashboardView from './DashboardView';
+import ListOfCardsView from './ListOfCardsView';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 0;
@@ -36,35 +34,6 @@ class CardDetailsView extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            entries: [
-                {
-                    bankName: "HSBC UK",
-                    cardType: "Debit",
-                    cardNo: "6402",
-                    cardNetwrok: "Visa",
-                    transactionData: [
-                        {
-                            date: "10/05/2019",
-                            clientName: "Tesco, NY, USA",
-                            transacionAmount: "100",
-                            currency: "USD",
-                            currencySymbol: "$"
-                        }, {
-                            date: "10/05/2019",
-                            clientName: "Sainsbery, NY, USA",
-                            transacionAmount: "100",
-                            currency: "USD",
-                            currencySymbol: "$"
-                        }, {
-                            date: "10/05/2019",
-                            clientName: "Wilko, NY, USA",
-                            transacionAmount: "100",
-                            currency: "USD",
-                            currencySymbol: "$"
-                        }
-                    ]
-                }
-            ],
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM
         }
     }
@@ -88,7 +57,7 @@ class CardDetailsView extends Component {
             this
             .props
             .navigation
-            .navigate('FillCardDetailsView1');
+            .navigate('FillCardDetailsView');
     }
 
     _renderItemWithParallax({
@@ -96,12 +65,11 @@ class CardDetailsView extends Component {
         index
     }, parallaxProps) {
         return (
-            <TouchableOpacity onPress={this.navigateToAddCardPage}>
                 <SliderEntry
                     data={item}
                     even={(index + 1) % 2 === 0}
                     parallax={true}
-                    parallaxProps={parallaxProps}/></TouchableOpacity>
+                    parallaxProps={parallaxProps}/>
         );
     }
 
@@ -905,25 +873,15 @@ const CardDetailsViewStack = createStackNavigator({
             headerTitleStyle: {
                 fontWeight: 'bold',
                 color: 'white'
-            }
+            } 
         })
     }
 });
 
 const DrawerStack = createDrawerNavigator({
     CardDetailsView: {
-        screen: CardDetailsViewStack,
-        navigationOptions: {
-            header: null
-        }
-    },
-    FillCardDetailsView1: {
-      screen: FillCardDetailsView1,
-      navigationOptions: {
-        headerTitle: "Add Card Details"
-      }
-    },
-
+        screen: CardDetailsViewStack
+    }
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer

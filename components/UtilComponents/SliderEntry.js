@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
-import {createStackNavigator} from 'react-navigation';
+import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator} from 'react-navigation';
 import PropTypes from 'prop-types';
 import {ParallaxImage} from 'react-native-snap-carousel';
 import styles from './SliderEntry.style';
@@ -13,6 +13,23 @@ export default class SliderEntry extends Component {
         parallax: PropTypes.bool,
         parallaxProps: PropTypes.object
     };
+
+    navigateToAddCardPage = () => {
+        /*const fillcardAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'CardDetailsView'})]
+        });
+
+        this
+            .props
+            .navigation
+            .dispatch(fillcardAction);
+
+            this
+            .props
+            .navigation
+            .navigate('FillCardDetailsView1');*/
+    }
 
     render() {
         const {
@@ -31,10 +48,9 @@ export default class SliderEntry extends Component {
         const imageurl = isAddCard ? require('../../assets/add-card.png') : require('../../assets/mastercard.jpg');
 
         return (
-            <View
+            <TouchableOpacity
                 activeOpacity={1}
-                style={styles.slideInnerContainer}
-                onPress={() => this.navigateToAddCardPage()}>
+                style={styles.slideInnerContainer}>
                 <View style={styles.shadow}/>
                 <ImageBackground
                     imageStyle={{
@@ -118,7 +134,7 @@ export default class SliderEntry extends Component {
                         )
                         : null}
                 </ImageBackground>
-            </View>
+            </TouchableOpacity>
         );
     }
 }

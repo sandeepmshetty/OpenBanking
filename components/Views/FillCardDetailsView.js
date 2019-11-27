@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
-import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator } from 'react-navigation';
+import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator} from 'react-navigation';
 import {Button} from 'react-native-material-ui';
 import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -22,7 +22,7 @@ import MyPage4 from '../MyPage4';
 import MyPage5 from '../MyPage5';
 import DrawerContainer from '../DrawerContainer';
 import ListOfCardsView from './ListOfCardsView';
-import DashboardView from './DashboardView';
+import CardDetailsView from './CardDetailsView';
 class FillCardDetailsView extends Component {
 
     constructor(props) {
@@ -205,19 +205,19 @@ const FillCardDetailsViewStack = createStackNavigator({
 
         navigationOptions: ({navigation}) => ({
             headerTitle: "Add card details", headerLeft: <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                        navigation.toggleDrawer()
-                    }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
-                </View>,
-        headerStyle: {
-          backgroundColor: '#131642',
-          color: 'white'
-        },
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        color: 'white'
-          }
+                <TouchableOpacity
+                    onPress={() => {
+                    navigation.toggleDrawer()
+                }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+            </View>,
+            headerStyle: {
+                backgroundColor: '#131642',
+                color: 'white'
+            },
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                color: 'white'
+            }
         })
     }
 });
@@ -227,7 +227,10 @@ const DrawerStack = createDrawerNavigator({
         screen: FillCardDetailsViewStack
     },
     ListOfCardsView: {
-        screen: ListOfCardsView
+        screen: ListOfCardsView,
+        navigationOptions: {
+            headerTitle: "Your Cards"
+        }
     }
 }, {
     gesturesEnabled: false,

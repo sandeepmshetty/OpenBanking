@@ -18,6 +18,8 @@ import MyPage5 from './MyPage5';
 import DashboardView from './Views/DashboardView';
 import styles from './UtilComponents/main.style';
 import FillCardDetailsView from './Views/FillCardDetailsView';
+import ListOfCardsView from './Views/ListOfCardsView';
+import CardDetailsView from './Views/CardDetailsView';
 
 class Dashboard extends Component {
 
@@ -34,100 +36,100 @@ class Dashboard extends Component {
 
   render() {
     return (
-        <View style={styles.main}>
-          <View>
-            <Text style={localStyles.wordBold}>Lets add a Payment Card</Text>
-          </View>
-          <View style={localStyles.image}>
+      <View style={styles.main}>
+        <View>
+          <Text style={localStyles.wordBold}>Lets add a Payment Card</Text>
+        </View>
+        <View style={localStyles.image}>
 
-            <ImageBackground
-              imageStyle={{
-              borderRadius: 10
-            }}
+          <ImageBackground
+            imageStyle={{
+            borderRadius: 10
+          }}
+            style={{
+            flex: 1,
+            borderRadius: 5,
+            width: '100%',
+            height: '100%'
+          }}
+            source={require('../assets/mastercard.jpg')}>
+            <View
               style={{
               flex: 1,
-              borderRadius: 5,
-              width: '100%',
-              height: '100%'
-            }}
-              source={require('../assets/mastercard.jpg')}>
+              flexDirection: 'row'
+            }}>
+              <Text
+                style={{
+                marginLeft: 30,
+                marginTop: 30,
+                fontSize: 25
+              }}>VISA</Text>
               <View
                 style={{
                 flex: 1,
-                flexDirection: 'row'
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                marginRight: 10,
+                marginTop: -15
               }}>
-                <Text
+                <Image
+                  source={require('../assets/hsbc.jpg')}
+                  resizeMode='contain'
                   style={{
-                  marginLeft: 30,
-                  marginTop: 30,
-                  fontSize: 25
-                }}>VISA</Text>
-                <View
-                  style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  marginRight: 10,
-                  marginTop: -15
-                }}>
-                  <Image
-                    source={require('../assets/hsbc.jpg')}
-                    resizeMode='contain'
-                    style={{
-                    height: 100,
-                    width: 80
-                  }}/>
-                </View>
+                  height: 100,
+                  width: 80
+                }}/>
               </View>
-              <View
-                style={{
-                flex: 1,
-                flexDirection: 'row'
-              }}>
-                <View
-                  style={{
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                  marginLeft: 40,
-                  marginBottom: 36
-                }}>
-                  <Text style={{
-                    fontSize: 17
-                  }}>&bull; &bull; &bull; &bull; XXXX</Text>
-                </View>
-                <View
-                  style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  marginRight: 10,
-                  marginTop: 10
-                }}>
-                  <Image
-                    source={require('../assets/american_express.png')}
-                    resizeMode='contain'
-                    style={{
-                    height: 100,
-                    width: 80
-                  }}/>
-                </View>
-              </View>
-            </ImageBackground>
-          </View>
-          <View>
-            <Button
+            </View>
+            <View
               style={{
-              container: {
-                height: 45
-              }
-            }}
-              raised
-              primary
-              text="Add Card"
-              onPress={() => this.navigateToAddCardPage()}/>
-          </View>
+              flex: 1,
+              flexDirection: 'row'
+            }}>
+              <View
+                style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginLeft: 40,
+                marginBottom: 36
+              }}>
+                <Text style={{
+                  fontSize: 17
+                }}>&bull; &bull; &bull; &bull; XXXX</Text>
+              </View>
+              <View
+                style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                marginRight: 10,
+                marginTop: 10
+              }}>
+                <Image
+                  source={require('../assets/american_express.png')}
+                  resizeMode='contain'
+                  style={{
+                  height: 100,
+                  width: 80
+                }}/>
+              </View>
+            </View>
+          </ImageBackground>
         </View>
-      
+        <View>
+          <Button
+            style={{
+            container: {
+              height: 45
+            }
+          }}
+            raised
+            primary
+            text="Add Card"
+            onPress={() => this.navigateToAddCardPage()}/>
+        </View>
+      </View>
+
     );
   }
 }
@@ -149,52 +151,48 @@ const localStyles = StyleSheet.create({
   }
 });
 
-const HomeStack = createStackNavigator({
+const DashboardNavigator = createStackNavigator({
 
   Dashboard: {
     screen: Dashboard,
 
     navigationOptions: ({navigation}) => ({
       headerTitle: "Dashboard", headerLeft: <View>
-          <TouchableOpacity
-            onPress={() => {
-            navigation.toggleDrawer()
-          }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
-        </View>,
-        headerStyle: {
-          backgroundColor: '#131642',
-          color: 'white'
-        },
-        headerTitleStyle: {
-            fontWeight: 'bold',
+        <TouchableOpacity
+          onPress={() => {
+          navigation.toggleDrawer()
+        }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+      </View>,
+      headerStyle: {
+        backgroundColor: '#131642',
         color: 'white'
-          }
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
+      }
     })
   }
 });
 
 const DrawerStack = createDrawerNavigator({
   Dashboard: {
-    screen: HomeStack
-  },
-  MyPage1: {
-    screen: MyPage1
-  },
-  MyPage2: {
-    screen: MyPage2
-  },
-  MyPage4: {
-    screen: MyPage4
-  },
-  MyPage5: {
-    screen: MyPage5
+    screen: DashboardNavigator
   },
   FillCardDetailsView: {
     screen: FillCardDetailsView,
     navigationOptions: {
       headerTitle: "Add Card Details"
     }
-
+  },
+  ListOfCardsView: {
+    screen: ListOfCardsView,
+    navigationOptions: {
+      headerTitle: "Your Cards"
+    }
+  },
+  CardDetailsView: {
+    screen: CardDetailsView
   }
 }, {
   gesturesEnabled: false,
