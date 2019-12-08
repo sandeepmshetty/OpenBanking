@@ -151,8 +151,7 @@ export default class RegisterPage extends Component {
                             <Image source={require('../assets/icon.png')} style={styles.image}/>
                         </View>
 
-                        <ImageBackground
-                            source={require('../assets/bg_gradient.png')}
+                        <View
                             style={{
                             backgroundColor: 'transparent',
                             margin: 20,
@@ -285,9 +284,10 @@ export default class RegisterPage extends Component {
                                     raised
                                     primary
                                     text="Register"
+                                    disabled={!this.state.switch1Value}
                                     onPress={() => this.register()}/>
                             </View>
-                        </ImageBackground>
+                        </View>
 
                     </KeyboardAwareScrollView>
                 </View>
