@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Text,
     View,
     StyleSheet,
     Image,
-    TextInput,
     TouchableOpacity,
     Alert,
     Switch,
     ImageBackground
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
-import { Button } from 'react-native-material-ui';
+import faIcon from 'react-native-vector-icons/FontAwesome';
+import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
+import {TextInput, ToggleButton} from 'react-native-paper';
+import {Button} from 'react-native-material-ui';
 import {NavigationActions} from 'react-navigation';
 
 import Dashboard from './Dashboard';
@@ -26,27 +27,30 @@ export default class RegisterPage extends Component {
             switch1Value: false,
             email: '',
             password: '',
-            name: ''
+            name: '',
+            status: 'unchecked',
+            showPassword:true
         }
+        this.toggleSwitch = this.toggleSwitch.bind(this);
     }
     setName(name) {
-        this.setState({ name })
+        this.setState({name})
     }
     setEmail(email) {
-        this.setState({ email })
+        this.setState({email})
     }
     setPassword(password) {
-        this.setState({ password })
+        this.setState({password})
     }
     toggleSwitch1 = (value) => {
-        this.setState({ switch1Value: value })
+        this.setState({switch1Value: value})
         console.log('Switch 1 is: ' + value)
     }
     navigateToLogin = () => {
         this
-      .props
-      .navigation
-      .navigate('LoginScreen');
+            .props
+            .navigation
+            .navigate('LoginScreen');
     }
     callAlert(title, message, func) {
         Alert.alert(title, message, [
@@ -54,7 +58,7 @@ export default class RegisterPage extends Component {
                 text: 'OK',
                 onPress: () => func
             }
-        ], { cancelable: false })
+        ], {cancelable: false})
     }
     register() {
 
@@ -65,14 +69,10 @@ export default class RegisterPage extends Component {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    username: this.state.name,
-                    password: this.state.password,
-                    email: this.state.email
+                    body: JSON.stringify({username: this.state.name, password: this.state.password, email: this.state.email})
                 })
-            })
                 .then(res => res.json())
                 .then((responseJson) => {
                     if (responseJson.response === 'Success') {
@@ -83,21 +83,31 @@ export default class RegisterPage extends Component {
                     }
                 })
                 .then((data) => {
-                    this.setState({ contacts: data })
+                    this.setState({contacts: data})
                 })
                 .catch(console.log)
         }
     }
+
+    toggleSwitch(value) {
+        this.setState({ showPassword: !this.state.showPassword });
+        this.setState({status: value === 'checked' ? 'unchecked' : 'checked'});
+    }
+
     render() {
-        const personIcon = <Icon name="person" size={20} color="white" />;
-        const passwordIcon = <Icon name="lock-open" size={20} color="white" />
-        const emailIcon = <Icon name="email" size={20} color="white" />
+        const personIcon = <Icon name="person" size={20} color="white"/>;
+        const passwordIcon = <Icon name="lock-open" size={20} color="white"/>;
+        const emailIcon = <Icon name="email" size={20} color="white"/>;
+        const showPasswordIcon = <Icon name="showPassword" size={20} color="white" />;
+        const hidePasswordIcon = <Icon name="hidePassword" size={20} color="white" />;
+
+
         return (
             <View
                 style={{
-                    flex: 1,
-                    backgroundColor: '#131642'
-                }}>
+                flex: 1,
+                backgroundColor: '#131642'
+            }}>
 
                 {/*<View
                     style={{
@@ -121,92 +131,164 @@ export default class RegisterPage extends Component {
 
                 <View
                     style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        flex: 1,
-                        backgroundColor: '131642',
-                        justifyContent: 'center'
-                    }}>
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    backgroundColor: '131642',
+                    justifyContent: 'center'
+                }}>
 
                     <KeyboardAwareScrollView>
-                        
+
+                        <View
+                            style={{
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Image source={require('../assets/icon.png')} style={styles.image}/>
+                        </View>
+
+                        <ImageBackground
+                            source={require('../assets/bg_gradient.png')}
+                            style={{
+                            backgroundColor: 'transparent',
+                            margin: 20,
+                            padding: 10,
+                            paddingTop: 0,
+                            overflow: 'hidden',
+                            borderRadius: 10
+                        }}>
                             <View
                                 style={{
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
+                                flex: 1,
+                                flexDirection: 'row'
+                            }}>
+                                <View
+                                    style={{
+                                    flex: 1,
+                                    marginTop: 35,
+                                    marginRight: -10
                                 }}>
-                                <Image source={require('../assets/icon.png')} style={styles.image} />                               
-                            </View>
-
-                            <ImageBackground
-                                source={require('../assets/bg_gradient.png')}
-                                style={{
-                                    backgroundColor: 'transparent',
-                                    margin: 20,
-                                    padding: 10,
-                                    paddingTop: 0,
-                                    overflow: 'hidden',
-                                    borderRadius: 10
-                                }}>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
-                                        {personIcon}
-                                    </View>
-                                    <View style={{ flex: 8, marginTop: 0 }}>
-                                        <TextField baseColor='white' label="Name" textColor='white' onChangeText={(text) => this.setName(text)} />
-                                    </View>
-                                </View>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
-                                        {emailIcon}
-                                    </View>
-                                    <View style={{ flex: 8, marginTop: 0 }}>
-                                        <TextField baseColor='white' label="Email" textColor='white' onChangeText={(text) => this.setEmail(text)} />
-                                    </View>
-                                </View>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
-                                        {passwordIcon}
-                                    </View>
-                                    <View style={{ flex: 8, marginTop: 0 }}>
-                                        <TextField baseColor='white' label="Password" textColor='white' onChangeText={(text) => this.setPassword(text)}
-                                            secureTextEntry={true} />
-                                    </View>
+                                    {personIcon}
                                 </View>
                                 <View
                                     style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'flex-start'
+                                    flex: 8,
+                                    marginTop: 0
+                                }}>
+                                    <TextField
+                                        baseColor='white'
+                                        label="Name"
+                                        textColor='white'
+                                        onChangeText={(text) => this.setName(text)}/>
+                                </View>
+                            </View>
+                            <View
+                                style={{
+                                flex: 1,
+                                flexDirection: 'row'
+                            }}>
+                                <View
+                                    style={{
+                                    flex: 1,
+                                    marginTop: 35,
+                                    marginRight: -10
+                                }}>
+                                    {emailIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 8,
+                                    marginTop: 0
+                                }}>
+                                    <TextField
+                                        baseColor='white'
+                                        label="Email"
+                                        textColor='white'
+                                        onChangeText={(text) => this.setEmail(text)}/>
+                                </View>
+                            </View>
+                            <View
+                                style={{
+                                flex: 1,
+                                flexDirection: 'row'
+                            }}>
+                                <View
+                                    style={{
+                                    flex: 1,
+                                    marginTop: 35,
+                                    marginRight: -10
+                                }}>
+                                    {passwordIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 8,
+                                    marginTop: 0,
+                                    flexDirection: 'row'
+                                }}>
+                                    <View
+                                        style={{
+                                        flex: 7
                                     }}>
-
-                                    <Switch
-                                        onValueChange={this.toggleSwitch1}
-                                        trackColor="#fcc358"
-                                        value={this.state.switch1Value} />
-                                    <Text
+                                        <TextField
+                                            baseColor='white'
+                                            label="Password"
+                                            textColor='white'
+                                            onChangeText={(text) => this.setPassword(text)}
+                                            underlineColor='white'
+                                            secureTextEntry={this.state.showPassword}/>
+                                    </View>
+                                    <View
                                         style={{
-                                            color: 'white',
-                                            alignSelf: 'center',
-                                            textAlign: 'left'
-                                        }}>I agree to the terms and conditions</Text>
+                                        flex: 1,
+                                        marginTop: 15
+                                    }}>
+                                        <ToggleButton
+                                            icon={this.state.showPassword? "eye-off" : "eye"}
+                                            color="white"
+                                            status={this.state.status}
+                                            size={20}
+                                            style={{ backgroundColor: 'transparent', marginTop: 15}}
+                                            onPress={this.toggleSwitch}/>
+                                    </View>
+                                </View>
+                            </View>
+                            <View
+                                style={{
+                                flexDirection: 'row',
+                                alignItems: 'flex-start'
+                            }}>
 
-                                </View>
-                                <View style={styles.buttonStyle}>
-                                    <Button
-                                        style={{
-                                            container: {
-                                                height: 45
-                                            }
-                                        }}
-                                        raised
-                                        primary
-                                        text="Register" onPress={() => this.register()} />
-                                </View>
-                            </ImageBackground>
-                        
+                                <Switch
+                                    onValueChange={this.toggleSwitch1}
+                                    trackColor="#fcc358"
+                                    value={this.state.switch1Value}/>
+                                <Text
+                                    style={{
+                                    color: 'white',
+                                    alignSelf: 'center',
+                                    textAlign: 'left'
+                                }}>I agree to the terms and conditions</Text>
+
+                            </View>
+                            <View style={styles.buttonStyle}>
+                                <Button
+                                    style={{
+                                    container: {
+                                        height: 45
+                                    }
+                                }}
+                                    raised
+                                    primary
+                                    text="Register"
+                                    onPress={() => this.register()}/>
+                            </View>
+                        </ImageBackground>
+
                     </KeyboardAwareScrollView>
                 </View>
             </View>
