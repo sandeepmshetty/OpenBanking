@@ -25,8 +25,10 @@ export default class RegisterPage extends Component {
         this.state = {
             switch1Value: false,
             email: '',
+            phone: '',
             password: '',
-            name: ''
+            name: '',
+            otp: ''
         }
     }
     setName(name) {
@@ -34,6 +36,12 @@ export default class RegisterPage extends Component {
     }
     setEmail(email) {
         this.setState({ email })
+    }
+    setPhone(phone) {
+        this.setState({ phone })
+    }
+    setOtp(otp) {
+        this.setState({ otp })
     }
     setPassword(password) {
         this.setState({ password })
@@ -57,11 +65,10 @@ export default class RegisterPage extends Component {
         ], { cancelable: false })
     }
     register() {
-
-        if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
+        if (this.state.email === '' || this.state.name === '' || this.state.password === '' || this.state.phone === '') {
             this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
         } else {
-            fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/signUpUser', {
+            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -70,13 +77,44 @@ export default class RegisterPage extends Component {
                 body: JSON.stringify({
                     username: this.state.name,
                     password: this.state.password,
-                    email: this.state.email
+                    email: this.state.email,
+                    phone: this.state.phone
                 })
             })
                 .then(res => res.json())
                 .then((responseJson) => {
-                    if (responseJson.response === 'Success') {
-                        Alert.alert("User Created Successfully !")
+                    if (responseJson.response === 'Verify with OTP sent to phone') {
+                        Alert.alert("Verify with OTP sent to phone")
+                        //this.navigateToLogin()
+                    } else {
+                        this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+                    }
+                })
+                .then((data) => {
+                    this.setState({ contacts: data })
+                })
+                .catch(console.log)
+        }
+    }
+    otpVerify() {
+
+        if (this.state.email === '' || this.state.otp === '' ) {
+            this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
+        } else {
+            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserOTP', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: this.state.email,
+                    otp: this.state.otp
+                })
+            })
+                .then(res => res.json())
+                .then((responseJson) => {
+                    if (responseJson.response === 'Account verified successfully!') {
                         this.navigateToLogin()
                     } else {
                         this.callAlert("Error", responseJson.response, console.log(responseJson.response));
@@ -92,6 +130,7 @@ export default class RegisterPage extends Component {
         const personIcon = <Icon name="person" size={20} color="white" />;
         const passwordIcon = <Icon name="lock-open" size={20} color="white" />
         const emailIcon = <Icon name="email" size={20} color="white" />
+        const phoneIcon = <Icon name="phone" size={20} color="white" />
         return (
             <View
                 style={{
@@ -169,6 +208,14 @@ export default class RegisterPage extends Component {
                                 </View>
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                     <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
+                                        {phoneIcon}
+                                    </View>
+                                    <View style={{ flex: 8, marginTop: 0 }}>
+                                        <TextField baseColor='white' label="Phone" textColor='white' onChangeText={(text) => this.setPhone(text)} />
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
                                         {passwordIcon}
                                     </View>
                                     <View style={{ flex: 8, marginTop: 0 }}>
@@ -205,8 +252,27 @@ export default class RegisterPage extends Component {
                                         primary
                                         text="Register" onPress={() => this.register()} />
                                 </View>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, marginTop: 35, marginRight: -10 }}>
+                                        {passwordIcon}
+                                    </View>
+                                    <View style={{ flex: 8, marginTop: 0 }}>
+                                        <TextField baseColor='white' label="OTP" textColor='white' onChangeText={(text) => this.setOtp(text)}
+                                            />
+                                    </View>
+                                </View>
+                                <View style={styles.buttonStyle}>
+                                    <Button
+                                        style={{
+                                            container: {
+                                                height: 45
+                                            }
+                                        }}
+                                        raised
+                                        primary
+                                        text="Verify" onPress={() => this.otpVerify()} />
+                                </View>
                             </ImageBackground>
-                        
                     </KeyboardAwareScrollView>
                 </View>
             </View>

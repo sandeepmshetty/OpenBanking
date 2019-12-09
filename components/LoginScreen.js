@@ -62,11 +62,10 @@ class LoginScreen extends Component {
   }
 
   auth() {
-    
-    if (this.state.email === '' || this.state.matricule === '') {
+    if (this.state.email === '' || this.state.password === '') {
       this.callAlert("Login Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
     } else {
-      fetch('http://elbeanstalk-env.x42kkkbzjx.eu-west-2.elasticbeanstalk.com/api/loginUser', {  
+      fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/loginUser', {  
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -81,6 +80,8 @@ class LoginScreen extends Component {
       .then((responseJson) => {
         if(responseJson.response === this.state.email){
           this.navigateToHomePage()
+        } else if(responseJson.response === 'Account not active') {
+          this.callAlert("Alert", responseJson.response, console.log(responseJson.response));
         } else {
           this.callAlert("Error", responseJson.response, console.log(responseJson.response));
         }
