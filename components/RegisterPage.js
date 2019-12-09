@@ -207,6 +207,9 @@ export default class RegisterPage extends Component {
                                         baseColor='white'
                                         label="Email"
                                         textColor='white'
+                                        keyboardType='phone-pad'
+                                        error='Incorrect Email Id'
+                                        errorColor='white'
                                         onChangeText={(text) => this.setEmail(text)}/>
                                 </View>
                             </View>
@@ -256,6 +259,54 @@ export default class RegisterPage extends Component {
                                     </View>
                                 </View>
                             </View>
+                            
+                            <View
+                                style={{
+                                flex: 1,
+                                flexDirection: 'row'
+                            }}>
+                                <View
+                                    style={{
+                                    flex: 1,
+                                    marginTop: 35,
+                                    marginRight: -10
+                                }}>
+                                    {passwordIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 8,
+                                    marginTop: 0,
+                                    flexDirection: 'row'
+                                }}>
+                                    <View
+                                        style={{
+                                        flex: 7
+                                    }}>
+                                        <TextField
+                                            baseColor='white'
+                                            label="Confirm Password"
+                                            textColor='white'
+                                            onChangeText={(text) => this.setPassword(text)}
+                                            underlineColor='white'
+                                            secureTextEntry={this.state.showPassword}/>
+                                    </View>
+                                    <View
+                                        style={{
+                                        flex: 1,
+                                        marginTop: 15  
+                                    }}>
+                                        <ToggleButton
+                                            icon={this.state.showPassword? "eye-off" : "eye"}
+                                            color="white"
+                                            status={this.state.status}
+                                            size={20}
+                                            style={{ backgroundColor: 'transparent', marginTop: 15}}
+                                            onPress={this.toggleSwitch}/>
+                                    </View>
+                                </View>
+                            </View>
+
                             <View
                                 style={{
                                 flexDirection: 'row',
@@ -274,6 +325,7 @@ export default class RegisterPage extends Component {
                                 }}>I agree to the terms and conditions</Text>
 
                             </View>
+                            
                             <View style={styles.buttonStyle}>
                                 <Button
                                     style={{
