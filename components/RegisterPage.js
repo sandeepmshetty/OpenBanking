@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Alert,
     Switch,
+    ToastAndroid,
     ImageBackground
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -18,6 +19,14 @@ import {Button} from 'react-native-material-ui';
 import {NavigationActions} from 'react-navigation';
 
 import Dashboard from './Dashboard';
+
+const Toast = (props) => {
+    if (props.visible) {
+        ToastAndroid.showWithGravityAndOffset(props.message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 150,);
+        return null;
+    }
+    return null;
+};
 
 export default class RegisterPage extends Component {
 
@@ -31,9 +40,16 @@ export default class RegisterPage extends Component {
             name: '',
             otp: '',
             status: 'unchecked',
-            showPassword:true
+            showPassword: true,
+            visible: false,
+            toastermessage: "",
+            toasterVisible: false,
+            verifyVisible: false,
+            isValidEmail:false
         }
-		this.toggleSwitch = this.toggleSwitch.bind(this);
+        this.toggleSwitch = this
+            .toggleSwitch
+            .bind(this);
     }
     setName(name) {
         this.setState({name})
@@ -42,60 +58,61 @@ export default class RegisterPage extends Component {
         this.setState({email})
     }
     setPhone(phone) {
-        this.setState({ phone })
+        this.setState({phone})
     }
     setOtp(otp) {
-        this.setState({ otp })
+        this.setState({otp})
     }
     setPassword(password) {
         this.setState({password})
     }
     toggleSwitch1 = (value) => {
-        this.setState({switch1Value: value})
+        this.setState({switch1Value: value});
         console.log('Switch 1 is: ' + value)
     }
     navigateToLogin = () => {
         this
-			.props
-			.navigation
-			.navigate('LoginScreen');
+            .props
+            .navigation
+            .navigate('LoginScreen');
     }
     callAlert(title, message, func) {
-        Alert.alert(title, message, [
+        this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
+        /* Alert.alert(title, message, [
             {
                 text: 'OK',
                 onPress: () => func
             }
-        ], {cancelable: false})
+        ], {cancelable: false})*/
     }
     register() {
-        if (this.state.email === '' || this.state.name === '' || this.state.password === '' || this.state.phone === '') {
-            this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
+        if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
+
+            this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
+
+            // this.callAlert("Error", "All fields are mandatory !", console.log("All fields
+            // are mandatory !"));
         } else {
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    username: this.state.name,
-                    password: this.state.password,
-                    email: this.state.email,
-                    phone: this.state.phone
+                    body: JSON.stringify({username: this.state.name, password: this.state.password, email: this.state.email, phone: this.state.phone})
                 })
-            })
                 .then(res => res.json())
                 .then((responseJson) => {
                     if (responseJson.response === 'Verify with OTP sent to phone') {
-                        Alert.alert("Verify with OTP sent to phone")
+                        this.setState({toastermessage: "Verify with OTP sent to phone !", toasterVisible: true, verifyVisible: true});
                         //this.navigateToLogin()
                     } else {
-                        this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+                        this.setState({toastermessage: "Error verifying otp !", toasterVisible: true});
+                        console.log(responseJson.response);
                     }
                 })
                 .then((data) => {
-                    this.setState({ contacts: data })
+                    this.setState({contacts: data})
                 })
                 .catch(console.log)
         }
@@ -105,23 +122,23 @@ export default class RegisterPage extends Component {
         if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
             this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
         } else {
-            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserOTP', {
+            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserO' +
+                    'TP', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email: this.state.email,
-                    otp: this.state.otp
+                    body: JSON.stringify({email: this.state.email, otp: this.state.otp})
                 })
-            })
                 .then(res => res.json())
                 .then((responseJson) => {
                     if (responseJson.response === 'Account verified successfully!') {
+                        this.setState({toastermessage: "Verifying Successful !", toasterVisible: true});
                         this.navigateToLogin()
                     } else {
-                        this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+                        this.setState({toastermessage: "Error verifying account !", toasterVisible: true});
+                        console.log(responseJson.response);
                     }
                 })
                 .then((data) => {
@@ -132,16 +149,23 @@ export default class RegisterPage extends Component {
     }
 
     toggleSwitch(value) {
-        this.setState({ showPassword: !this.state.showPassword });
-        this.setState({status: value === 'checked' ? 'unchecked' : 'checked'});
+        this.setState({
+            showPassword: !this.state.showPassword
+        });
+        this.setState({
+            status: value === 'checked'
+                ? 'unchecked'
+                : 'checked'
+        });
     }
+
     render() {
-        const personIcon = <Icon name="person" size={20} color="white" />;
-        const passwordIcon = <Icon name="lock-open" size={20} color="white" />
-        const emailIcon = <Icon name="email" size={20} color="white" />
-		const showPasswordIcon = <Icon name="showPassword" size={20} color="white" />;
-        const hidePasswordIcon = <Icon name="hidePassword" size={20} color="white" />;
-        const phoneIcon = <Icon name="phone" size={20} color="white" />
+        const personIcon = <Icon name="person" size={20} color="white"/>;
+        const passwordIcon = <Icon name="lock-open" size={20} color="white"/>
+        const emailIcon = <Icon name="email" size={20} color="white"/>
+        const showPasswordIcon = <Icon name="showPassword" size={20} color="white"/>;
+        const hidePasswordIcon = <Icon name="hidePassword" size={20} color="white"/>;
+        const phoneIcon = <Icon name="phone" size={20} color="white"/>
         return (
             <View
                 style={{
@@ -188,266 +212,297 @@ export default class RegisterPage extends Component {
                         }}>
                             <Image source={require('../assets/icon.png')} style={styles.image}/>
                         </View>
+                        
 
-                        <View
-                            style={{
-                            backgroundColor: 'transparent',
-                            margin: 20,
-                            padding: 10,
-                            paddingTop: 0,
-                            overflow: 'hidden',
-                            borderRadius: 10
-                        }}>
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
+                                  {!this.state.verifyVisible
+                            ? (
                                 <View
                                     style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
-                                }}>
-                                    {personIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0
-                                }}>
-                                    <TextField
-                                        baseColor='white'
-                                        label="Name"
-                                        textColor='white'
-                                        onChangeText={(text) => this.setName(text)}/>
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
-                                }}>
-                                    {emailIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0
-                                }}>
-                                    <TextField
-                                        baseColor='white'
-                                        label="Email"
-                                        textColor='white'
-                                        keyboardType='phone-pad'
-                                        error='Incorrect Email Id'
-                                        errorColor='white'
-                                        onChangeText={(text) => this.setEmail(text)}/>
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
-                                }}>
-                                    {phoneIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0
-                                }}>
-                                    <TextField
-                                        baseColor='white'
-                                        label="Phone"
-                                        textColor='white'
-                                        keyboardType='phone-pad'
-                                        error='Incorrect Phone'
-                                        errorColor='white'
-                                        onChangeText={(text) => this.setPhone(text)}/>
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
-                                }}>
-                                    {passwordIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0,
-                                    flexDirection: 'row'
+                                    backgroundColor: 'transparent',
+                                    margin: 20,
+                                    padding: 10,
+                                    paddingTop: 0,
+                                    overflow: 'hidden',
+                                    borderRadius: 10
                                 }}>
                                     <View
                                         style={{
-                                        flex: 7
+                                        flex: 1,
+                                        flexDirection: 'row'
                                     }}>
-                                        <TextField
-                                            baseColor='white'
-                                            label="Password"
-                                            textColor='white'
-                                            onChangeText={(text) => this.setPassword(text)}
-                                            underlineColor='white'
-                                            secureTextEntry={this.state.showPassword}/>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {personIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0
+                                        }}>
+                                            <TextField
+                                                baseColor='white'
+                                                label="Name"
+                                                textColor='white'
+                                                onChangeText={(text) => this.setName(text)}/>
+                                        </View>
                                     </View>
                                     <View
                                         style={{
                                         flex: 1,
-                                        marginTop: 15
+                                        flexDirection: 'row'
                                     }}>
-                                        <ToggleButton
-                                            icon={this.state.showPassword? "eye-off" : "eye"}
-                                            color="white"
-                                            status={this.state.status}
-                                            size={20}
-                                            style={{ backgroundColor: 'transparent', marginTop: 15}}
-                                            onPress={this.toggleSwitch}/>
-                                    </View>
-                                </View>
-                            </View>
-                            
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View
-                                    style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
-                                }}>
-                                    {passwordIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0,
-                                    flexDirection: 'row'
-                                }}>
-                                    <View
-                                        style={{
-                                        flex: 7
-                                    }}>
-                                        <TextField
-                                            baseColor='white'
-                                            label="Confirm Password"
-                                            textColor='white'
-                                            onChangeText={(text) => this.setPassword(text)}
-                                            underlineColor='white'
-                                            secureTextEntry={this.state.showPassword}/>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {emailIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0
+                                        }}>
+                                            <TextField
+                                                baseColor='white'
+                                                label="Email"
+                                                textColor='white'
+                                                keyboardType='phone-pad'
+                                                error={!this.state.isValidEmail ? 'Incorrect Email Id' : ''}
+                                                errorColor={!this.state.isValidEmail ? 'red' : 'white'}
+                                                onChangeText={(text) => this.setEmail(text)}/>
+                                        </View>
                                     </View>
                                     <View
                                         style={{
                                         flex: 1,
-                                        marginTop: 15  
+                                        flexDirection: 'row'
                                     }}>
-                                        <ToggleButton
-                                            icon={this.state.showPassword? "eye-off" : "eye"}
-                                            color="white"
-                                            status={this.state.status}
-                                            size={20}
-                                            style={{ backgroundColor: 'transparent', marginTop: 15}}
-                                            onPress={this.toggleSwitch}/>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {phoneIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0
+                                        }}>
+                                            <TextField
+                                                baseColor='white'
+                                                label="Phone"
+                                                textColor='white'
+                                                keyboardType='phone-pad'
+                                                error='Incorrect Phone'
+                                                errorColor='white'
+                                                onChangeText={(text) => this.setPhone(text)}/>
+                                        </View>
+                                    </View>
+                                    <View
+                                        style={{
+                                        flex: 1,
+                                        flexDirection: 'row'
+                                    }}>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {passwordIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0,
+                                            flexDirection: 'row'
+                                        }}>
+                                            <View
+                                                style={{
+                                                flex: 7
+                                            }}>
+                                                <TextField
+                                                    baseColor='white'
+                                                    label="Password"
+                                                    textColor='white'
+                                                    onChangeText={(text) => this.setPassword(text)}
+                                                    underlineColor='white'
+                                                    secureTextEntry={this.state.showPassword}/>
+                                            </View>
+                                            <View
+                                                style={{
+                                                flex: 1,
+                                                marginTop: 15
+                                            }}>
+                                                <ToggleButton
+                                                    icon={this.state.showPassword
+                                                    ? "eye-off"
+                                                    : "eye"}
+                                                    color="white"
+                                                    status={this.state.status}
+                                                    size={20}
+                                                    style={{
+                                                    backgroundColor: 'transparent',
+                                                    marginTop: 15
+                                                }}
+                                                    onPress={this.toggleSwitch}/>
+                                            </View>
+                                        </View>
+                                    </View>
+
+                                    <View
+                                        style={{
+                                        flex: 1,
+                                        flexDirection: 'row'
+                                    }}>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {passwordIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0,
+                                            flexDirection: 'row'
+                                        }}>
+                                            <View
+                                                style={{
+                                                flex: 7
+                                            }}>
+                                                <TextField
+                                                    baseColor='white'
+                                                    label="Confirm Password"
+                                                    textColor='white'
+                                                    onChangeText={(text) => this.setPassword(text)}
+                                                    underlineColor='white'
+                                                    secureTextEntry={this.state.showPassword}/>
+                                            </View>
+                                            <View
+                                                style={{
+                                                flex: 1,
+                                                marginTop: 15
+                                            }}>
+                                                <ToggleButton
+                                                    icon={this.state.showPassword
+                                                    ? "eye-off"
+                                                    : "eye"}
+                                                    color="white"
+                                                    status={this.state.status}
+                                                    size={20}
+                                                    style={{
+                                                    backgroundColor: 'transparent',
+                                                    marginTop: 15
+                                                }}
+                                                    onPress={this.toggleSwitch}/>
+                                            </View>
+                                        </View>
+                                    </View>
+
+                                    <View
+                                        style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'flex-start'
+                                    }}>
+
+                                        <Switch
+                                            onValueChange={this.toggleSwitch1}
+                                            trackColor="#fcc358"
+                                            value={this.state.switch1Value}/>
+                                        <Text
+                                            style={{
+                                            color: 'white',
+                                            alignSelf: 'center',
+                                            textAlign: 'left'
+                                        }}>I agree to the terms and conditions</Text>
+
+                                    </View>
+
+                                    <View style={styles.buttonStyle}>
+                                        <Button
+                                            style={{
+                                            container: {
+                                                height: 45
+                                            }
+                                        }}
+                                            raised
+                                            primary
+                                            text="Register"
+                                            disabled={!this.state.switch1Value}
+                                            onPress={() => this.register()}/>
                                     </View>
                                 </View>
-                            </View>
-
-                            <View
-                                style={{
-                                flexDirection: 'row',
-                                alignItems: 'flex-start'
-                            }}>
-
-                                <Switch
-                                    onValueChange={this.toggleSwitch1}
-                                    trackColor="#fcc358"
-                                    value={this.state.switch1Value}/>
-                                <Text
-                                    style={{
-                                    color: 'white',
-                                    alignSelf: 'center',
-                                    textAlign: 'left'
-                                }}>I agree to the terms and conditions</Text>
-
-                            </View>
-                            
-                            <View style={styles.buttonStyle}>
-                                <Button
-                                    style={{
-                                    container: {
-                                        height: 45
-                                    }
-                                }}
-                                    raised
-                                    primary
-                                    text="Register"
-                                    disabled={!this.state.switch1Value}
-                                    onPress={() => this.register()}/>
-                            </View>
-                            <View
-                                style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
+                            )
+                            : null}
+                        {this.state.verifyVisible
+                            ? (
                                 <View
                                     style={{
-                                    flex: 1,
-                                    marginTop: 35,
-                                    marginRight: -10
+                                    backgroundColor: 'transparent',
+                                    margin: 20,
+                                    padding: 10,
+                                    paddingTop: 0,
+                                    overflow: 'hidden',
+                                    borderRadius: 10
                                 }}>
-                                    {passwordIcon}
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 8,
-                                    marginTop: 0
-                                }}>
-                                    <TextField
-                                        baseColor='white'
-                                        label="OTP"
-                                        textColor='white'
-                                        keyboardType='phone-pad'
-                                        error='Incorrect OTP'
-                                        errorColor='white'
-                                        onChangeText={(text) => this.setOtp(text)}/>
-                                </View>
-                            </View>
-                            <View style={styles.buttonStyle}>
-                                <Button
-                                    style={{
-                                    container: {
-                                        height: 45
-                                    }
-                                }}
-                                    raised
-                                    primary
-                                    text="Verify"
-                                    disabled={!this.state.switch1Value}
-                                    onPress={() => this.otpVerify()}/>
-                            </View>
+
+                                    <View
+                                        style={{
+                                        flex: 1,
+                                        flexDirection: 'row'
+                                    }}>
+                                        <View
+                                            style={{
+                                            flex: 1,
+                                            marginTop: 35,
+                                            marginRight: -10
+                                        }}>
+                                            {passwordIcon}
+                                        </View>
+                                        <View
+                                            style={{
+                                            flex: 8,
+                                            marginTop: 0
+                                        }}>
+                                            <TextField
+                                                baseColor='white'
+                                                label="OTP"
+                                                textColor='white'
+                                                keyboardType='phone-pad'
+                                                error='Incorrect OTP'
+                                                errorColor='white'
+                                                onChangeText={(text) => this.setOtp(text)}/>
+                                        </View>
+                                    </View>}
+
+                        <View style={styles.buttonStyle}>
+                            <Button
+                                style={{
+                                container: {
+                                    height: 45
+                                }
+                            }}
+                                raised
+                                primary
+                                text="Verify"
+                                onPress={() => this.otpVerify()}/>
                         </View>
 
+                    </View>
+                    ) : null}
+
+                        <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>
                     </KeyboardAwareScrollView>
                 </View>
             </View>
@@ -456,6 +511,7 @@ export default class RegisterPage extends Component {
 }
 
 const styles = StyleSheet.create({
+
     buttonStyle: {
         marginTop: 20
     },
@@ -506,4 +562,4 @@ const styles = StyleSheet.create({
         margin: 20,
         fontSize: 14
     }
-});
+})
