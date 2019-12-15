@@ -93,7 +93,7 @@ export default class RegisterPage extends Component {
             // this.callAlert("Error", "All fields are mandatory !", console.log("All fields
             // are mandatory !"));
         } else {
-            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
+            fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/signUpUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -272,7 +272,6 @@ export default class RegisterPage extends Component {
                                                 baseColor='white'
                                                 label="Email"
                                                 textColor='white'
-                                                keyboardType='phone-pad'
                                                 error={!this.state.isValidEmail ? 'Incorrect Email Id' : ''}
                                                 errorColor={!this.state.isValidEmail ? 'red' : 'white'}
                                                 onChangeText={(text) => this.setEmail(text)}/>

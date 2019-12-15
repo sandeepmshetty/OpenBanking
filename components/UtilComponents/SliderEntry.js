@@ -113,6 +113,9 @@ export default class SliderEntry extends Component {
                                         style={{
                                         fontSize: 17
                                     }}>&bull; &bull; &bull; &bull; {cardNumber}</Text>
+                                    <Text style={{
+                                        fontSize: 17
+                                    }}>{cardHolderName}</Text>
                                 </View>
                                 <View
                                     style={{
