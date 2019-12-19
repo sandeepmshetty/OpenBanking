@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    Alert,
     Switch,
     ToastAndroid,
     ImageBackground
@@ -89,21 +88,23 @@ export default class RegisterPage extends Component {
             email: '',
             phone: '',
             password: '',
+            confirmPassword:'',
             name: '',
             otp: '',
             showPasswordStatus: 'unchecked',
             showConfirmPasswordStatus : 'unchecked',
             showPassword: true,
+            showConfirmPassword: true,
             visible: false,
             toastermessage: "",
             toasterVisible: false,
             verifyVisible: false,
-            isValidEmail: true,
-            isValidName: true,
-            isValidPhone: true,
-            isValidPassword : true,
-            isPasswordConfirmed : true,
-            isValidConfirmPassword: true
+            isValidEmail: false,
+            isValidName: false,
+            isValidPhone: false,
+            isValidPassword : false,
+            isPasswordConfirmed : false,
+            isValidConfirmPassword: false
         }
         this.toggleShowPassword = this
             .toggleShowPassword
@@ -115,6 +116,7 @@ export default class RegisterPage extends Component {
     }
 
     setName(name) {
+        this.setState({toasterVisible : false, toastermessage: ""});
         if (name.trim() && validation.allLetterWithSpace(name.trim())) {
             this.setState({isValidName: true});
         } else {
@@ -122,10 +124,10 @@ export default class RegisterPage extends Component {
         }
 
         this.setState({name});
-        this.validateForm();
     }
 
     setEmail(email) {
+        this.setState({toasterVisible : false, toastermessage: ""});
         if (email.trim() && validation.emailAddress(email.trim())) {
             this.setState({isValidEmail: true});
         } else {
@@ -133,10 +135,10 @@ export default class RegisterPage extends Component {
         }
 
         this.setState({email});
-        this.validateForm();
     }
 
     setPhone(phone) {
+        this.setState({toasterVisible : false, toastermessage: ""});
         if(phone.trim() && validation.phonenumber(phone.trim()))
         {
             this.setState({isValidPhone: true});
@@ -144,7 +146,6 @@ export default class RegisterPage extends Component {
             this.setState({isValidPhone: false});
         } 
         this.setState({phone});
-        this.validateForm();
     }
 
     setOtp(otp) {
@@ -152,40 +153,47 @@ export default class RegisterPage extends Component {
     }
 
     setPassword(password) {
+        this.setState({toasterVisible : false, toastermessage: ""});
         if(password.trim() && validation.password(password.trim()))
         {
-            this.setState({isValidPassword: true});
+            if(this.state.confirmPassword.trim() && password.trim() == this.state.confirmPassword.trim())
+            {
+                this.setState({isValidConfirmPassword : true});
+            }else{
+                this.setState({isValidConfirmPassword : false});
+            } 
+
+            this.setState({isValidPassword: true}); 
         }else{
             this.setState({isValidPassword: false});
         } 
 
         this.setState({password});
-        this.validateForm();
+
     }
 
-    setConfirmPassword(password) {
-        if(password.trim() && this.state.password.trim() == password.trim())
+    setConfirmPassword(confirmPassword) {
+        this.setState({toasterVisible : false, toastermessage: ""});
+        if(confirmPassword.trim() && this.state.password.trim() == confirmPassword.trim())
         {
             this.setState({isValidConfirmPassword : true});
         }else{
             this.setState({isValidConfirmPassword : false});
         } 
 
-        this.validateForm();
+        this.setState({confirmPassword});
     }
 
     validateForm()
-    {
-        if(this.state.isNameValid && this.state.isValidEmail && this.state.isValidPhone && this.state.isValidPassword && this.state.isValidConfirmPassword)
+    {        
+        if(this.state.isValidName && this.state.isValidEmail && this.state.isValidPhone && this.state.isValidPassword && this.state.isValidConfirmPassword)
         {
-            this.isFormValid = true;
+            return true;
         }else
         {
-            this.isFormValid = false;
+            return false;
         }
-        this.setState({toasterVisible : false, toastermessage: ""});
     }
-
 
     agreeToRegister = (value) => {
         this.setState({agreed: value});
@@ -200,11 +208,20 @@ export default class RegisterPage extends Component {
         this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
     }
     register() {
-        console.log(this.isFormValid);
+        console.log("\n isFormValid " + this.validateForm());
+
+        console.log("\n isValidName " + this.state.isValidName);
+        console.log("\n isValidEmail " + this.state.isValidEmail);
+        console.log("\n isValidPhone " + this.state.isValidPhone);
+        console.log("\n isValidPassword " + this.state.isValidPassword);
+        console.log("\n isValidConfirmPassword " + this.state.isValidConfirmPassword);
+
+
         
-        if (!this.isFormValid) {
+        if (!this.validateForm()) {
             this.setState({toastermessage: "Error: Invalid field entry !", toasterVisible: true});
         } else {
+            console.log("\n Passed ");
             this.setState({toasterVisible : false, toastermessage: ""});
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
 			method: 'POST',
@@ -264,7 +281,7 @@ export default class RegisterPage extends Component {
 
     toggleShowPassword(value) {
         this.setState({
-            showPassword: !this.state.showPassword
+            showPassword: !this.state.showPassword, toasterVisible :false
         });
         this.setState({
             showPasswordStatus: value === 'checked'
@@ -276,7 +293,7 @@ export default class RegisterPage extends Component {
     toggleShowConfirmPassword(value)
     {
         this.setState({
-            showConfirmPassword: !this.state.showConfirmPassword
+            showConfirmPassword: !this.state.showConfirmPassword, toasterVisible :false
         });
         this.setState({
             showConfirmPasswordStatus: value === 'checked'
@@ -374,7 +391,7 @@ export default class RegisterPage extends Component {
                                                 label="Name"
                                                 textColor='white'
                                                 error={!this.state.isValidName
-                                                    ? 'Incorrect email id'
+                                                    ? 'Name should be in all letters'
                                                     : ''}
                                                     errorColor={!this.state.isValidName
                                                     ? 'red'
@@ -492,7 +509,7 @@ export default class RegisterPage extends Component {
                                                     ? "eye-off"
                                                     : "eye"}
                                                     color="white"
-                                                    showPasswordStatus={this.state.showPasswordStatus}
+                                                    status={this.state.showPasswordStatus}
                                                     size={20}
                                                     style={{
                                                     backgroundColor: 'transparent',
