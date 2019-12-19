@@ -17,7 +17,7 @@ import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
 import { Button } from 'react-native-material-ui';
-import awsurl from '../constants/AWSUrl';
+import awsurl from './constants/AWSUrl';
 
 class LoginScreen extends Component {
 

@@ -17,7 +17,7 @@ import {TextInput, ToggleButton} from 'react-native-paper';
 import {Button} from 'react-native-material-ui';
 import {NavigationActions} from 'react-navigation';
 import * as validation from '../utility/validation';
-import awsurl from '../constants/AWSUrl';
+import awsurl from './constants/AWSUrl';
 
 const Toast = (props) => {
     if (props.visible) {
