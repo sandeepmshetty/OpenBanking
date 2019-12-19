@@ -17,8 +17,7 @@ import {TextField, FilledTextField, OutlinedTextField} from 'react-native-materi
 import {TextInput, ToggleButton} from 'react-native-paper';
 import {Button} from 'react-native-material-ui';
 import {NavigationActions} from 'react-navigation';
-
-import Dashboard from './Dashboard';
+import * as validation from '../utility/validation';
 
 const Toast = (props) => {
     if (props.visible) {
@@ -28,47 +27,168 @@ const Toast = (props) => {
     return null;
 };
 
+const styles = StyleSheet.create({
+    buttonStyle: {
+        marginTop: 20
+    },
+    input: {
+        height: 45,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 20,
+        fontSize: 20,
+        paddingLeft: 5,
+        paddingRight: 5,
+        backgroundColor: '#FFFFFF'
+    },
+    main: {
+        margin: 20
+    },
+    image: {
+        marginBottom: 0,
+        marginTop: 20,
+        height: 100,
+        width: 100
+    },
+
+    buttonContainer: {
+        backgroundColor: '#fcc358',
+        paddingVertical: 10,
+        marginTop: 20,
+        height: 50,
+        borderRadius: 5
+    },
+
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#FFFFFF'
+    },
+    footer: {
+        height: 30,
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 18,
+        backgroundColor: 'gray'
+    },
+    copyright: {
+        textAlign: 'center',
+        margin: 20,
+        fontSize: 14
+    }
+});
+
 export default class RegisterPage extends Component {
 
     constructor() {
         super();
         this.state = {
-            switch1Value: false,
+            agreed: false,
             email: '',
             phone: '',
             password: '',
             name: '',
             otp: '',
-            status: 'unchecked',
+            showPasswordStatus: 'unchecked',
+            showConfirmPasswordStatus : 'unchecked',
             showPassword: true,
             visible: false,
             toastermessage: "",
             toasterVisible: false,
             verifyVisible: false,
-            isValidEmail:false
+            isValidEmail: true,
+            isValidName: true,
+            isValidPhone: true,
+            isValidPassword : true,
+            isPasswordConfirmed : true,
+            isValidConfirmPassword: true
         }
-        this.toggleSwitch = this
-            .toggleSwitch
+        this.toggleShowPassword = this
+            .toggleShowPassword
             .bind(this);
+        this.toggleShowConfirmPassword = this
+        .toggleShowConfirmPassword
+        .bind(this);
+        this.isFormValid = false;
     }
+
     setName(name) {
-        this.setState({name})
+        if (name.trim() && validation.allLetterWithSpace(name.trim())) {
+            this.setState({isValidName: true});
+        } else {
+            this.setState({isValidName: false});
+        }
+
+        this.setState({name});
+        this.validateForm();
     }
+
     setEmail(email) {
-        this.setState({email})
+        if (email.trim() && validation.emailAddress(email.trim())) {
+            this.setState({isValidEmail: true});
+        } else {
+            this.setState({isValidEmail: false});
+        }
+
+        this.setState({email});
+        this.validateForm();
     }
+
     setPhone(phone) {
-        this.setState({phone})
+        if(phone.trim() && validation.phonenumber(phone.trim()))
+        {
+            this.setState({isValidPhone: true});
+        }else{
+            this.setState({isValidPhone: false});
+        } 
+        this.setState({phone});
+        this.validateForm();
     }
+
     setOtp(otp) {
-        this.setState({otp})
+        this.setState({otp});
     }
+
     setPassword(password) {
-        this.setState({password})
+        if(password.trim() && validation.password(password.trim()))
+        {
+            this.setState({isValidPassword: true});
+        }else{
+            this.setState({isValidPassword: false});
+        } 
+
+        this.setState({password});
+        this.validateForm();
     }
-    toggleSwitch1 = (value) => {
-        this.setState({switch1Value: value});
-        console.log('Switch 1 is: ' + value)
+
+    setConfirmPassword(password) {
+        if(password.trim() && this.state.password.trim() == password.trim())
+        {
+            this.setState({isValidConfirmPassword : true});
+        }else{
+            this.setState({isValidConfirmPassword : false});
+        } 
+
+        this.validateForm();
+    }
+
+    validateForm()
+    {
+        if(this.state.isNameValid && this.state.isValidEmail && this.state.isValidPhone && this.state.isValidPassword && this.state.isValidConfirmPassword)
+        {
+            this.isFormValid = true;
+        }else
+        {
+            this.isFormValid = false;
+        }
+        this.setState({toasterVisible : false, toastermessage: ""});
+    }
+
+
+    agreeToRegister = (value) => {
+        this.setState({agreed: value});
     }
     navigateToLogin = () => {
         this
@@ -78,21 +198,14 @@ export default class RegisterPage extends Component {
     }
     callAlert(title, message, func) {
         this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
-        /* Alert.alert(title, message, [
-            {
-                text: 'OK',
-                onPress: () => func
-            }
-        ], {cancelable: false})*/
     }
     register() {
-        if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
-
-            this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
-
-            // this.callAlert("Error", "All fields are mandatory !", console.log("All fields
-            // are mandatory !"));
+        console.log(this.isFormValid);
+        
+        if (!this.isFormValid) {
+            this.setState({toastermessage: "Error: Invalid field entry !", toasterVisible: true});
         } else {
+            this.setState({toasterVisible : false, toastermessage: ""});
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
                 method: 'POST',
                 headers: {
@@ -122,6 +235,7 @@ export default class RegisterPage extends Component {
         if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
             this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
         } else {
+            this.setState({toasterVisible : false});
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserO' +
                     'TP', {
                 method: 'POST',
@@ -148,12 +262,24 @@ export default class RegisterPage extends Component {
         }
     }
 
-    toggleSwitch(value) {
+    toggleShowPassword(value) {
         this.setState({
             showPassword: !this.state.showPassword
         });
         this.setState({
-            status: value === 'checked'
+            showPasswordStatus: value === 'checked'
+                ? 'unchecked'
+                : 'checked'
+        });
+    }
+
+    toggleShowConfirmPassword(value)
+    {
+        this.setState({
+            showConfirmPassword: !this.state.showConfirmPassword
+        });
+        this.setState({
+            showConfirmPasswordStatus: value === 'checked'
                 ? 'unchecked'
                 : 'checked'
         });
@@ -165,7 +291,8 @@ export default class RegisterPage extends Component {
         const emailIcon = <Icon name="email" size={20} color="white"/>
         const showPasswordIcon = <Icon name="showPassword" size={20} color="white"/>;
         const hidePasswordIcon = <Icon name="hidePassword" size={20} color="white"/>;
-        const phoneIcon = <Icon name="phone" size={20} color="white"/>
+        const phoneIcon = <Icon name="phone" size={20} color="white"/>;
+
         return (
             <View
                 style={{
@@ -205,16 +332,15 @@ export default class RegisterPage extends Component {
 
                     <KeyboardAwareScrollView>
 
-                        <View
+                        {/*<View
                             style={{
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
                             <Image source={require('../assets/icon.png')} style={styles.image}/>
-                        </View>
-                        
+                        </View>*/}
 
-                                  {!this.state.verifyVisible
+                        {!this.state.verifyVisible
                             ? (
                                 <View
                                     style={{
@@ -247,6 +373,12 @@ export default class RegisterPage extends Component {
                                                 baseColor='white'
                                                 label="Name"
                                                 textColor='white'
+                                                error={!this.state.isValidName
+                                                    ? 'Incorrect email id'
+                                                    : ''}
+                                                    errorColor={!this.state.isValidName
+                                                    ? 'red'
+                                                    : 'white'}
                                                 onChangeText={(text) => this.setName(text)}/>
                                         </View>
                                     </View>
@@ -272,9 +404,12 @@ export default class RegisterPage extends Component {
                                                 baseColor='white'
                                                 label="Email"
                                                 textColor='white'
-                                                keyboardType='phone-pad'
-                                                error={!this.state.isValidEmail ? 'Incorrect Email Id' : ''}
-                                                errorColor={!this.state.isValidEmail ? 'red' : 'white'}
+                                                error={!this.state.isValidEmail
+                                                ? 'Incorrect email id'
+                                                : ''}
+                                                errorColor={!this.state.isValidEmail
+                                                ? 'red'
+                                                : 'white'}
                                                 onChangeText={(text) => this.setEmail(text)}/>
                                         </View>
                                     </View>
@@ -301,8 +436,12 @@ export default class RegisterPage extends Component {
                                                 label="Phone"
                                                 textColor='white'
                                                 keyboardType='phone-pad'
-                                                error='Incorrect Phone'
-                                                errorColor='white'
+                                                error={!this.state.isValidPhone
+                                                    ? 'Invalid phone number'
+                                                    : ''}
+                                                    errorColor={!this.state.isValidPhone
+                                                    ? 'red'
+                                                    : 'white'}
                                                 onChangeText={(text) => this.setPhone(text)}/>
                                         </View>
                                     </View>
@@ -333,6 +472,12 @@ export default class RegisterPage extends Component {
                                                     baseColor='white'
                                                     label="Password"
                                                     textColor='white'
+                                                    error={!this.state.isValidPassword
+                                                        ? 'Incorrect email id'
+                                                        : ''}
+                                                        errorColor={!this.state.isValidPassword
+                                                        ? 'red'
+                                                        : 'white'}
                                                     onChangeText={(text) => this.setPassword(text)}
                                                     underlineColor='white'
                                                     secureTextEntry={this.state.showPassword}/>
@@ -347,13 +492,13 @@ export default class RegisterPage extends Component {
                                                     ? "eye-off"
                                                     : "eye"}
                                                     color="white"
-                                                    status={this.state.status}
+                                                    showPasswordStatus={this.state.showPasswordStatus}
                                                     size={20}
                                                     style={{
                                                     backgroundColor: 'transparent',
                                                     marginTop: 15
                                                 }}
-                                                    onPress={this.toggleSwitch}/>
+                                                    onPress={this.toggleShowPassword}/>
                                             </View>
                                         </View>
                                     </View>
@@ -385,9 +530,15 @@ export default class RegisterPage extends Component {
                                                     baseColor='white'
                                                     label="Confirm Password"
                                                     textColor='white'
-                                                    onChangeText={(text) => this.setPassword(text)}
+                                                    error={!this.state.isValidConfirmPassword
+                                                        ? 'Password does not match'
+                                                        : ''}
+                                                    errorColor={!this.state.isValidConfirmPassword
+                                                        ? 'red'
+                                                        : 'white'}                                                    
+                                                    onChangeText={(text) => this.setConfirmPassword(text)}
                                                     underlineColor='white'
-                                                    secureTextEntry={this.state.showPassword}/>
+                                                    secureTextEntry={this.state.showConfirmPassword}/>
                                             </View>
                                             <View
                                                 style={{
@@ -395,17 +546,17 @@ export default class RegisterPage extends Component {
                                                 marginTop: 15
                                             }}>
                                                 <ToggleButton
-                                                    icon={this.state.showPassword
+                                                    icon={this.state.showConfirmPassword
                                                     ? "eye-off"
                                                     : "eye"}
                                                     color="white"
-                                                    status={this.state.status}
+                                                    status={this.state.showConfirmPasswordStatus}
                                                     size={20}
                                                     style={{
                                                     backgroundColor: 'transparent',
                                                     marginTop: 15
                                                 }}
-                                                    onPress={this.toggleSwitch}/>
+                                                    onPress={this.toggleShowConfirmPassword}/>
                                             </View>
                                         </View>
                                     </View>
@@ -417,9 +568,9 @@ export default class RegisterPage extends Component {
                                     }}>
 
                                         <Switch
-                                            onValueChange={this.toggleSwitch1}
+                                            onValueChange={this.agreeToRegister}
                                             trackColor="#fcc358"
-                                            value={this.state.switch1Value}/>
+                                            value={this.state.agreed}/>
                                         <Text
                                             style={{
                                             color: 'white',
@@ -439,7 +590,7 @@ export default class RegisterPage extends Component {
                                             raised
                                             primary
                                             text="Register"
-                                            disabled={!this.state.switch1Value}
+                                            disabled={!this.state.agreed}
                                             onPress={() => this.register()}/>
                                     </View>
                                 </View>
@@ -501,65 +652,11 @@ export default class RegisterPage extends Component {
 
                     </View>
                     ) : null}
-
-                        <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>
-                    </KeyboardAwareScrollView>
-                </View>
+                    {this.state.toasterVisible ?
+                    <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>: null 
+    }
+                </KeyboardAwareScrollView>
             </View>
-        );
+        </View>)
     }
 }
-
-const styles = StyleSheet.create({
-
-    buttonStyle: {
-        marginTop: 20
-    },
-    input: {
-        height: 45,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 20,
-        fontSize: 20,
-        paddingLeft: 5,
-        paddingRight: 5,
-        backgroundColor: '#FFFFFF'
-    },
-    main: {
-        margin: 20
-    },
-    image: {
-        marginBottom: 0,
-        marginTop: 20,
-        height: 100,
-        width: 100
-    },
-
-    buttonContainer: {
-        backgroundColor: '#fcc358',
-        paddingVertical: 10,
-        marginTop: 20,
-        height: 50,
-        borderRadius: 5
-    },
-
-    buttonText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#FFFFFF'
-    },
-    footer: {
-        height: 30,
-        color: '#FFFFFF',
-        textAlign: 'center',
-        fontSize: 18,
-        backgroundColor: 'gray'
-    },
-    copyright: {
-        textAlign: 'center',
-        margin: 20,
-        fontSize: 14
-    }
-})

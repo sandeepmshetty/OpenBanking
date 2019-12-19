@@ -317,7 +317,7 @@ export default LoginStack = createStackNavigator({
   RegisterPage: {
     screen: RegisterPage,
     navigationOptions: {
-      headerTitle: "Registration Form",
+      headerTitle: "Registration",
       headerStyle: {
         backgroundColor: '#131642',
         color: 'white'
