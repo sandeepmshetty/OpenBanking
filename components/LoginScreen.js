@@ -65,7 +65,7 @@ class LoginScreen extends Component {
     if (this.state.email === '' || this.state.password === '') {
       this.callAlert("Login Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
     } else {
-      fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/loginUser', {  
+      fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/loginUser', {  
         method: 'POST',
         headers: {
           'Accept': 'application/json',

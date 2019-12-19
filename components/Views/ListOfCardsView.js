@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    Alert,
     StyleSheet,
     Text,
     View,
@@ -18,13 +19,57 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
 import CardDetailsView from './CardDetailsView';
-
 class ListOfCardsView extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            //Lets initialize results with the same struct we expect to receive from the api
+            results: {
+                bank_id:'',
+                cvv: '',
+                branchId: '',
+                accountId: '',
+                phone: '',
+                lastCode: '',
+                default: '',
+                bank_card_number: '',
+                name_on_card: '',
+                expires_date: '',
+                technology: ''
+            }
+        };
+        this.getData = this.getData.bind(this);
     }
+    componentDidMount(){
+        this.getData();
+    } 
+    
+    getData(){
+    
+        fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/card/cardList', {  
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => res.json())
+      .then((responseJson) => {
+        this.setState({
+            results: responseJson
+          })
+          var count = Object.keys(responseJson).length;
+          for(let i=0; i< responseJson.length; i++){
+              console.log(this.state.results[i].bank_card_number);
+              console.log(this.state.results[i].name_on_card);
+              console.log(this.state.results[i].expires_date);
 
+            }
+        })
+      .catch(console.log)
+
+    }
     navigateToCardDetailsViewPage = () => {
         this
             .props
@@ -40,13 +85,12 @@ class ListOfCardsView extends Component {
     }
 
     render() {
+        var cards = [];
+        for(let i = 0; i < this.state.results.length; i++){
+            
+            cards.push(
 
-        const defaultIcon = <FaIcons name="first-order" size={20} color="white"/>;
-
-        return (
-            <View style={mainstyles.main}>
-                <ScrollView style={styles.card}>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
+                <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
                         <ImageBackground
                             style={styles.cardItem}
                             source={require('../../assets/bg_gradient.png')}>
@@ -64,7 +108,13 @@ class ListOfCardsView extends Component {
                                     flex: 9
                                 }}>
                                     <Text style={styles.cardText}>
-                                        Visa &bull; &bull; &bull; &bull; 6408
+                                        {this.state.results[i].bank_card_number}
+                                    </Text>
+                                    <Text style={styles.cardText}>
+                                        {this.state.results[i].name_on_card}
+                                    </Text>
+                                    <Text style={styles.cardText}>
+                                        {this.state.results[i].expires_date}
                                     </Text>
                                     <View
                                         style={{
@@ -76,7 +126,7 @@ class ListOfCardsView extends Component {
                                             {defaultIcon}
                                         </View>
                                         <Text style={styles.cardDefaultText}>
-                                            Default
+                                            IsDefault:{this.state.results[i].default}
                                         </Text>
                                     </View>
                                 </View>
@@ -84,280 +134,15 @@ class ListOfCardsView extends Component {
                             </Body>
 
                         </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Discover &bull; &bull; &bull; &bull; 7805
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Maestro &bull; &bull; &bull; &bull; 9507
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Master &bull; &bull; &bull; &bull; 5478
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Visa &bull; &bull; &bull; &bull; 6408
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Discover &bull; &bull; &bull; &bull; 7805
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Maestro &bull; &bull; &bull; &bull; 9507
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Master &bull; &bull; &bull; &bull; 5478
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/visa.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Visa &bull; &bull; &bull; &bull; 6408
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/discover.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Discover &bull; &bull; &bull; &bull; 7805
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/maestro.jpg')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Maestro &bull; &bull; &bull; &bull; 9507
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigateToCardDetailsViewPage()}>
-                        <ImageBackground
-                            style={styles.cardItem}
-                            source={require('../../assets/bg_gradient.png')}>
-
-                            <Body style={styles.cardBody}>
-                                <View
-                                    style={{
-                                    flex: 3.5
-                                }}>
-                                    <Image source={require('../../assets/master.png')} style={styles.cardImage}/>
-                                </View>
-                                <View
-                                    style={{
-                                    flex: 9
-                                }}>
-                                    <Text style={styles.cardText}>
-                                        Master &bull; &bull; &bull; &bull; 5478
-                                    </Text>
-                                </View>
-
-                            </Body>
-
-                        </ImageBackground>
-                    </TouchableOpacity>
+                    </TouchableOpacity>                
+            )
+        }
+        const defaultIcon = <FaIcons name="first-order" size={20} color="white"/>;
+        
+        return (
+            <View style={mainstyles.main}>
+                <ScrollView style={styles.card}>
+                {cards}
                 </ScrollView>
 
                 <View
@@ -397,14 +182,14 @@ const styles = StyleSheet.create({
     },
 
     cardText: {
-        fontSize: 18,
+        fontSize: 10,
         color: 'white',
         marginTop: 5,
         marginLeft: 20
     },
 
     cardDefaultText: {
-        fontSize: 16,
+        fontSize: 10,
         color: 'white',
         marginLeft: 20
     },

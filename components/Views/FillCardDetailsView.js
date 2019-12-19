@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
+    Alert,
     Text,
     View,
     Image,
@@ -27,6 +28,12 @@ class FillCardDetailsView extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            cardnumber: '',
+            expirydate: '',
+            cvv: '',
+            nameoncard: ''
+        }
     }
 
     navigateToListOfCardPage = () => {
@@ -35,7 +42,55 @@ class FillCardDetailsView extends Component {
             .navigation
             .navigate('ListOfCardsView');
     }
-
+    setCardNumber(cardnumber) {
+        this.setState({ cardnumber })
+    }
+    setExpiry(expirydate) {
+        this.setState({ expirydate })
+    }
+    setCvv(cvv) {
+        this.setState({ cvv })
+    }
+    setCardHolderName(nameoncard) {
+        this.setState({ nameoncard })
+    }  
+    addCard(){
+        if (this.state.cardnumber === '') {
+            this.navigateToListOfCardPage();
+        } else {
+            fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/card/addCard', {  
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    bank_card_number: this.state.cardnumber,
+                    expires_date: this.state.expirydate,
+                    cvv: this.state.cvv,
+                    name_on_card: this.state.nameoncard,
+                })
+            })
+            .then(res => res.json())
+            .then((responseJson) => {
+                    if(responseJson.response === "Success") {
+                        this.navigateToListOfCardPage();
+                    } 
+                    else {
+                        this.callAlert("Alert", responseJson.response, console.log(responseJson.response));
+                    }
+                })
+            .catch(console.log)
+        }
+    }
+    callAlert(title, message, func) {
+        Alert.alert(title, message, [
+          {
+            text: 'OK',
+            onPress: () => func
+          }
+        ], { cancelable: false })
+    }
     render() {
         const creditCardIcon = <Icon name="credit-card" size={20} color="white"/>;
         const locationIcon = <Icon name="location-on" size={20} color="white"/>;
@@ -94,6 +149,7 @@ class FillCardDetailsView extends Component {
                                 }}>
                                     <TextField
                                         label='Card number'
+                                        onChangeText={(text) => this.setCardNumber(text)}
                                         baseColor='white'
                                         textColor='white'
                                         keyboardType='phone-pad'/>
@@ -123,7 +179,9 @@ class FillCardDetailsView extends Component {
                                 flex: 4,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white' textColor='white' label='MM/YY'/>
+                                <TextField baseColor='white' textColor='white'
+                                onChangeText={(text) => this.setExpiry(text)}
+                                label='MM/YY'/>
                             </View>
                             <View
                                 style={{
@@ -136,7 +194,9 @@ class FillCardDetailsView extends Component {
                                 flex: 4,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white' textColor='white' label='CVC'/>
+                                <TextField baseColor='white' textColor='white'
+                                onChangeText={(text) => this.setCvv(text)}
+                                label='CVC'/>
                             </View>
                         </View>
 
@@ -156,7 +216,9 @@ class FillCardDetailsView extends Component {
                                 flex: 10,
                                 marginTop: 0
                             }}>
-                                <TextField baseColor='white' textColor='white' label='Name'/>
+                                <TextField baseColor='white' textColor='white'
+                                onChangeText={(text) => this.setCardHolderName(text)}
+                                label='Name'/>
                             </View>
                         </View>
                     </ImageBackground>
@@ -172,7 +234,7 @@ class FillCardDetailsView extends Component {
                             height: 45
                         }
                     }}
-                        onPress={() => this.navigateToListOfCardPage()}
+                        onPress={() => this.addCard()}
                         raised
                         primary
                         text="Save"/>

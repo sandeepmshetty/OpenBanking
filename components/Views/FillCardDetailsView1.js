@@ -35,7 +35,7 @@ class FillCardDetailsView1 extends Component {
             .navigation
             .navigate('ListOfCardsView');
     }
-
+    
     render() {
         const creditCardIcon = <Icon name="credit-card" size={20} color="white"/>;
         const locationIcon = <Icon name="location-on" size={20} color="white"/>;

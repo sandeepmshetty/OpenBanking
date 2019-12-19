@@ -207,7 +207,7 @@ export default class RegisterPage extends Component {
         } else {
             this.setState({toasterVisible : false, toastermessage: ""});
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
-                method: 'POST',
+			method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -473,7 +473,7 @@ export default class RegisterPage extends Component {
                                                     label="Password"
                                                     textColor='white'
                                                     error={!this.state.isValidPassword
-                                                        ? 'Incorrect email id'
+                                                        ? 'Password should be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character'
                                                         : ''}
                                                         errorColor={!this.state.isValidPassword
                                                         ? 'red'
