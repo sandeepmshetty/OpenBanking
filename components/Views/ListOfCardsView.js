@@ -19,6 +19,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
 import CardDetailsView from './CardDetailsView';
+import awsurl from '../constants/AWSUrl';
+
 class ListOfCardsView extends Component {
 
     constructor(props) {
@@ -47,7 +49,7 @@ class ListOfCardsView extends Component {
     
     getData(){
     
-        fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/card/cardList', {  
+        fetch(awsurl.aws_url+'api/card/cardList', {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',

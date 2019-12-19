@@ -25,6 +25,7 @@ import styles, {colors} from '../UtilComponents/index.style';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
 import ListOfCardsView from './ListOfCardsView';
+import awsurl from '../constants/AWSUrl';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 0;
@@ -64,7 +65,7 @@ class CardDetailsView extends Component {
     
     getTransactionData(){
     
-        fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/transaction/transactionList', {  
+        fetch(awsurl.aws_url+'api/transaction/transactionList', {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -88,7 +89,7 @@ class CardDetailsView extends Component {
     }
     getCardsData(){
     
-        fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/card/cardList', {  
+        fetch(awsurl.aws_url+'api/card/cardList', {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',
