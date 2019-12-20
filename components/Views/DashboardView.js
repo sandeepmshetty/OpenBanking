@@ -14,6 +14,7 @@ import styles from '../UtilComponents/main.style';
 import FillCardDetailsView from './FillCardDetailsView';
 import ListOfCardsView from './ListOfCardsView';
 import CardDetailsView from './CardDetailsView';
+import TransactionDetailsView from  './TransactionDetailsView';
 
 class DashboardView extends Component {
 
@@ -159,6 +160,9 @@ export default DashboardStack = createStackNavigator({
   },
   ListOfCardsView:{
     screen: ListOfCardsView
+  },
+  TransactionDetailsView:{
+    screen: TransactionDetailsView
   },
   CardDetailsView:{
     screen: CardDetailsView

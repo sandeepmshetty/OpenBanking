@@ -24,7 +24,6 @@ import MyPage4 from '../MyPage4';
 import MyPage5 from '../MyPage5';
 import DrawerContainer from '../DrawerContainer';
 import ListOfCardsView from './ListOfCardsView';
-import CardDetailsView from './CardDetailsView';
 import awsurl from '../constants/AWSUrl';
 
 const Toast = (props) => {
@@ -53,7 +52,7 @@ class FillCardDetailsView extends Component {
         this
             .props
             .navigation
-            .navigate('ListOfCardsView');
+            .navigate('CardDetailsView');
     }
     setCardNumber(cardnumber) {
         this.setState({ cardnumber:cardnumber, toasterVisible:false })

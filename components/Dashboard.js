@@ -20,6 +20,7 @@ import styles from './UtilComponents/main.style';
 import FillCardDetailsView from './Views/FillCardDetailsView';
 import ListOfCardsView from './Views/ListOfCardsView';
 import CardDetailsView from './Views/CardDetailsView';
+import TransactionDetailsView from './Views/TransactionDetailsView';
 
 class Dashboard extends Component {
 
@@ -155,9 +156,9 @@ const DashboardNavigator = createStackNavigator({
 
   Dashboard: {
     screen: Dashboard,
-
     navigationOptions: ({navigation}) => ({
-      headerTitle: "Dashboard", headerLeft: <View>
+      headerTitle: "Dashboard", 
+      headerLeft: <View>
         <TouchableOpacity
           onPress={() => {
           navigation.toggleDrawer()
@@ -191,9 +192,16 @@ const DrawerStack = createDrawerNavigator({
       headerTitle: "Your Cards"
     }
   },
+  TransactionDetailsView:
+  {
+    screen: TransactionDetailsView,
+    navigationOptions:{
+      headerTitle:"Make Transaction"
+    }
+  },
   CardDetailsView: {
     screen: CardDetailsView
-  }
+  },
 }, {
   gesturesEnabled: false,
   contentComponent: DrawerContainer
