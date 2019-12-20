@@ -17,6 +17,7 @@ import {TextInput, ToggleButton} from 'react-native-paper';
 import {Button} from 'react-native-material-ui';
 import {NavigationActions} from 'react-navigation';
 import * as validation from '../utility/validation';
+import awsurl from './constants/AWSUrl';
 
 const Toast = (props) => {
     if (props.visible) {
@@ -223,7 +224,7 @@ export default class RegisterPage extends Component {
         } else {
             console.log("\n Passed ");
             this.setState({toasterVisible : false, toastermessage: ""});
-            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/signUpUser', {
+            fetch(awsurl.aws_url+'api/signUpUser', {
 			method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -253,7 +254,7 @@ export default class RegisterPage extends Component {
             this.setState({toasterVisible : true, toastermessage: 'Error: All fields are mandatory'});
         } else {
             this.setState({toasterVisible : false});
-            fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserO' +
+            fetch(awsurl.aws_url+'api/verifyUserO' +
                     'TP', {
                 method: 'POST',
                 headers: {

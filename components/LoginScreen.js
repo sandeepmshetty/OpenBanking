@@ -18,6 +18,7 @@ import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
 import { Button } from 'react-native-material-ui';
+import awsurl from './constants/AWSUrl';
 
 const Toast = (props) => {
   if (props.visible) {
@@ -76,7 +77,7 @@ class LoginScreen extends Component {
     if (this.state.email === '' || this.state.password === '') {
       this.setState({toasterVisible : true, toastermessage: 'Error: All fields are mandatory'});
     } else {
-      fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/loginUser', {  
+      fetch(awsurl.aws_url+'api/loginUser', {  
         method: 'POST',
         headers: {
           'Accept': 'application/json',

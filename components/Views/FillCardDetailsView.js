@@ -25,6 +25,7 @@ import MyPage5 from '../MyPage5';
 import DrawerContainer from '../DrawerContainer';
 import ListOfCardsView from './ListOfCardsView';
 import CardDetailsView from './CardDetailsView';
+import awsurl from '../constants/AWSUrl';
 
 const Toast = (props) => {
     if (props.visible) {
@@ -70,7 +71,7 @@ class FillCardDetailsView extends Component {
         if (this.state.cardnumber === '') {
             this.navigateToListOfCardPage();
         } else {
-            fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/card/addCard', {  
+            fetch(awsurl.aws_url+'api/card/addCard', {  
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
