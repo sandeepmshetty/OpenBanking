@@ -165,7 +165,7 @@ export default class RegisterPage extends Component {
 
             this.setState({isValidPassword: true}); 
         }else{
-            this.setState({isValidPassword: false});
+            this.setState({isValidPassword: false}); 
         } 
 
         this.setState({password});
@@ -250,7 +250,7 @@ export default class RegisterPage extends Component {
     otpVerify() {
 
         if (this.state.email === '' || this.state.name === '' || this.state.password === '') {
-            this.callAlert("Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
+            this.setState({toasterVisible : true, toastermessage: 'Error: All fields are mandatory'});
         } else {
             this.setState({toasterVisible : false});
             fetch('http://openbanking-env.b8dmm22xtf.us-east-2.elasticbeanstalk.com/api/verifyUserO' +

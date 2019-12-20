@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Alert,
+  Alert,  
+  ToastAndroid,
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
@@ -18,13 +19,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
 import { Button } from 'react-native-material-ui';
 
+const Toast = (props) => {
+  if (props.visible) {
+      ToastAndroid.showWithGravityAndOffset(props.message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 150,);
+      return null;
+  }
+  return null;
+};
+
 class LoginScreen extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      toasterVisible:false,
+      toastermessage:''
     }
   }
 
@@ -33,11 +44,11 @@ class LoginScreen extends Component {
   }
 
   setEmail(email) {
-    this.setState({ email })
+    this.setState({ email :email, toasterVisible : false });
   }
 
   setPassword(password) {
-    this.setState({ password })
+    this.setState({ password, toasterVisible : false })
   }
 
   navigateToHomePage = () => {
@@ -63,7 +74,7 @@ class LoginScreen extends Component {
 
   auth() {
     if (this.state.email === '' || this.state.password === '') {
-      this.callAlert("Login Error", "All fields are mandatory !", console.log("All fields are mandatory !"));
+      this.setState({toasterVisible : true, toastermessage: 'Error: All fields are mandatory'});
     } else {
       fetch('http://openbanking-env.8yuyfmykpp.us-east-1.elasticbeanstalk.com/api/loginUser', {  
         method: 'POST',
@@ -81,13 +92,13 @@ class LoginScreen extends Component {
         if(responseJson.response === this.state.email){
           this.navigateToHomePage()
         } else if(responseJson.response === 'Account not active') {
-          this.callAlert("Alert", responseJson.response, console.log(responseJson.response));
+          this.setState({toasterVisible : true, toastermessage: 'Alert: ' +responseJson.response});
         } else {
-          this.callAlert("Error", responseJson.response, console.log(responseJson.response));
+          this.setState({toasterVisible : true, toastermessage: 'Error: ' +responseJson.response});
         }
       })
       .then((data) => {
-          this.setState({ contacts: data })
+          this.setState({ contacts: data, toasterVisible:false })
       })
       .catch(console.log)
     }
@@ -224,6 +235,7 @@ class LoginScreen extends Component {
             </View>
           </KeyboardAwareScrollView>
         </View>
+        <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>
       </View>
     );
   }

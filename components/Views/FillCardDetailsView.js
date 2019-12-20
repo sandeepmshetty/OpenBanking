@@ -5,7 +5,8 @@ import {
     Text,
     View,
     Image,
-    ScrollView,
+    ScrollView,    
+    ToastAndroid,
     ImageBackground,
     TouchableOpacity
 } from 'react-native';
@@ -24,6 +25,15 @@ import MyPage5 from '../MyPage5';
 import DrawerContainer from '../DrawerContainer';
 import ListOfCardsView from './ListOfCardsView';
 import CardDetailsView from './CardDetailsView';
+
+const Toast = (props) => {
+    if (props.visible) {
+        ToastAndroid.showWithGravityAndOffset(props.message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 150,);
+        return null;
+    }
+    return null;
+  };
+
 class FillCardDetailsView extends Component {
 
     constructor(props) {
@@ -32,7 +42,9 @@ class FillCardDetailsView extends Component {
             cardnumber: '',
             expirydate: '',
             cvv: '',
-            nameoncard: ''
+            nameoncard: '',            
+            toasterVisible:false,
+            toastermessage:''
         }
     }
 
@@ -43,16 +55,16 @@ class FillCardDetailsView extends Component {
             .navigate('ListOfCardsView');
     }
     setCardNumber(cardnumber) {
-        this.setState({ cardnumber })
+        this.setState({ cardnumber:cardnumber, toasterVisible:false })
     }
     setExpiry(expirydate) {
-        this.setState({ expirydate })
+        this.setState({ expirydate:  expirydate,toasterVisible:false })
     }
     setCvv(cvv) {
-        this.setState({ cvv })
+        this.setState({ cvv:cvv, toasterVisible:false })
     }
     setCardHolderName(nameoncard) {
-        this.setState({ nameoncard })
+        this.setState({ nameoncard:nameoncard, toasterVisible:false  })
     }  
     addCard(){
         if (this.state.cardnumber === '') {
@@ -77,7 +89,7 @@ class FillCardDetailsView extends Component {
                         this.navigateToListOfCardPage();
                     } 
                     else {
-                        this.callAlert("Alert", responseJson.response, console.log(responseJson.response));
+                        this.setState({toasterVisible : true, toastermessage: 'Alert: ' +responseJson.response});
                     }
                 })
             .catch(console.log)
@@ -239,6 +251,7 @@ class FillCardDetailsView extends Component {
                         primary
                         text="Save"/>
                 </View>
+                <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>
             </View>
         )
     }
