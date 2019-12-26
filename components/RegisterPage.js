@@ -100,12 +100,12 @@ export default class RegisterPage extends Component {
             toastermessage: "",
             toasterVisible: false,
             verifyVisible: false,
-            isValidEmail: false,
-            isValidName: false,
-            isValidPhone: false,
-            isValidPassword : false,
-            isPasswordConfirmed : false,
-            isValidConfirmPassword: false
+            isValidEmail: true,
+            isValidName: true,
+            isValidPhone: true,
+            isValidPassword : true,
+            isPasswordConfirmed : true,
+            isValidConfirmPassword: true
         }
         this.toggleShowPassword = this
             .toggleShowPassword
@@ -187,7 +187,11 @@ export default class RegisterPage extends Component {
 
     validateForm()
     {        
-        if(this.state.isValidName && this.state.isValidEmail && this.state.isValidPhone && this.state.isValidPassword && this.state.isValidConfirmPassword)
+        if(this.state.name.trim() != "" && this.state.isValidName  && 
+           this.state.email.trim() != "" && this.state.isValidEmail &&  
+           this.state.phone.trim() != "" && this.state.isValidPhone &&
+           this.state.password.trim() != "" && this.state.isValidPassword &&
+           this.state.confirmPassword.trim() != "" && this.state.isValidConfirmPassword)
         {
             return true;
         }else
