@@ -657,7 +657,7 @@ export default class RegisterPage extends Component {
                                                 errorColor='white'
                                                 onChangeText={(text) => this.setOtp(text)}/>
                                         </View>
-                                    </View>}
+                                    </View>
 
                         <View style={styles.buttonStyle}>
                             <Button

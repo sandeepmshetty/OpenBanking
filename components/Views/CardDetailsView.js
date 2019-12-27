@@ -52,7 +52,9 @@ class CardDetailsView extends Component {
                 name_on_card: '',
                 expires_date: '',
                 technology: ''
-            }
+            },
+            ENTRIES : []
+
         }
         this.getTransactionData = this.getTransactionData.bind(this);
         this.getCardsData = this.getCardsData.bind(this);
@@ -65,7 +67,7 @@ class CardDetailsView extends Component {
     
     getTransactionData(){
     
-        fetch(awsurl.aws_url+'api/transaction/transactionList', {  
+        fetch(awsurl.aws_url+'api/transaction/transactionList/obp-bankx-m/simply_sameer_account_662550', {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -98,12 +100,23 @@ class CardDetailsView extends Component {
       })
       .then(res => res.json())
       .then((responseJson) => {
-        this.setState({
-            cardsresults: responseJson
-          })
+          var ENTRIES1 = [];
           var count = Object.keys(responseJson).length;
-          ENTRIES1.splice(0,ENTRIES1.length);
-          ENTRIES1.push( {
+          
+          for(let i=0; i< responseJson.length; i++){
+              console.log(responseJson[i].bank_card_number);
+              console.log(responseJson[i].name_on_card);
+              console.log(responseJson[i].expires_date);
+              ENTRIES1.push( {
+                cardType: responseJson[i].technology,
+                cardHolderName: responseJson[i].name_on_card,
+                cardNumber: responseJson[i].bank_card_number,
+                bankName: responseJson[i].bank_id,
+                logo:  require('../../assets/discoverlogo.jpg'),
+                isAddCard:false,
+            });
+            }
+            ENTRIES1.push( {
                 cardType: '',
                 cardHolderName: '',
                 cardNumber: '',
@@ -111,19 +124,10 @@ class CardDetailsView extends Component {
                 logo: require('../../assets/maestro.png'),
                 isAddCard: true
             });
-          for(let i=0; i< responseJson.length; i++){
-              console.log(this.state.cardsresults[i].bank_card_number);
-              console.log(this.state.cardsresults[i].name_on_card);
-              console.log(this.state.cardsresults[i].expires_date);
-              ENTRIES1.push( {
-                cardType: this.state.cardsresults[i].technology,
-                cardHolderName: this.state.cardsresults[i].name_on_card,
-                cardNumber: this.state.cardsresults[i].bank_card_number,
-                bankName: this.state.cardsresults[i].bank_id,
-                logo:  require('../../assets/discoverlogo.jpg'),
-                isAddCard:false,
-            });
-            }
+            this.setState({
+                cardsresults: responseJson,
+                ENTRIES: ENTRIES1
+              })
         })
       .catch(console.log)
 
@@ -245,14 +249,17 @@ class CardDetailsView extends Component {
         }}
             size={18}
             color="white"/>;
-
+        console.log('Slider: '+this.state.slider1ActiveSlide+ ': Entries Size: '+ this.state.ENTRIES.length)
+        if(this.state.ENTRIES.length == 0) 
+        return (<View style={mainstyles.main}></View>)
+        else
         return (
             <View style={mainstyles.main}>
                 <View style={{
                     marginLeft: -10
                 }}><Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={this.state.ENTRIES}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     layout={'default'}
@@ -268,7 +275,7 @@ class CardDetailsView extends Component {
                     autoplay={false}
                     onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}/>
                     <Pagination
-                        dotsLength={ENTRIES1.length}
+                        dotsLength={this.state.ENTRIES.length}
                         activeDotIndex={slider1ActiveSlide}
                         containerStyle={styles.paginationContainer}
                         dotColor={'rgba(255, 255, 255, 0.92)'}
@@ -279,7 +286,7 @@ class CardDetailsView extends Component {
                         carouselRef={this._slider1Ref}
                         tappableDots={!!this._slider1Ref}/>
                     <View style={cardstyles.card}>
-                        {slider1ActiveSlide != 0
+                        {slider1ActiveSlide != this.state.ENTRIES.length
                             ? (
                                 <View>
                                     <ImageBackground
@@ -439,14 +446,13 @@ const cardstyles = StyleSheet.create({
 });
 
 
-const ENTRIES1 = [];
 const CardDetailsViewStack = createStackNavigator({
 
     CardDetailsView: {
         screen: CardDetailsView,
 
         navigationOptions: ({navigation}) => ({
-            headerTitle: "Wallet", headerLeft: <View>
+            headerTitle: "Cards", headerLeft: <View>
                 <TouchableOpacity
                     onPress={() => {
                     navigation.toggleDrawer()

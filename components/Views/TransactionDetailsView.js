@@ -10,7 +10,8 @@ import {
     SafeAreaView,
     ScrollView,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground,
+    ToastAndroid
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator} from 'react-navigation';
@@ -27,6 +28,13 @@ import mainstyles from '../UtilComponents/main.style';
 import ListOfCardsView from './ListOfCardsView';
 import awsurl from '../constants/AWSUrl';
 
+const Toast = (props) => {
+    if (props.visible) {
+        ToastAndroid.showWithGravityAndOffset(props.message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 150,);
+        return null;
+    }
+    return null;
+};
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 0;
 
@@ -64,7 +72,12 @@ class TransactionDetailsView extends Component {
                 name_on_card: '',
                 expires_date: '',
                 technology: ''
-            }
+            },
+            payAmount: '',
+            payCvv: '',
+            payDesc: '',
+            toastermessage: "",
+            toasterVisible: false,
         }
         this.getTransactionData = this
             .getTransactionData
@@ -73,7 +86,15 @@ class TransactionDetailsView extends Component {
             .getCardsData
             .bind(this);
     }
-
+    setpayAmount(payAmount) {
+        this.setState({ payAmount:payAmount, toasterVisible:false })
+    }
+    setpayCvv(payCvv) {
+        this.setState({ payCvv:payCvv, toasterVisible:false })
+    }
+    setpayDesc(payDesc) {
+        this.setState({ payDesc:payDesc, toasterVisible:false })
+    }
     componentDidMount() {
         this.getTransactionData();
         this.getCardsData();
@@ -81,7 +102,7 @@ class TransactionDetailsView extends Component {
 
     getTransactionData() {
 
-        fetch(awsurl.aws_url + 'api/transaction/transactionList', {
+        fetch(awsurl.aws_url + 'api/transaction/transactionList/obp-bankx-m/simply_sameer_account_662550', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -103,6 +124,47 @@ class TransactionDetailsView extends Component {
             .catch(console.log)
 
     }
+    navigateToListOfCardPage = () => {
+        this
+            .props
+            .navigation
+            .navigate('CardDetailsView');
+    }
+    makePayment(){
+        console.log('Payment');
+        var that = this;
+        if (this.state.payAmount === '') {
+            console.log('Payment Not Sent');
+            this.navigateToListOfCardPage();
+        } else {
+            console.log('Payment Sent');
+            fetch(awsurl.aws_url+'api/transaction/makeTransaction/obp-bankx-m/simply_sameer_account_662550/owner/FREE_FORM', {  
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    value: {
+                        currency: "EUR",
+                        amount: this.state.payAmount
+                    },
+                    description: this.state.payDesc,
+                })
+            })
+            .then(res => res.json())
+            .then((responseJson) => {
+                console.log('Payment Response');
+                        that.setState({toasterVisible : true, toastermessage: 'Alert: Success'});
+                        console.log('Payment toaster');
+                        that.navigateToListOfCardPage();
+                        console.log('Payment finish');
+
+                })
+            .catch(console.log)
+        }
+    }
+
     getCardsData() {
 
         fetch(awsurl.aws_url + 'api/card/cardList', {
@@ -323,6 +385,7 @@ class TransactionDetailsView extends Component {
                                         label='Amount'
                                         baseColor='white'
                                         textColor='white'
+                                        onChangeText={(text) => this.setpayAmount(text)}
                                         keyboardType='phone-pad'/>
                                 </View>
                                 <View
@@ -335,6 +398,7 @@ class TransactionDetailsView extends Component {
                                         label='CVV'
                                         baseColor='white'
                                         textColor='white'
+                                        onChangeText={(text) => this.setpayCvv(text)}
                                         keyboardType='phone-pad'/>
                                 </View>
                                 <View
@@ -345,6 +409,7 @@ class TransactionDetailsView extends Component {
                                 }}>
                                     <TextField
                                         label='Notes'
+                                        onChangeText={(text) => this.setpayDesc(text)}
                                         baseColor='white'
                                         textColor='white'/>
                                 </View>
@@ -355,6 +420,7 @@ class TransactionDetailsView extends Component {
                                             height: 45
                                         }
                                     }}
+                                    onPress={() => this.makePayment()}
                                         raised
                                         primary
                                         text="Pay"/>
@@ -363,6 +429,9 @@ class TransactionDetailsView extends Component {
                         </ImageBackground>
                     </View>
                 </View>
+                {this.state.toasterVisible ?
+                    <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>: null 
+    }
             </View>
         )
     }
