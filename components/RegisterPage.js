@@ -242,7 +242,7 @@ export default class RegisterPage extends Component {
                         this.setState({toastermessage: "Verify with OTP sent to phone !", toasterVisible: true, verifyVisible: true});
                         //this.navigateToLogin()
                     } else {
-                        this.setState({toastermessage: "Error verifying otp !", toasterVisible: true});
+                        this.setState({toastermessage: responseJson.response, toasterVisible: true});
                         console.log(responseJson.response);
                     }
                 })
