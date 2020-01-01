@@ -10,7 +10,8 @@ import {
     SafeAreaView,
     ScrollView,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground,
+    ToastAndroid
 } from 'react-native';
 import {Card, CardItem, Body} from "native-base";
 import {createStackNavigator, NavigationActions, StackActions, createDrawerNavigator} from 'react-navigation';
@@ -27,6 +28,13 @@ import mainstyles from '../UtilComponents/main.style';
 import ListOfCardsView from './ListOfCardsView';
 import awsurl from '../constants/AWSUrl';
 
+const Toast = (props) => {
+    if (props.visible) {
+        ToastAndroid.showWithGravityAndOffset(props.message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 150,);
+        return null;
+    }
+    return null;
+};
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 0;
 
@@ -64,8 +72,14 @@ class TransactionDetailsView extends Component {
                 name_on_card: '',
                 expires_date: '',
                 technology: ''
-            }
-        }
+            },
+            payAmount: '',
+            payCvv: '',
+            payDesc: '',
+            toastermessage: "",
+            toasterVisible: false,
+            ENTRIES : []
+        },
         this.getTransactionData = this
             .getTransactionData
             .bind(this);
@@ -73,7 +87,15 @@ class TransactionDetailsView extends Component {
             .getCardsData
             .bind(this);
     }
-
+    setpayAmount(payAmount) {
+        this.setState({ payAmount:payAmount, toasterVisible:false })
+    }
+    setpayCvv(payCvv) {
+        this.setState({ payCvv:payCvv, toasterVisible:false })
+    }
+    setpayDesc(payDesc) {
+        this.setState({ payDesc:payDesc, toasterVisible:false })
+    }
     componentDidMount() {
         this.getTransactionData();
         this.getCardsData();
@@ -81,7 +103,7 @@ class TransactionDetailsView extends Component {
 
     getTransactionData() {
 
-        fetch(awsurl.aws_url + 'api/transaction/transactionList', {
+        fetch(awsurl.aws_url + 'api/transaction/transactionList/obp-bankx-m/simply_sameer_account_662550', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -103,6 +125,47 @@ class TransactionDetailsView extends Component {
             .catch(console.log)
 
     }
+    navigateToListOfCardPage = () => {
+        this
+            .props
+            .navigation
+            .navigate('CardDetailsView');
+    }
+    makePayment(){
+        console.log('Payment');
+        var that = this;
+        if (this.state.payAmount === '') {
+            console.log('Payment Not Sent');
+            this.navigateToListOfCardPage();
+        } else {
+            console.log('Payment Sent');
+            fetch(awsurl.aws_url+'api/transaction/makeTransaction/obp-bankx-m/simply_sameer_account_662550/owner/FREE_FORM', {  
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    value: {
+                        currency: "EUR",
+                        amount: this.state.payAmount
+                    },
+                    description: this.state.payDesc,
+                })
+            })
+            .then(res => res.json())
+            .then((responseJson) => {
+                console.log('Payment Response');
+                        that.setState({toasterVisible : true, toastermessage: 'Alert: Success'});
+                        console.log('Payment toaster');
+                        that.navigateToListOfCardPage();
+                        console.log('Payment finish');
+
+                })
+            .catch(console.log)
+        }
+    }
+
     getCardsData() {
 
         fetch(awsurl.aws_url + 'api/card/cardList', {
@@ -114,32 +177,28 @@ class TransactionDetailsView extends Component {
             })
             .then(res => res.json())
             .then((responseJson) => {
-                this.setState({cardsresults: responseJson})
                 var count = Object
                     .keys(responseJson)
                     .length;
+                var ENTRIES1 = [];
                 ENTRIES1.splice(0, ENTRIES1.length);
-                ENTRIES1.push({
-                    cardType: '',
-                    cardHolderName: '',
-                    cardNumber: '',
-                    bankName: '',
-                    logo: require('../../assets/maestro.png'),
-                    isAddCard: true
-                });
                 for (let i = 0; i < responseJson.length; i++) {
-                    console.log(this.state.cardsresults[i].bank_card_number);
-                    console.log(this.state.cardsresults[i].name_on_card);
-                    console.log(this.state.cardsresults[i].expires_date);
+                    console.log(responseJson[i].bank_card_number);
+                    console.log(responseJson[i].name_on_card);
+                    console.log(responseJson[i].expires_date);
+                    var crdnumber = responseJson[i].bank_card_number;
                     ENTRIES1.push({
-                        cardType: this.state.cardsresults[i].technology,
-                        cardHolderName: this.state.cardsresults[i].name_on_card,
-                        cardNumber: this.state.cardsresults[i].bank_card_number,
-                        bankName: this.state.cardsresults[i].bank_id,
+                        cardType: responseJson[i].technology,
+                        cardHolderName: responseJson[i].name_on_card,
+                        cardNumber: crdnumber.substring(crdnumber.length-5,crdnumber.length-1),
+                        bankName: responseJson[i].bank_id,
                         logo: require('../../assets/discoverlogo.jpg'),
                         isAddCard: false
                     });
                 }
+                this.setState({
+                    ENTRIES: ENTRIES1
+                    })
             })
             .catch(console.log)
 
@@ -259,14 +318,16 @@ class TransactionDetailsView extends Component {
         }}
             size={18}
             color="white"/>;
-
+        if(this.state.ENTRIES.length == 0) 
+        return (<View style={mainstyles.main}></View>)
+        else
         return (
             <View style={mainstyles.main}>
                 <View style={{
                     marginLeft: -10
                 }}><Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={this.state.ENTRIES}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     layout={'default'}
@@ -282,7 +343,7 @@ class TransactionDetailsView extends Component {
                     autoplay={false}
                     onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}/>
                     <Pagination
-                        dotsLength={ENTRIES1.length}
+                        dotsLength={this.state.ENTRIES.length}
                         activeDotIndex={slider1ActiveSlide}
                         containerStyle={styles.paginationContainer}
                         dotColor={'rgba(255, 255, 255, 0.92)'}
@@ -323,6 +384,7 @@ class TransactionDetailsView extends Component {
                                         label='Amount'
                                         baseColor='white'
                                         textColor='white'
+                                        onChangeText={(text) => this.setpayAmount(text)}
                                         keyboardType='phone-pad'/>
                                 </View>
                                 <View
@@ -335,6 +397,7 @@ class TransactionDetailsView extends Component {
                                         label='CVV'
                                         baseColor='white'
                                         textColor='white'
+                                        onChangeText={(text) => this.setpayCvv(text)}
                                         keyboardType='phone-pad'/>
                                 </View>
                                 <View
@@ -345,6 +408,7 @@ class TransactionDetailsView extends Component {
                                 }}>
                                     <TextField
                                         label='Notes'
+                                        onChangeText={(text) => this.setpayDesc(text)}
                                         baseColor='white'
                                         textColor='white'/>
                                 </View>
@@ -355,6 +419,7 @@ class TransactionDetailsView extends Component {
                                             height: 45
                                         }
                                     }}
+                                    onPress={() => this.makePayment()}
                                         raised
                                         primary
                                         text="Pay"/>
@@ -363,6 +428,9 @@ class TransactionDetailsView extends Component {
                         </ImageBackground>
                     </View>
                 </View>
+                {this.state.toasterVisible ?
+                    <Toast visible={this.state.toasterVisible} message={this.state.toastermessage}/>: null 
+    }
             </View>
         )
     }
@@ -422,51 +490,6 @@ const cardstyles = StyleSheet.create({
     }
 });
 
-const ENTRIES1 = [
-    {
-        cardType: 'VISA',
-        cardHolderName: 'John Doe',
-        cardNumber: '1234',
-        bankName: 'HSBC UK',
-        logo: require('../../assets/visalogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'Mastercard',
-        cardHolderName: 'John Smith',
-        cardNumber: '1234',
-        bankName: 'Lloyd UK',
-        logo: require('../../assets/mastercardlogo.png'),
-        isAddCard: false
-    }, {
-        cardType: 'Discover',
-        cardHolderName: 'Veronica Doe',
-        cardNumber: '4561',
-        bankName: 'HDFC India',
-        logo: require('../../assets/discoverlogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'American Express',
-        cardHolderName: 'Dany Joe',
-        cardNumber: '4534',
-        bankName: 'ICICI India',
-        logo: require('../../assets/american_express.png'),
-        isAddCard: false
-    }, {
-        cardType: 'VISA',
-        cardHolderName: 'John Smith',
-        cardNumber: '8741',
-        bankName: 'LLoyds UK',
-        logo: require('../../assets/visalogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'Maestro',
-        cardHolderName: 'John Dan',
-        cardNumber: '2147',
-        bankName: 'HSBC UK',
-        logo: require('../../assets/maestro.png'),
-        isAddCard: false
-    }
-];
 const TransactionDetailsViewStack = createStackNavigator({
 
     TransactionDetailsView: {

@@ -19,7 +19,7 @@ export const emailAddress = (mail) => {
 +XX XXXX XXXX
 */
 export const phonenumber = (inputtxt) => {
-    var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+    var phoneno = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/;
     if (inputtxt.match(phoneno)) {
         return true
     } else {
