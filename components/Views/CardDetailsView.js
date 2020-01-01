@@ -107,10 +107,11 @@ class CardDetailsView extends Component {
               console.log(responseJson[i].bank_card_number);
               console.log(responseJson[i].name_on_card);
               console.log(responseJson[i].expires_date);
+              var crdnumber = responseJson[i].bank_card_number;
               ENTRIES1.push( {
                 cardType: responseJson[i].technology,
                 cardHolderName: responseJson[i].name_on_card,
-                cardNumber: responseJson[i].bank_card_number,
+                cardNumber: crdnumber.substring(crdnumber.length-5,crdnumber.length-1),
                 bankName: responseJson[i].bank_id,
                 logo:  require('../../assets/discoverlogo.jpg'),
                 isAddCard:false,
@@ -189,7 +190,7 @@ class CardDetailsView extends Component {
                                 flex: 7,
                                 marginLeft: 10
                             }}>
-                                <Text style={cardstyles.cardText}>{this.state.transactionResults[i].details.completed}</Text>
+                                <Text style={cardstyles.cardText}>{this.state.transactionResults[i].details.completed.substring(0,10)}</Text>
                             </View>
 
                             <View
@@ -205,7 +206,7 @@ class CardDetailsView extends Component {
                                 flex: 5
                             }}>
                                 <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.value.currency}
+                                    {/*this.state.transactionResults[i].details.value.currency*/}
                                     {this.state.transactionResults[i].details.value.amount}
                                 </Text>
                             </View>
@@ -214,7 +215,7 @@ class CardDetailsView extends Component {
                                 flex: 5
                             }}>
                                 <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.new_balance.currency}
+                                    {/*this.state.transactionResults[i].details.new_balance.currency*/}
                                     {this.state.transactionResults[i].details.new_balance.amount}
                                 </Text>
                             </View>
@@ -286,7 +287,7 @@ class CardDetailsView extends Component {
                         carouselRef={this._slider1Ref}
                         tappableDots={!!this._slider1Ref}/>
                     <View style={cardstyles.card}>
-                        {slider1ActiveSlide != this.state.ENTRIES.length
+                        {slider1ActiveSlide != this.state.ENTRIES.length-1
                             ? (
                                 <View>
                                     <ImageBackground

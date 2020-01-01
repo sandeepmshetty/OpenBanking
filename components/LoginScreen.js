@@ -84,7 +84,7 @@ class LoginScreen extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: this.state.email,
+          email: this.state.email,
           password: this.state.password,
         })
       })
@@ -119,6 +119,7 @@ class LoginScreen extends Component {
     const text = 'LOGIN';
     const personIcon = <Icon name="person" size={20} color="white" />;
     const passwordIcon = <Icon name="lock-open" size={20} color="white" />
+    const emailIcon = <Icon name="email" size={20} color="white"/>
 
     return (
       <View style={{
@@ -169,7 +170,7 @@ class LoginScreen extends Component {
                       marginTop: 35,
                       marginRight: -10
                     }}>
-                    {personIcon}
+                    {emailIcon}
                   </View>
                   <View
                     style={{
@@ -177,7 +178,7 @@ class LoginScreen extends Component {
                       marginTop: 0
                     }}>
                     <TextField
-                      label="UserName"
+                      label="Email"
                       baseColor='white'
                       textColor='white'
                       onChangeText={(text) => this.setEmail(text)} />

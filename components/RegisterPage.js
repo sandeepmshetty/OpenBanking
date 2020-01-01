@@ -150,6 +150,7 @@ export default class RegisterPage extends Component {
     }
 
     setOtp(otp) {
+        this.setState({toasterVisible : false, toastermessage: ""});
         this.setState({otp});
     }
 
@@ -238,6 +239,7 @@ export default class RegisterPage extends Component {
                 })
                 .then(res => res.json())
                 .then((responseJson) => {
+                    console.log(responseJson);
                     if (responseJson.response === 'Verify with OTP sent to phone') {
                         this.setState({toastermessage: "Verify with OTP sent to phone !", toasterVisible: true, verifyVisible: true});
                         //this.navigateToLogin()
@@ -270,7 +272,7 @@ export default class RegisterPage extends Component {
                 .then(res => res.json())
                 .then((responseJson) => {
                     if (responseJson.response === 'Account verified successfully!') {
-                        this.setState({toastermessage: "Verifying Successful !", toasterVisible: true});
+                        this.setState({toastermessage: "OTP verifed Successful!", toasterVisible: true});
                         this.navigateToLogin()
                     } else {
                         this.setState({toastermessage: "Error verifying account !", toasterVisible: true});
@@ -653,7 +655,6 @@ export default class RegisterPage extends Component {
                                                 label="OTP"
                                                 textColor='white'
                                                 keyboardType='phone-pad'
-                                                error='Incorrect OTP'
                                                 errorColor='white'
                                                 onChangeText={(text) => this.setOtp(text)}/>
                                         </View>

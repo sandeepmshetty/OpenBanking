@@ -78,7 +78,8 @@ class TransactionDetailsView extends Component {
             payDesc: '',
             toastermessage: "",
             toasterVisible: false,
-        }
+            ENTRIES : []
+        },
         this.getTransactionData = this
             .getTransactionData
             .bind(this);
@@ -176,32 +177,28 @@ class TransactionDetailsView extends Component {
             })
             .then(res => res.json())
             .then((responseJson) => {
-                this.setState({cardsresults: responseJson})
                 var count = Object
                     .keys(responseJson)
                     .length;
+                var ENTRIES1 = [];
                 ENTRIES1.splice(0, ENTRIES1.length);
-                ENTRIES1.push({
-                    cardType: '',
-                    cardHolderName: '',
-                    cardNumber: '',
-                    bankName: '',
-                    logo: require('../../assets/maestro.png'),
-                    isAddCard: true
-                });
                 for (let i = 0; i < responseJson.length; i++) {
-                    console.log(this.state.cardsresults[i].bank_card_number);
-                    console.log(this.state.cardsresults[i].name_on_card);
-                    console.log(this.state.cardsresults[i].expires_date);
+                    console.log(responseJson[i].bank_card_number);
+                    console.log(responseJson[i].name_on_card);
+                    console.log(responseJson[i].expires_date);
+                    var crdnumber = responseJson[i].bank_card_number;
                     ENTRIES1.push({
-                        cardType: this.state.cardsresults[i].technology,
-                        cardHolderName: this.state.cardsresults[i].name_on_card,
-                        cardNumber: this.state.cardsresults[i].bank_card_number,
-                        bankName: this.state.cardsresults[i].bank_id,
+                        cardType: responseJson[i].technology,
+                        cardHolderName: responseJson[i].name_on_card,
+                        cardNumber: crdnumber.substring(crdnumber.length-5,crdnumber.length-1),
+                        bankName: responseJson[i].bank_id,
                         logo: require('../../assets/discoverlogo.jpg'),
                         isAddCard: false
                     });
                 }
+                this.setState({
+                    ENTRIES: ENTRIES1
+                    })
             })
             .catch(console.log)
 
@@ -321,14 +318,16 @@ class TransactionDetailsView extends Component {
         }}
             size={18}
             color="white"/>;
-
+        if(this.state.ENTRIES.length == 0) 
+        return (<View style={mainstyles.main}></View>)
+        else
         return (
             <View style={mainstyles.main}>
                 <View style={{
                     marginLeft: -10
                 }}><Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={this.state.ENTRIES}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     layout={'default'}
@@ -344,7 +343,7 @@ class TransactionDetailsView extends Component {
                     autoplay={false}
                     onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}/>
                     <Pagination
-                        dotsLength={ENTRIES1.length}
+                        dotsLength={this.state.ENTRIES.length}
                         activeDotIndex={slider1ActiveSlide}
                         containerStyle={styles.paginationContainer}
                         dotColor={'rgba(255, 255, 255, 0.92)'}
@@ -491,51 +490,6 @@ const cardstyles = StyleSheet.create({
     }
 });
 
-const ENTRIES1 = [
-    {
-        cardType: 'VISA',
-        cardHolderName: 'John Doe',
-        cardNumber: '1234',
-        bankName: 'HSBC UK',
-        logo: require('../../assets/visalogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'Mastercard',
-        cardHolderName: 'John Smith',
-        cardNumber: '1234',
-        bankName: 'Lloyd UK',
-        logo: require('../../assets/mastercardlogo.png'),
-        isAddCard: false
-    }, {
-        cardType: 'Discover',
-        cardHolderName: 'Veronica Doe',
-        cardNumber: '4561',
-        bankName: 'HDFC India',
-        logo: require('../../assets/discoverlogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'American Express',
-        cardHolderName: 'Dany Joe',
-        cardNumber: '4534',
-        bankName: 'ICICI India',
-        logo: require('../../assets/american_express.png'),
-        isAddCard: false
-    }, {
-        cardType: 'VISA',
-        cardHolderName: 'John Smith',
-        cardNumber: '8741',
-        bankName: 'LLoyds UK',
-        logo: require('../../assets/visalogo.jpg'),
-        isAddCard: false
-    }, {
-        cardType: 'Maestro',
-        cardHolderName: 'John Dan',
-        cardNumber: '2147',
-        bankName: 'HSBC UK',
-        logo: require('../../assets/maestro.png'),
-        isAddCard: false
-    }
-];
 const TransactionDetailsViewStack = createStackNavigator({
 
     TransactionDetailsView: {
