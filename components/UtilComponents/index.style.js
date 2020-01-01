@@ -7,6 +7,7 @@ export const colors = {
     background2: '#21D4FD'
 };
 
+
 export default StyleSheet.create({
     safeArea: {
         flex: 1,

@@ -11,13 +11,11 @@ import {
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import faIcon from 'react-native-vector-icons/FontAwesome';
-import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import {TextInput, ToggleButton} from 'react-native-paper';
 import {Button} from 'react-native-material-ui';
-import {NavigationActions} from 'react-navigation';
 import * as validation from '../utility/validation';
 import awsurl from './constants/AWSUrl';
+import mainStyles from './UtilComponents/main.style';
 
 const Toast = (props) => {
     if (props.visible) {
@@ -213,20 +211,9 @@ export default class RegisterPage extends Component {
         this.setState({toastermessage: "All fields are mandatory !", toasterVisible: true});
     }
     register() {
-        console.log("\n isFormValid " + this.validateForm());
-
-        console.log("\n isValidName " + this.state.isValidName);
-        console.log("\n isValidEmail " + this.state.isValidEmail);
-        console.log("\n isValidPhone " + this.state.isValidPhone);
-        console.log("\n isValidPassword " + this.state.isValidPassword);
-        console.log("\n isValidConfirmPassword " + this.state.isValidConfirmPassword);
-
-
-        
         if (!this.validateForm()) {
             this.setState({toastermessage: "Error: Invalid field entry !", toasterVisible: true});
         } else {
-            console.log("\n Passed ");
             this.setState({toasterVisible : false, toastermessage: ""});
             fetch(awsurl.aws_url+'api/signUpUser', {
 			method: 'POST',
@@ -314,6 +301,11 @@ export default class RegisterPage extends Component {
         const showPasswordIcon = <Icon name="showPassword" size={20} color="white"/>;
         const hidePasswordIcon = <Icon name="hidePassword" size={20} color="white"/>;
         const phoneIcon = <Icon name="phone" size={20} color="white"/>;
+        const textColor = { text: 'white', 
+        placeholder: 'white', 
+        primary: "#0F52BA", 
+        background: 'transparent' 
+      };
 
         return (
             <View
@@ -391,16 +383,14 @@ export default class RegisterPage extends Component {
                                             flex: 8,
                                             marginTop: 0
                                         }}>
-                                            <TextField
-                                                baseColor='white'
-                                                label="Name"
-                                                textColor='white'
-                                                error={!this.state.isValidName
-                                                    ? 'Name should be in all letters'
-                                                    : ''}
-                                                    errorColor={!this.state.isValidName
-                                                    ? 'red'
-                                                    : 'white'}
+                                            <TextInput
+                                                value={this.state.name}
+                                                label="Name"                                                
+                                                error={!this.state.isValidName ? 'Name should be in all letters' : ''}
+                                                errorColor={!this.state.isValidName ? 'red' : 'white'}
+                                                mode='flat'
+                                                underlineColor= 'white'
+                                                theme={{ colors: textColor }}
                                                 onChangeText={(text) => this.setName(text)}/>
                                         </View>
                                     </View>
@@ -422,16 +412,14 @@ export default class RegisterPage extends Component {
                                             flex: 8,
                                             marginTop: 0
                                         }}>
-                                            <TextField
-                                                baseColor='white'
+                                            <TextInput
                                                 label="Email"
-                                                textColor='white'
-                                                error={!this.state.isValidEmail
-                                                ? 'Incorrect email id'
-                                                : ''}
-                                                errorColor={!this.state.isValidEmail
-                                                ? 'red'
-                                                : 'white'}
+                                                error={!this.state.isValidEmail ? 'Incorrect email id' : ''}
+                                                errorColor={!this.state.isValidEmail ? 'red' : 'white'}
+                                                mode='flat'
+                                                underlineColor= 'white'
+                                                theme={{ colors: textColor }}
+                                                value={this.state.email}
                                                 onChangeText={(text) => this.setEmail(text)}/>
                                         </View>
                                     </View>
@@ -453,17 +441,15 @@ export default class RegisterPage extends Component {
                                             flex: 8,
                                             marginTop: 0
                                         }}>
-                                            <TextField
-                                                baseColor='white'
+                                            <TextInput
                                                 label="Phone"
-                                                textColor='white'
                                                 keyboardType='phone-pad'
-                                                error={!this.state.isValidPhone
-                                                    ? 'Invalid phone number'
-                                                    : ''}
-                                                    errorColor={!this.state.isValidPhone
-                                                    ? 'red'
-                                                    : 'white'}
+                                                error={!this.state.isValidPhone ? 'Invalid phone number' : ''}
+                                                errorColor={!this.state.isValidPhone ? 'red' : 'white'}
+                                                mode='flat'
+                                                underlineColor= 'white'
+                                                theme={{ colors: textColor }}
+                                                value={this.state.phone}
                                                 onChangeText={(text) => this.setPhone(text)}/>
                                         </View>
                                     </View>
@@ -490,18 +476,17 @@ export default class RegisterPage extends Component {
                                                 style={{
                                                 flex: 7
                                             }}>
-                                                <TextField
-                                                    baseColor='white'
+                                                <TextInput
                                                     label="Password"
-                                                    textColor='white'
                                                     error={!this.state.isValidPassword
                                                         ? 'Password should be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character'
                                                         : ''}
-                                                        errorColor={!this.state.isValidPassword
-                                                        ? 'red'
-                                                        : 'white'}
+                                                    errorColor={!this.state.isValidPassword ? 'red' : 'white'}
                                                     onChangeText={(text) => this.setPassword(text)}
-                                                    underlineColor='white'
+                                                    mode='flat'
+                                                    underlineColor= 'white'
+                                                    theme={{ colors: textColor }}
+                                                    value={this.state.password}
                                                     secureTextEntry={this.state.showPassword}/>
                                             </View>
                                             <View
@@ -520,11 +505,10 @@ export default class RegisterPage extends Component {
                                                     backgroundColor: 'transparent',
                                                     marginTop: 15
                                                 }}
-                                                    onPress={this.toggleShowPassword}/>
+                                                onPress={this.toggleShowPassword}/>
                                             </View>
                                         </View>
                                     </View>
-
                                     <View
                                         style={{
                                         flex: 1,
@@ -548,18 +532,16 @@ export default class RegisterPage extends Component {
                                                 style={{
                                                 flex: 7
                                             }}>
-                                                <TextField
-                                                    baseColor='white'
+                                                <TextInput
                                                     label="Confirm Password"
                                                     textColor='white'
-                                                    error={!this.state.isValidConfirmPassword
-                                                        ? 'Password does not match'
-                                                        : ''}
-                                                    errorColor={!this.state.isValidConfirmPassword
-                                                        ? 'red'
-                                                        : 'white'}                                                    
+                                                    error={!this.state.isValidConfirmPassword ? 'Password does not match' : ''}
+                                                    errorColor={!this.state.isValidConfirmPassword ? 'red' : 'white'}                                                    
                                                     onChangeText={(text) => this.setConfirmPassword(text)}
-                                                    underlineColor='white'
+                                                    mode='flat'
+                                                    underlineColor= 'white'
+                                                    theme={{ colors: textColor }}
+                                                    value={this.state.confirmPassword}
                                                     secureTextEntry={this.state.showConfirmPassword}/>
                                             </View>
                                             <View
@@ -582,7 +564,6 @@ export default class RegisterPage extends Component {
                                             </View>
                                         </View>
                                     </View>
-
                                     <View
                                         style={{
                                         flexDirection: 'row',
@@ -601,7 +582,6 @@ export default class RegisterPage extends Component {
                                         }}>I agree to the terms and conditions</Text>
 
                                     </View>
-
                                     <View style={styles.buttonStyle}>
                                         <Button
                                             style={{
@@ -648,14 +628,15 @@ export default class RegisterPage extends Component {
                                             flex: 8,
                                             marginTop: 0
                                         }}>
-                                            <TextField
-                                                baseColor='white'
-                                                label="OTP"
-                                                textColor='white'
-                                                keyboardType='phone-pad'
-                                                error='Incorrect OTP'
-                                                errorColor='white'
-                                                onChangeText={(text) => this.setOtp(text)}/>
+                                            <TextInput label="OTP"
+                                                       keyboardType='phone-pad'
+                                                       error='Incorrect OTP'
+                                                       errorColor='white'
+                                                       mode='flat'
+                                                       underlineColor= 'white'
+                                                       theme={{ colors: textColor }}
+                                                       value={this.state.otp}
+                                                       onChangeText={(text) => this.setOtp(text)}/>
                                         </View>
                                     </View>}
 
