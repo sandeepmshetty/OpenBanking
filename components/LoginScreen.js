@@ -90,7 +90,7 @@ class LoginScreen extends Component {
       })
       .then(res => res.json())
       .then((responseJson) => {
-        if(responseJson.response === this.state.email){
+        if(responseJson.response === this.state.email.toLowerCase()){
           this.navigateToHomePage()
         } else if(responseJson.response === 'Account not active') {
           this.setState({toasterVisible : true, toastermessage: 'Alert: ' +responseJson.response});
