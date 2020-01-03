@@ -132,7 +132,7 @@ export default class RegisterPage extends Component {
         } else {
             this.setState({isValidEmail: false});
         }
-
+        email = email.trim();
         this.setState({email});
     }
 
