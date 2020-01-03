@@ -27,6 +27,7 @@ import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
 import ListOfCardsView from './ListOfCardsView';
 import awsurl from '../constants/AWSUrl';
+import { Dropdown } from 'react-native-material-dropdown';
 
 const Toast = (props) => {
     if (props.visible) {
@@ -35,6 +36,14 @@ const Toast = (props) => {
     }
     return null;
 };
+let data = [{
+    value: 'Tesco, One Angel Lane, London',
+  }, {
+    value: 'ASDA, Wembley, London',
+  }, {
+    value: 'Sainsbery, Victoria Station, London',
+  }];
+
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 const SLIDER_1_FIRST_ITEM = 0;
 
@@ -367,13 +376,21 @@ class TransactionDetailsView extends Component {
                                 flex: 1,
                                 alignItems: 'stretch'
                             }}>
-                                <Text
+                                <Dropdown
+                                textColor='white'
+                                baseColor='white'
+                                itemColor="black"
+                                selectedItemColor="#1E345C"
+                                label='Vendors'
+                                data={data}
+                                />
+                                {/*<Text
                                     style={{
                                     color: 'white',
                                     textAlign: 'center',
                                     alignSelf: 'stretch',
                                     fontSize: 22
-                                }}>Tesco, One Angel Lane, London Bridge, E79AP, United Kingdom</Text>
+                                }}>Tesco, One Angel Lane, London Bridge, E79AP, United Kingdom</Text> */}
                                 <View
                                     style={{
                                     flex: 10,
@@ -422,7 +439,7 @@ class TransactionDetailsView extends Component {
                                     onPress={() => this.makePayment()}
                                         raised
                                         primary
-                                        text="Pay"/>
+                                        text="Pay ment"/>
                                 </View>
                             </View>
                         </ImageBackground>
