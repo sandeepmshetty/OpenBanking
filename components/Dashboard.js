@@ -23,6 +23,7 @@ import CardDetailsView from './Views/CardDetailsView';
 import TransactionDetailsView from './Views/TransactionDetailsView';
 import FaIcons from 'react-native-vector-icons/FontAwesome';
 import MIcons from 'react-native-vector-icons/MaterialIcons';
+import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FA5Icons from 'react-native-vector-icons/FontAwesome5';
 import awsurl from './constants/AWSUrl';
 
@@ -32,9 +33,11 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       transactionResults:[],
-      groceriesAmount:0.0,
+      totalExpense:0.0,
+      totalIncome:0.0,
+      foodAmount:0.0,
       cashAmount:0.0,
-      entertainmentAmount:0.0,
+      retailAmount:0.0,
       travelAmount:0.0,
       otherAmount:0.0,
       medicalAmount:0.0
@@ -70,37 +73,46 @@ class Dashboard extends Component {
       var count = Object.keys(responseJson).length;
       var tempMedical=0.0;
       var tempCash=0.0;
-      var tempEntertainment=0.0;
-      var tempGrocery=0.0;
+      var tempRetail=0.0;
+      var tempFood=0.0;
       var tempTravel=0.0;
       var tempOther=0.0;
-      console.log("Start");
+      var tempTotalExpense=0.0;
+      var tempTotalIncome=0.0;
+      console.log("Start---"+count);
       for(let i=0; i< responseJson.length; i++){
-          console.log(this.state.transactionResults[i].id);
-          console.log(this.state.transactionResults[i].details.type);
-            if(i==0){
+          if(parseFloat(this.state.transactionResults[i].details.value.amount)<0.0){
+            tempTotalExpense=tempTotalExpense + parseFloat(this.state.transactionResults[i].details.value.amount);
+            console.log(this.state.transactionResults[i].details.value.amount+"@@@"+this.state.transactionResults[i].details.description);
+            if(this.state.transactionResults[i].details.description.indexOf("Medical")>-1){
               tempMedical=tempMedical + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
-            else if(i%2==0){
-              tempGrocery=tempGrocery + parseFloat(this.state.transactionResults[i].details.value.amount);
+            else if(this.state.transactionResults[i].details.description.indexOf("Food")>-1){
+              tempFood=tempFood + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
-            else if(i%3==0){
-              tempEntertainment = tempEntertainment + parseFloat(this.state.transactionResults[i].details.value.amount);
+            else if(this.state.transactionResults[i].details.description.indexOf("Retail")>-1){
+              tempRetail = tempRetail + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
-            else if(i%5==0){
+            else if(this.state.transactionResults[i].details.description.indexOf("Transport")>-1){
               tempTravel=tempTravel + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
-            else if(i%7==0){
+            else if(this.state.transactionResults[i].details.description.indexOf("Cash")>-1){
               tempCash=tempCash + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
             else{
               tempOther=tempOther + parseFloat(this.state.transactionResults[i].details.value.amount);
             }
+          }
+          else{
+              tempTotalIncome=tempTotalIncome + parseFloat(this.state.transactionResults[i].details.value.amount);
+          
+          }   
+            
   
         }
-        this.setState({groceriesAmount: tempGrocery,travelAmount:tempTravel,medicalAmount:tempMedical,
-                       entertainmentAmount:tempEntertainment,cashAmount:tempCash,otherAmount:tempOther});
-        console.log("M="+ this.state.medicalAmount+", G="+ this.state.groceriesAmount +", E="+ this.state.entertainmentAmount)
+        this.setState({foodAmount: tempFood,travelAmount:tempTravel,medicalAmount:tempMedical,
+          retailAmount:tempRetail,cashAmount:tempCash,otherAmount:tempOther,totalExpense:tempTotalExpense});
+        console.log("M="+ this.state.medicalAmount+", G="+ this.state.foodAmount +", E="+ this.state.retailAmount)
         console.log("End");
     })
   .catch(console.log)
@@ -108,10 +120,14 @@ class Dashboard extends Component {
   }
   render() {
     const defaultIcon = <FaIcons name="bar-chart" size={28} color="white"/>;
-    const shopIcon = <FaIcons name="shopping-bag" size={28} color="white"/>;
-    const hotelIcon = <FaIcons name="hotel" size={28} color="white"/>;
-    const travelIcon = <MIcons name="card-travel" size={28} color="white"/>;
+    //const shopIcon = <FaIcons name="shopping-bag" size={28} color="white"/>;
+    const cashIcon = <MCIcons name="cash" size={28} color="white"/>;
+    const retailIcon = <MIcons name="local-grocery-store" size={28} color="white"/>;
     const entertainmentIcon = <FA5Icons name="grin-stars" size={28} color="white"/>;
+    const travelIcon = <FA5Icons name="walking" size={28} color="white"/>;
+    const foodIcon = <MCIcons name="food" size={28} color="white"/>;
+    const medicalIcon = <MCIcons name="hospital" size={28} color="white"/>;
+    
 
 
     return (
@@ -233,7 +249,7 @@ class Dashboard extends Component {
                                     backgroundColor:'transparent'
                                 }}>
                                   <View style={{marginTop:0, backgroundColor:'transparent'}}>
-                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 140.45 spent</Text>
+                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.totalExpense}</Text>
                                   </View>
                                   <View style={{marginTop:5, backgroundColor:'transparent'}}>
                                     <Text style={{fontSize: 14, color: 'white'}}>See where you spent in December !</Text>
@@ -273,7 +289,7 @@ class Dashboard extends Component {
                                     flex: 1,
                                     backgroundColor:'transparent'
                                 }}>
-                                    {shopIcon}
+                                    {foodIcon}
                                 </View>
                                 <View
                                     style={{
@@ -284,10 +300,10 @@ class Dashboard extends Component {
                                 }}>
                                   <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
                                     <View style={{marginTop:0, flex: 7}}>
-                                      <Text style={{fontSize: 14, color: 'white'}}>Groceries</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Food</Text>
                                     </View>
                                     <View style={{marginTop:0, flex: 3}}>
-                                      <Text style={{fontSize: 14, color: 'white'}}>{this.state.groceriesAmount}</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>{this.state.foodAmount}</Text>
                                     </View>
                                   </View>
                                   <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
@@ -311,16 +327,13 @@ class Dashboard extends Component {
                                     marginLeft: 10,
                                     backgroundColor:'transparent'
                                 }}>
-                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                  <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
                                     <View style={{marginTop:0, flex: 7}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Transport</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Travel</Text>
                                     </View>
                                     <View style={{marginTop:0, flex: 3}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 2, 11:36 PM</Text>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>{this.state.travelAmount}</Text>
                                     </View>
-                                  </View>
-                                  <View style={{marginTop:0}}>
-                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.travelAmount}</Text>
                                   </View>
                                   <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5,  borderWidth: 0.5, height: 0.5}}>
                                   </View>
@@ -334,7 +347,7 @@ class Dashboard extends Component {
                                     flex: 1,
                                     backgroundColor:'transparent'
                                 }}>
-                                    {hotelIcon}
+                                    {retailIcon}
                                 </View>
                                 <View
                                     style={{
@@ -343,21 +356,77 @@ class Dashboard extends Component {
                                     marginLeft: 10,
                                     backgroundColor:'transparent'
                                 }}>
-                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                  <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
                                     <View style={{marginTop:0, flex: 7}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Entertainment</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Retail</Text>
                                     </View>
                                     <View style={{marginTop:0, flex: 3}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 3, 10:26 PM</Text>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>{this.state.retailAmount}</Text>
                                     </View>
-                                  </View>
-                                  <View style={{marginTop:0}}>
-                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.entertainmentAmount}</Text>
                                   </View>
                                   <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
                                   </View>
                                 </View>
                             </View>    
+                            <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {medicalIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Medical</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>{this.state.medicalAmount}</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>     
+                            <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {cashIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Cash</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: 'white'}}>{this.state.cashAmount}</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>
+                            
                             <View style={{flex:1, flexDirection: 'row'}}>   
                                 <View
                                     style={{
@@ -375,22 +444,18 @@ class Dashboard extends Component {
                                     marginLeft: 10,
                                     backgroundColor:'transparent'
                                 }}>
-                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                  <View style={{marginTop:10, flex: 1, flexDirection: 'row'}}>
                                     <View style={{marginTop:0, flex: 7}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Others</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>Other</Text>
                                     </View>
                                     <View style={{marginTop:0, flex: 3}}>
-                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 3, 5:30 PM</Text>
+                                      <Text style={{fontSize: 14, color: 'white'}}>{this.state.otherAmount}</Text>
                                     </View>
-                                  </View>
-                                  <View style={{marginTop:0}}>
-                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.otherAmount}</Text>
                                   </View>
                                   <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
                                   </View>
                                 </View>
-                            </View>     
-             
+                            </View>
               </View>
               
               </View>
