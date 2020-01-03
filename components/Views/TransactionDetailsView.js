@@ -37,11 +37,23 @@ const Toast = (props) => {
     return null;
 };
 let data = [{
-    value: 'Tesco, One Angel Lane, London',
+    value: 'Tesco - Retail',
   }, {
-    value: 'ASDA, Wembley, London',
+    value: 'ASDA - Retail',
   }, {
-    value: 'Sainsbery, Victoria Station, London',
+    value: 'Sainsbery - Retail',
+  }, {
+    value: 'Subway - Food',
+  }, {
+    value: 'KFC - Food',
+  }, {
+    value: 'WrapIt - Food',
+  }, {
+    value: 'Tube - Transport',
+  }, {
+    value: 'Bus - Transport',
+  }, {
+    value: 'National Rail - Transport',
   }];
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
@@ -53,22 +65,6 @@ class TransactionDetailsView extends Component {
         super(props)
         this.state = {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
-            transactionResults: {
-                id: '',
-                details: {
-                    type: '',
-                    description: '',
-                    completed: '',
-                    new_balance: {
-                        currency: '',
-                        amount: ''
-                    },
-                    value: {
-                        currency: '',
-                        amount: ''
-                    }
-                }
-            },
             cardsresults: {
                 bank_id: '',
                 cvv: '',
@@ -89,9 +85,6 @@ class TransactionDetailsView extends Component {
             toasterVisible: false,
             ENTRIES : []
         },
-        this.getTransactionData = this
-            .getTransactionData
-            .bind(this);
         this.getCardsData = this
             .getCardsData
             .bind(this);
@@ -106,34 +99,10 @@ class TransactionDetailsView extends Component {
         this.setState({ payDesc:payDesc, toasterVisible:false })
     }
     componentDidMount() {
-        this.getTransactionData();
         this.getCardsData();
     }
 
-    getTransactionData() {
-
-        fetch(awsurl.aws_url + 'api/transaction/transactionList/obp-bankx-m/simply_sameer_account_662550', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then((responseJson) => {
-                this.setState({transactionResults: responseJson})
-                var count = Object
-                    .keys(responseJson)
-                    .length;
-                for (let i = 0; i < responseJson.length; i++) {
-                    console.log(this.state.transactionResults[i].id);
-                    console.log(this.state.transactionResults[i].details.type);
-
-                }
-            })
-            .catch(console.log)
-
-    }
+    
     navigateToListOfCardPage = () => {
         this
             .props
@@ -164,9 +133,7 @@ class TransactionDetailsView extends Component {
             })
             .then(res => res.json())
             .then((responseJson) => {
-                console.log('Payment Response');
                         that.setState({toasterVisible : true, toastermessage: 'Alert: Success'});
-                        console.log('Payment toaster');
                         that.navigateToListOfCardPage();
                         console.log('Payment finish');
 
@@ -218,16 +185,6 @@ class TransactionDetailsView extends Component {
     }
 
     navigateToAddCardPage = () => {
-        /*const fillcardAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName: 'CardDetailsView'})]
-        });
-
-        this
-            .props
-            .navigation
-            .dispatch(fillcardAction);*/
-
         this
             .props
             .navigation
@@ -246,62 +203,7 @@ class TransactionDetailsView extends Component {
     }
 
     render() {
-        var detailedTransactions = [];
-        for (let i = 0; i < this.state.transactionResults.length; i++) {
-
-            detailedTransactions.push(
-                <TouchableOpacity>
-                    <ImageBackground
-                        source={require('../../assets/bg_gradient.png')}
-                        style={cardstyles.imageItem}>
-                        <View style={cardstyles.rowView}>
-                            <View
-                                style={{
-                                marginLeft: 10,
-                                marginTop: 5
-                            }}>
-                                {received}
-                            </View>
-                            <View
-                                style={{
-                                flex: 7,
-                                marginLeft: 10
-                            }}>
-                                <Text style={cardstyles.cardText}>{this.state.transactionResults[i].details.completed}</Text>
-                            </View>
-
-                            <View
-                                style={{
-                                flex: 7
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.description}
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                flex: 5
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.value.currency}
-                                    {this.state.transactionResults[i].details.value.amount}
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                flex: 5
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.new_balance.currency}
-                                    {this.state.transactionResults[i].details.new_balance.amount}
-                                </Text>
-                            </View>
-                        </View>
-
-                    </ImageBackground>
-                </TouchableOpacity>
-            )
-        }
+        
         const slideWidth = this.wp(90);
         const itemHorizontalMargin = this.wp(2);
 
@@ -383,6 +285,7 @@ class TransactionDetailsView extends Component {
                                 selectedItemColor="#1E345C"
                                 label='Merchant'
                                 data={data}
+                                onChangeText={(value,index,data) => this.setpayDesc(value)}
                                 />
                                 {/*<Text
                                     style={{
@@ -404,7 +307,7 @@ class TransactionDetailsView extends Component {
                                         onChangeText={(text) => this.setpayAmount(text)}
                                         keyboardType='phone-pad'/>
                                 </View>
-                                <View
+                                {/*<View
                                     style={{
                                     flex: 10,
                                     width: '30%',
@@ -428,7 +331,7 @@ class TransactionDetailsView extends Component {
                                         onChangeText={(text) => this.setpayDesc(text)}
                                         baseColor='white'
                                         textColor='white'/>
-                                </View>
+                                </View>*/}
                                 <View>
                                     <Button
                                         style={{

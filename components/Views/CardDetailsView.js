@@ -38,7 +38,8 @@ class CardDetailsView extends Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             transactionResults: {
                 id:'',
-                details:{type:'',description:'',completed:'',new_balance:{currency:'',amount:''},value:{currency:'',amount:''}}
+                details:{type:'',description:'',completed:'',new_balance:{currency:'',amount:''},value:{currency:'',amount:''}},
+                this_account:{id: ''}
             },
             cardsresults: {
                 bank_id:'',
@@ -53,7 +54,9 @@ class CardDetailsView extends Component {
                 expires_date: '',
                 technology: ''
             },
-            ENTRIES : []
+            ENTRIES : [],
+            detailedTransactions : []
+
 
         }
         this.getTransactionData = this.getTransactionData.bind(this);
@@ -113,6 +116,7 @@ class CardDetailsView extends Component {
                 cardHolderName: responseJson[i].name_on_card,
                 cardNumber: crdnumber.substring(crdnumber.length-5,crdnumber.length-1),
                 bankName: responseJson[i].bank_id,
+                accountName: responseJson[i].account.id,
                 logo:  require('../../assets/discoverlogo.jpg'),
                 isAddCard:false,
             });
@@ -122,6 +126,7 @@ class CardDetailsView extends Component {
                 cardHolderName: '',
                 cardNumber: '',
                 bankName: '',
+                accountName: '',
                 logo: require('../../assets/maestro.png'),
                 isAddCard: true
             });
@@ -167,72 +172,8 @@ class CardDetailsView extends Component {
                     parallaxProps={parallaxProps}/>
         );
     }
-
-    render() {
-        var detailedTransactions = [];
-        for(let i = 0; i < this.state.transactionResults.length; i++){
-            
-            detailedTransactions.push(
-                <TouchableOpacity>
-                    <ImageBackground
-                        source={require('../../assets/bg_gradient.png')}
-                        style={cardstyles.imageItem}>
-                        <View style={cardstyles.rowView}>
-                            <View
-                                style={{
-                                marginLeft: 10,
-                                marginTop: 5
-                            }}>
-                                {received}
-                            </View>
-                            <View
-                                style={{
-                                flex: 7,
-                                marginLeft: 10
-                            }}>
-                                <Text style={cardstyles.cardText}>{this.state.transactionResults[i].details.completed.substring(0,10)}</Text>
-                            </View>
-
-                            <View
-                                style={{
-                                flex: 7
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {this.state.transactionResults[i].details.description}
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                flex: 5
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {/*this.state.transactionResults[i].details.value.currency*/}
-                                    {this.state.transactionResults[i].details.value.amount}
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                flex: 5
-                            }}>
-                                <Text style={cardstyles.cardText}>
-                                    {/*this.state.transactionResults[i].details.new_balance.currency*/}
-                                    {this.state.transactionResults[i].details.new_balance.amount}
-                                </Text>
-                            </View>
-                        </View>
-
-                    </ImageBackground>
-                </TouchableOpacity>
-            )
-        }
-        const slideWidth = this.wp(90);
-        const itemHorizontalMargin = this.wp(2);
-
-        const sliderWidth = viewportWidth;
-        const itemWidth = slideWidth + itemHorizontalMargin * 2;
-
-        const {slider1ActiveSlide} = this.state;
-
+    detailedTransactioRender(acntName){
+        this.state.detailedTransactions = [];
         const received = <FaIcons
             name="arrow-right"
             size={15}
@@ -243,6 +184,74 @@ class CardDetailsView extends Component {
             position: 'absolute'
         }}
             color="white"/>;
+            console.log(acntName);
+        for(let i = 0; i < this.state.transactionResults.length; i++){
+            if(this.state.transactionResults[i].this_account.id === acntName) {
+                this.state.detailedTransactions.push(
+                    <TouchableOpacity>
+                        <ImageBackground
+                            source={require('../../assets/bg_gradient.png')}
+                            style={cardstyles.imageItem}>
+                            <View style={cardstyles.rowView}>
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop: 5
+                                }}>
+                                    {received}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 7,
+                                    marginLeft: 10
+                                }}>
+                                    <Text style={cardstyles.cardText}>{this.state.transactionResults[i].details.completed.substring(0,10)}</Text>
+                                </View>
+
+                                <View
+                                    style={{
+                                    flex: 7
+                                }}>
+                                    <Text style={cardstyles.cardText}>
+                                        {this.state.transactionResults[i].details.description}
+                                    </Text>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 5
+                                }}>
+                                    <Text style={cardstyles.cardText}>
+                                        {/*this.state.transactionResults[i].details.value.currency*/}
+                                        {this.state.transactionResults[i].details.value.amount}
+                                    </Text>
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 5
+                                }}>
+                                    <Text style={cardstyles.cardText}>
+                                        {/*this.state.transactionResults[i].details.new_balance.currency*/}
+                                        {this.state.transactionResults[i].details.new_balance.amount}
+                                    </Text>
+                                </View>
+                            </View>
+
+                        </ImageBackground>
+                    </TouchableOpacity>
+                )
+            }
+        }
+    }
+    render() {
+        
+        const slideWidth = this.wp(90);
+        const itemHorizontalMargin = this.wp(2);
+
+        const sliderWidth = viewportWidth;
+        const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
+        const {slider1ActiveSlide} = this.state;
+
         const defaultIcon = <FaIcons
             name="star"
             style={{
@@ -274,7 +283,9 @@ class CardDetailsView extends Component {
                     loop={false}
                     loopClonesPerSide={0}
                     autoplay={false}
-                    onSnapToItem={(index) => this.setState({slider1ActiveSlide: index})}/>
+                    onSnapToItem={(index) => {this.setState({slider1ActiveSlide: index})
+                                            this.detailedTransactioRender(this.state.ENTRIES[index].accountName)
+                                            console.log("cours:"+this.state.ENTRIES[index].accountName)}}/>
                     <Pagination
                         dotsLength={this.state.ENTRIES.length}
                         activeDotIndex={slider1ActiveSlide}
@@ -347,7 +358,7 @@ class CardDetailsView extends Component {
 
                                     </ImageBackground>
                                     <KeyboardAwareScrollView>
-                                        {detailedTransactions}
+                                        {this.state.detailedTransactions}
                                     </KeyboardAwareScrollView>
                                 </View>
                             )
