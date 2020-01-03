@@ -21,6 +21,9 @@ import FillCardDetailsView from './Views/FillCardDetailsView';
 import ListOfCardsView from './Views/ListOfCardsView';
 import CardDetailsView from './Views/CardDetailsView';
 import TransactionDetailsView from './Views/TransactionDetailsView';
+import FaIcons from 'react-native-vector-icons/FontAwesome';
+import MIcons from 'react-native-vector-icons/MaterialIcons';
+import FA5Icons from 'react-native-vector-icons/FontAwesome5';
 
 class Dashboard extends Component {
 
@@ -36,6 +39,13 @@ class Dashboard extends Component {
   }
 
   render() {
+    const defaultIcon = <FaIcons name="bar-chart" size={28} color="white"/>;
+    const shopIcon = <FaIcons name="shopping-bag" size={28} color="white"/>;
+    const hotelIcon = <FaIcons name="hotel" size={28} color="white"/>;
+    const travelIcon = <MIcons name="card-travel" size={28} color="white"/>;
+    const entertainmentIcon = <FA5Icons name="grin-stars" size={28} color="white"/>;
+
+
     return (
       <View style={styles.main}>
         <View>
@@ -129,6 +139,196 @@ class Dashboard extends Component {
             text="Add Card"
             onPress={() => this.navigateToAddCardPage()}/>
         </View>
+              <View>
+                <View style={{
+                        marginLeft: 10,
+                        marginTop: 10
+                    }}>
+                  <Text style = {{color: 'white'}}>Total Spending</Text> 
+                </View>
+                <TouchableOpacity  style={{backgroundColor:"#293a80", marginTop:5, height: 60, color: 'white', borderRadius: 3, padding: 5}}>
+                <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {defaultIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:0, backgroundColor:'transparent'}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 140.45 spent</Text>
+                                  </View>
+                                  <View style={{marginTop:5, backgroundColor:'transparent'}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>See where you spent in December !</Text>
+                                  </View>
+                                </View>
+                            </View>
+              </TouchableOpacity>
+              <View style={{
+                        height: 30}}>
+              <View style={{
+                        marginLeft: 10,
+                        marginTop: 10,  
+                        flexDirection: 'row',                      
+                        flex: 1
+                    }}>
+                       <View
+                                    style={{
+                                    flex:9,
+                                    alignContent:'flex-start'
+                                }}>
+                  <Text style = {{color: 'white'}}>Spends</Text></View>
+                  <View
+                                    style={{
+                                    marginLeft: 10,
+                                    flex:1,
+                                    alignContent:'flex-end'
+                                }}>
+                  <Text style = {{color: '#3683ff'}}>More</Text></View>
+                </View>
+                </View>
+              <View  style={{backgroundColor:"#293a80", marginTop:5, height: '45%', color: 'white', borderRadius: 3, padding: 5}}>
+                <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {shopIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>ASDA One Angel Lane</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 1, 12:56 PM</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{marginTop:-10}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 120</Text>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>
+                            <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {travelIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Air India, Heathrow, London</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 2, 11:36 PM</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{marginTop:0}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 10</Text>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5,  borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>
+                            <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {hotelIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Hilton, Westminister, London</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 3, 10:26 PM</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{marginTop:0}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 10</Text>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>    
+                            <View style={{flex:1, flexDirection: 'row'}}>   
+                                <View
+                                    style={{
+                                    marginLeft: 10,
+                                    marginTop:10,
+                                    flex: 1,
+                                    backgroundColor:'transparent'
+                                }}>
+                                    {entertainmentIcon}
+                                </View>
+                                <View
+                                    style={{
+                                    flex: 9,
+                                    flexDirection: 'column',
+                                    marginLeft: 10,
+                                    backgroundColor:'transparent'
+                                }}>
+                                  <View style={{marginTop:0, flex: 1, flexDirection: 'row'}}>
+                                    <View style={{marginTop:0, flex: 7}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Cineworld, Ilford, London</Text>
+                                    </View>
+                                    <View style={{marginTop:0, flex: 3}}>
+                                      <Text style={{fontSize: 14, color: '#85b4ff'}}>Jan 3, 5:30 PM</Text>
+                                    </View>
+                                  </View>
+                                  <View style={{marginTop:0}}>
+                                    <Text style={{fontSize: 14, color: 'white'}}>GBP 10</Text>
+                                  </View>
+                                  <View style={{borderColor: '#85b4ff', marginTop: 5, marginBottom: 5, borderWidth: 0.5, height: 0.5}}>
+                                  </View>
+                                </View>
+                            </View>     
+             
+              </View>
+              
+              </View>
       </View>
 
     );

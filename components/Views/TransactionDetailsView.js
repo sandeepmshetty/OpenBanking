@@ -381,7 +381,7 @@ class TransactionDetailsView extends Component {
                                 baseColor='white'
                                 itemColor="black"
                                 selectedItemColor="#1E345C"
-                                label='Vendors'
+                                label='Merchant'
                                 data={data}
                                 />
                                 {/*<Text
