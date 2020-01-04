@@ -249,7 +249,7 @@ class Dashboard extends Component {
                                     backgroundColor:'transparent'
                                 }}>
                                   <View style={{marginTop:0, backgroundColor:'transparent'}}>
-                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.totalExpense}</Text>
+                                    <Text style={{fontSize: 14, color: 'white'}}>{this.state.totalExpense.toFixed(2)}</Text>
                                   </View>
                                   <View style={{marginTop:5, backgroundColor:'transparent'}}>
                                     <Text style={{fontSize: 14, color: 'white'}}>See where you spent in December !</Text>
