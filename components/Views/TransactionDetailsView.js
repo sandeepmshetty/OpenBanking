@@ -116,7 +116,7 @@ class TransactionDetailsView extends Component {
             console.log('Payment Not Sent');
             this.navigateToListOfCardPage();
         } else {
-            console.log('Payment Sent');
+            console.log('Payment Sent'+this.state.ENTRIES[this.state.slider1ActiveSlide].bankName+'---'+this.state.ENTRIES[this.state.slider1ActiveSlide].accountName);
             fetch(awsurl.aws_url+'api/transaction/makeTransaction/'+this.state.ENTRIES[this.state.slider1ActiveSlide].bankName+'/'+this.state.ENTRIES[this.state.slider1ActiveSlide].accountName+'/owner/FREE_FORM', {  
                 method: 'POST',
                 headers: {
