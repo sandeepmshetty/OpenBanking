@@ -280,7 +280,7 @@ class Dashboard extends Component {
                   <Text style = {{color: '#3683ff'}}>More</Text></View>
                 </View>
                 </View>
-              <View  style={{backgroundColor:"#293a80", marginTop:5, height: '45%', color: 'white', borderRadius: 3, padding: 5}}>
+              <View  style={{backgroundColor:"#293a80", marginTop:5, height: '52%', color: 'white', borderRadius: 3, padding: 5}}>
                 <View style={{flex:1, flexDirection: 'row'}}>   
                                 <View
                                     style={{
