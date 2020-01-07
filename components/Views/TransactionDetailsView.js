@@ -116,8 +116,8 @@ class TransactionDetailsView extends Component {
             console.log('Payment Not Sent');
             this.navigateToListOfCardPage();
         } else {
-            console.log('Payment Sent');
-            fetch(awsurl.aws_url+'api/transaction/makeTransaction/obp-bankx-m/simply_sameer_account_662550/owner/FREE_FORM', {  
+            console.log('Payment Sent'+this.state.ENTRIES[this.state.slider1ActiveSlide].bankName+'---'+this.state.ENTRIES[this.state.slider1ActiveSlide].accountName);
+            fetch(awsurl.aws_url+'api/transaction/makeTransaction/'+this.state.ENTRIES[this.state.slider1ActiveSlide].bankName+'/'+this.state.ENTRIES[this.state.slider1ActiveSlide].accountName+'/owner/FREE_FORM', {  
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
@@ -168,6 +168,7 @@ class TransactionDetailsView extends Component {
                         cardHolderName: responseJson[i].name_on_card,
                         cardNumber: crdnumber.substring(crdnumber.length-5,crdnumber.length-1),
                         bankName: responseJson[i].bank_id,
+                        accountName: responseJson[i].account.id,
                         logo: require('../../assets/discoverlogo.jpg'),
                         isAddCard: false
                     });
@@ -342,7 +343,7 @@ class TransactionDetailsView extends Component {
                                     onPress={() => this.makePayment()}
                                         raised
                                         primary
-                                        text="Pay ment"/>
+                                        text="Payment"/>
                                 </View>
                             </View>
                         </ImageBackground>

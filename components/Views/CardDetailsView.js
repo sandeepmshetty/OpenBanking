@@ -59,18 +59,19 @@ class CardDetailsView extends Component {
 
 
         }
-        this.getTransactionData = this.getTransactionData.bind(this);
         this.getCardsData = this.getCardsData.bind(this);
+        /*this.getTransactionData = this.getTransactionData.bind(this);*/
+
     }
 
     componentDidMount(){
-        this.getTransactionData();
         this.getCardsData();
+
     } 
     
-    getTransactionData(){
-    
-        fetch(awsurl.aws_url+'api/transaction/transactionList/obp-bankx-m/simply_sameer_account_662550', {  
+    getTransactionData(index){
+        console.log(index+'---'+this.state.ENTRIES[index].bankName+'---'+this.state.ENTRIES[index].accountName);
+        fetch(awsurl.aws_url+'api/transaction/transactionList/'+this.state.ENTRIES[index].bankName+'/'+this.state.ENTRIES[index].accountName, {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -80,14 +81,10 @@ class CardDetailsView extends Component {
       .then(res => res.json())
       .then((responseJson) => {
         this.setState({
+            transactionResults: [],
             transactionResults: responseJson
           })
-          var count = Object.keys(responseJson).length;
-          for(let i=0; i< responseJson.length; i++){
-              console.log(this.state.transactionResults[i].id);
-              console.log(this.state.transactionResults[i].details.type);
-
-            }
+          this.detailedTransactioRender(this.state.ENTRIES[index].accountName)
         })
       .catch(console.log)
 
@@ -134,6 +131,7 @@ class CardDetailsView extends Component {
                 cardsresults: responseJson,
                 ENTRIES: ENTRIES1
               })
+              this.getTransactionData(0);
         })
       .catch(console.log)
 
@@ -173,7 +171,8 @@ class CardDetailsView extends Component {
         );
     }
     detailedTransactioRender(acntName){
-        this.state.detailedTransactions = [];
+        console.log("detailedTransactioRender");
+        var detailedTransactions1 = [];
         const received = <FaIcons
             name="arrow-right"
             size={15}
@@ -187,7 +186,7 @@ class CardDetailsView extends Component {
             console.log(acntName);
         for(let i = 0; i < this.state.transactionResults.length; i++){
             if(this.state.transactionResults[i].this_account.id === acntName) {
-                this.state.detailedTransactions.push(
+                detailedTransactions1.push(
                     <TouchableOpacity>
                         <ImageBackground
                             source={require('../../assets/bg_gradient.png')}
@@ -241,9 +240,11 @@ class CardDetailsView extends Component {
                 )
             }
         }
+        this.setState({
+            detailedTransactions: detailedTransactions1
+          })
     }
     render() {
-        
         const slideWidth = this.wp(90);
         const itemHorizontalMargin = this.wp(2);
 
@@ -284,7 +285,7 @@ class CardDetailsView extends Component {
                     loopClonesPerSide={0}
                     autoplay={false}
                     onSnapToItem={(index) => {this.setState({slider1ActiveSlide: index})
-                                            this.detailedTransactioRender(this.state.ENTRIES[index].accountName)
+                                            this.getTransactionData(index)
                                             console.log("cours:"+this.state.ENTRIES[index].accountName)}}/>
                     <Pagination
                         dotsLength={this.state.ENTRIES.length}
