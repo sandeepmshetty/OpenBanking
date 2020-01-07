@@ -11,6 +11,7 @@ import {
 import {NavigationActions} from 'react-navigation';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import mainstyles from './UtilComponents/main.style';
+import FaIcons from 'react-native-vector-icons/FontAwesome';
 
 let iconSize = 25;
 
@@ -96,15 +97,14 @@ export default class DrawerContainer extends React.Component {
                 <Text style={styles.navItemStyle}>Transaction</Text>
               </TouchableOpacity>
 
-              {/*<TouchableOpacity
+              <TouchableOpacity
                 style={styles.drawerMenu}
-                onPress={this.navigateToScreen('LoginScreen')}>
-                <Icon name='rss' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Profile</Text>
-              </TouchableOpacity>*/}
+                onPress={this.navigateToScreen('PersonalSpendView')}>
+                <FaIcons name="bar-chart" size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Personal Spending</Text>
+              </TouchableOpacity>
 
             </View>
-
           </View>
         </ScrollView>
 
