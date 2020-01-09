@@ -13,12 +13,14 @@ import {
 import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { createStackNavigator, NavigationActions, StackActions } from 'react-navigation';
+import KYCView from './Views/KYCView';
 import Dashboard from './Dashboard';
 import RegisterPage from './RegisterPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Colors from './constants/colors';
 import { Button } from 'react-native-material-ui';
 import awsurl from './constants/AWSUrl';
+
 
 const Toast = (props) => {
   if (props.visible) {
@@ -65,6 +67,19 @@ class LoginScreen extends Component {
       .dispatch(resetAction);
   }
 
+  navigateToKYCView = () => {
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'KYCView' })]
+    });
+
+    this
+      .props
+      .navigation
+      .dispatch(resetAction);
+  }
+
   navigateToRegisterPage = () => {
     this
       .props
@@ -90,8 +105,16 @@ class LoginScreen extends Component {
       })
       .then(res => res.json())
       .then((responseJson) => {
-        if(responseJson.response === this.state.email.toLowerCase()){
-          this.navigateToHomePage()
+        if(responseJson.email === this.state.email.toLowerCase()){
+
+          var cache = require('memory-cache');
+          cache.put('cacheEmail', responseJson.email.toLowerCase());
+          cache.put('cacheName', responseJson.name);
+          if(responseJson.kyc === "pending") {
+            this.navigateToKYCView();
+          } else {
+            this.navigateToHomePage();
+          }
         } else if(responseJson.response === 'Account not active') {
           this.setState({toasterVisible : true, toastermessage: 'Alert: ' +responseJson.response});
         } else {
@@ -326,6 +349,21 @@ export default LoginStack = createStackNavigator({
     screen: Dashboard,
     navigationOptions: {
       header: null
+    }
+  },
+  KYCView: {
+    screen: KYCView,
+    navigationOptions: {
+      headerTitle: "Profile",
+      headerStyle: {
+        backgroundColor: '#131642',
+        color: 'white'
+      },
+      headerTintColor: 'white',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
+      }
     }
   },
   RegisterPage: {

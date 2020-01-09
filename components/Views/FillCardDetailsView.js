@@ -70,6 +70,7 @@ class FillCardDetailsView extends Component {
         if (this.state.cardnumber === '') {
             this.navigateToListOfCardPage();
         } else {
+            var cache = require('memory-cache');
             fetch(awsurl.aws_url+'api/card/addCard', {  
                 method: 'POST',
                 headers: {
@@ -81,6 +82,7 @@ class FillCardDetailsView extends Component {
                     expires_date: this.state.expirydate,
                     cvv: this.state.cvv,
                     name_on_card: this.state.nameoncard,
+                    sessionEmail: cache.get('cacheEmail')
                 })
             })
             .then(res => res.json())

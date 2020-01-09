@@ -6,12 +6,14 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import mainstyles from './UtilComponents/main.style';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 import FaIcons from 'react-native-vector-icons/FontAwesome';
+import mainstyles from './UtilComponents/main.style';
+import awsurl from './constants/AWSUrl';
 
 let iconSize = 25;
 
@@ -30,6 +32,7 @@ export default class DrawerContainer extends React.Component {
   }
 
   render() {
+    var cache = require('memory-cache');
 
     return (
       <View style={styles.container}>
@@ -66,14 +69,14 @@ export default class DrawerContainer extends React.Component {
                   fontSize: 14,
                   marginTop: 20
                 }}>
-                  John Doe
+                  {cache.get('cacheName')}
                 </Text>
                 <Text
                   style={{
                   color: 'white',
                   fontSize: 14
                 }}>
-                  johndoe@gmail.com
+                  {cache.get('cacheEmail')}
                 </Text>
 
               </View>
@@ -96,14 +99,22 @@ export default class DrawerContainer extends React.Component {
                 <Icon name='clipboard-text' size={iconSize} style={styles.drawerIcon}/>
                 <Text style={styles.navItemStyle}>Transaction</Text>
               </TouchableOpacity>
-
+            </View>
+            <View style={styles.navSectionStyle}>
+              <TouchableOpacity
+                style={styles.drawerMenu}
+                onPress={this.navigateToScreen('KYCView')}>
+                <MIcon name='person' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Profile</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.navSectionStyle}>
               <TouchableOpacity
                 style={styles.drawerMenu}
                 onPress={this.navigateToScreen('PersonalSpendView')}>
                 <FaIcons name="bar-chart" size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Personal Spending</Text>
+                <Text style={styles.navItemStyle}>Insights</Text>
               </TouchableOpacity>
-
             </View>
           </View>
         </ScrollView>

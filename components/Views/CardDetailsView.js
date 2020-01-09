@@ -90,8 +90,8 @@ class CardDetailsView extends Component {
 
     }
     getCardsData(){
-    
-        fetch(awsurl.aws_url+'api/card/cardList', {  
+        var cache = require('memory-cache');
+        fetch(awsurl.aws_url+'api/card/cardList/'+cache.get('cacheEmail'), {  
         method: 'GET',
         headers: {
           'Accept': 'application/json',
