@@ -24,7 +24,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.genpact.openbBanking"
     },
     "android": {
       "package": "com.genpact.openbBanking"
