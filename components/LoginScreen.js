@@ -42,12 +42,8 @@ class LoginScreen extends Component {
     }
   }
 
-  componentDidMount() {
-    //this.callAlert("Notice", "Email: johndoe@gmail.com | Password: 123456", null)
-  }
-
   setEmail(email) {
-    this.setState({ email :email, toasterVisible : false });
+    this.setState({ email :email.trim(), toasterVisible : false });
   }
 
   setPassword(password) {

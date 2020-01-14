@@ -24,7 +24,6 @@ import SliderEntry from '../UtilComponents/SliderEntry';
 import styles, {colors} from '../UtilComponents/index.style';
 import DrawerContainer from '../DrawerContainer';
 import mainstyles from '../UtilComponents/main.style';
-import ListOfCardsView from './ListOfCardsView';
 import awsurl from '../constants/AWSUrl';
 
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');

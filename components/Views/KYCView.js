@@ -69,12 +69,6 @@ class KYCView extends Component {
             isPasswordConfirmed : true,
             isValidConfirmPassword: true
         }
-        this.toggleShowPassword = this
-            .toggleShowPassword
-            .bind(this);
-        this.toggleShowConfirmPassword = this
-        .toggleShowConfirmPassword
-        .bind(this);
         this.isFormValid = false;
     }
     componentDidMount() {
@@ -109,76 +103,6 @@ class KYCView extends Component {
     setDrivingLicense(drivingLicense) {
         this.setState({toasterVisible : false, toastermessage: ""});
         this.setState({drivingLicense});
-    }
-
-    setName(name) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        if (name.trim() && validation.allLetterWithSpace(name.trim())) {
-            this.setState({isValidName: true});
-        } else {
-            this.setState({isValidName: false});
-        }
-
-        this.setState({name});
-    }
-
-    setEmail(email) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        if (email.trim() && validation.emailAddress(email.trim())) {
-            this.setState({isValidEmail: true});
-        } else {
-            this.setState({isValidEmail: false});
-        }
-        email = email.trim();
-        this.setState({email});
-    }
-
-    setPhone(phone) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        if(phone.trim() && validation.phonenumber(phone.trim()))
-        {
-            this.setState({isValidPhone: true});
-        }else{
-            this.setState({isValidPhone: false});
-        } 
-        this.setState({phone});
-    }
-
-    setOtp(otp) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        this.setState({otp});
-    }
-
-    setPassword(password) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        if(password.trim() && validation.password(password.trim()))
-        {
-            if(this.state.confirmPassword.trim() && password.trim() == this.state.confirmPassword.trim())
-            {
-                this.setState({isValidConfirmPassword : true});
-            }else{
-                this.setState({isValidConfirmPassword : false});
-            } 
-
-            this.setState({isValidPassword: true}); 
-        }else{
-            this.setState({isValidPassword: false}); 
-        } 
-
-        this.setState({password});
-
-    }
-
-    setConfirmPassword(confirmPassword) {
-        this.setState({toasterVisible : false, toastermessage: ""});
-        if(confirmPassword.trim() && this.state.password.trim() == confirmPassword.trim())
-        {
-            this.setState({isValidConfirmPassword : true});
-        }else{
-            this.setState({isValidConfirmPassword : false});
-        } 
-
-        this.setState({confirmPassword});
     }
 
     validateForm()
@@ -242,29 +166,6 @@ class KYCView extends Component {
                 })
                 .catch(console.log)
         }
-    }
-
-    toggleShowPassword(value) {
-        this.setState({
-            showPassword: !this.state.showPassword, toasterVisible :false
-        });
-        this.setState({
-            showPasswordStatus: value === 'checked'
-                ? 'unchecked'
-                : 'checked'
-        });
-    }
-
-    toggleShowConfirmPassword(value)
-    {
-        this.setState({
-            showConfirmPassword: !this.state.showConfirmPassword, toasterVisible :false
-        });
-        this.setState({
-            showConfirmPasswordStatus: value === 'checked'
-                ? 'unchecked'
-                : 'checked'
-        });
     }
 
     render() {
@@ -363,7 +264,7 @@ class KYCView extends Component {
                                                 mode='flat'
                                                 underlineColor= 'white'
                                                 theme={{ colors: textColor }}
-                                                onChangeText={(text) => this.setName(text)}/>
+                                                editable={false}/>
                                         </View>
                                     </View>
                                     <View
@@ -392,7 +293,7 @@ class KYCView extends Component {
                                                 underlineColor= 'white'
                                                 theme={{ colors: textColor }}
                                                 value={this.state.email}
-                                                onChangeText={(text) => this.setEmail(text)}/>
+                                                editable={false}/>
                                         </View>
                                     </View>
                                     <View
@@ -422,7 +323,7 @@ class KYCView extends Component {
                                                 underlineColor= 'white'
                                                 theme={{ colors: textColor }}
                                                 value={this.state.phone}
-                                                onChangeText={(text) => this.setPhone(text)}/>
+                                                editable={false}/>
                                         </View>
                                     </View>
                                     <View

@@ -15,7 +15,6 @@ import MyPage1 from './MyPage1';
 import MyPage2 from './MyPage2';
 import MyPage4 from './MyPage4';
 import MyPage5 from './MyPage5';
-import DashboardView from './Views/DashboardView';
 import styles from './UtilComponents/main.style';
 import FillCardDetailsView from './Views/FillCardDetailsView';
 import ListOfCardsView from './Views/ListOfCardsView';

@@ -36,7 +36,7 @@ export default class Splash extends Component {
                     }}>
 
                         <Image source={require('../assets/icon.png')} style={styles.image}/>
-
+                        <Text style={styles.textStyle}>Version 1.0</Text>
                     </View>
 
                 </View>
