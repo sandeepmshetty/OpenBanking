@@ -82,7 +82,7 @@ class Dashboard extends Component {
         var tempTotalExpense = 0.0;
         var tempTotalIncome = 0.0;
         for (let i = 0; i < responseJson.length; i++) {
-          if (parseFloat(this.state.transactionResults[i].details.value.amount) < 0.0) {
+          if (parseFloat(this.state.transactionResults[i].details.value.amount) > 0.0) {
             tempTotalExpense = tempTotalExpense + parseFloat(this.state.transactionResults[i].details.value.amount);
             if (this.state.transactionResults[i].details.description.indexOf("Medical") > -1) {
               tempMedical = tempMedical + parseFloat(this.state.transactionResults[i].details.value.amount);

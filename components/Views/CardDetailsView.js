@@ -184,7 +184,8 @@ class CardDetailsView extends Component {
             color="white"/>;
             console.log(acntName);
         for(let i = 0; i < this.state.transactionResults.length; i++){
-            if(this.state.transactionResults[i].this_account.id === acntName) {
+            if(this.state.transactionResults[i].this_account.id === acntName 
+                && this.state.transactionResults[i].details.value.amount > 0.0) {
                 detailedTransactions1.push(
                     <TouchableOpacity>
                         <ImageBackground
