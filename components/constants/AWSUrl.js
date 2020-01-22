@@ -1,3 +1,3 @@
 export default {
-    aws_url: 'http://openbanking-env.gvvygzzqns.us-east-1.elasticbeanstalk.com/'
+    aws_url: 'http://openbanking-env-1.vpgywmskmm.eu-west-2.elasticbeanstalk.com/'
   };
