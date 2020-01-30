@@ -10,6 +10,7 @@ import {
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import { Button } from 'react-native-material-ui';
+import {Header,Left,Right} from 'native-base';
 import DrawerContainer from './DrawerContainer';
 import MyPage1 from './MyPage1';
 import MyPage2 from './MyPage2';
@@ -512,38 +513,129 @@ const DashboardNavigator = createStackNavigator({
   }
 });
 
+const FillCardDetailsViewStack = createStackNavigator({
+
+  FillCardDetailsView: {
+      screen: FillCardDetailsView,
+
+      navigationOptions: ({navigation}) => ({
+          headerTitle: "Add card details", headerLeft: <View>
+              <TouchableOpacity
+                  onPress={() => {
+                  navigation.toggleDrawer()
+              }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+          </View>,
+          headerStyle: {
+              backgroundColor: '#131642',
+              color: 'white'
+          },
+          headerTitleStyle: {
+              fontWeight: 'bold',
+              color: 'white'
+          }
+      })
+  }
+});
+
+const TransactionDetailsViewStack = createStackNavigator({
+
+  TransactionDetailsView: {
+      screen: TransactionDetailsView,
+
+      navigationOptions: ({navigation}) => ({
+          headerTitle: "Pay from card", headerLeft: <View>
+              <TouchableOpacity
+                  onPress={() => {
+                  navigation.toggleDrawer()
+              }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+          </View>,
+          headerStyle: {
+              backgroundColor: '#131642',
+              color: 'white'
+          },
+          headerTitleStyle: {
+              fontWeight: 'bold',
+              color: 'white'
+          }
+      })
+  }
+});
+
+const CardDetailsViewStack = createStackNavigator({
+
+  CardDetailsViewStack: {
+      screen: CardDetailsView,
+
+      navigationOptions: ({navigation}) => ({
+          headerTitle: "Your Cards", headerLeft: <View>
+              <TouchableOpacity
+                  onPress={() => {
+                  navigation.toggleDrawer()
+              }}><Icon name='menu' color='white' size={35} color='white'/></TouchableOpacity>
+          </View>,
+          headerStyle: {
+              backgroundColor: '#131642',
+              color: 'white'
+          },
+          headerTitleStyle: {
+              fontWeight: 'bold',
+              color: 'white'
+          }
+      })
+  }
+});
+const KYCViewStack = createStackNavigator({
+
+  KYCView: {
+      screen: KYCView,
+
+      navigationOptions: ({navigation}) => ({
+          headerTitle: "Profile", headerLeft: <View>
+              <TouchableOpacity
+                  onPress={() => {
+                  navigation.toggleDrawer()
+              }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
+          </View>,
+          headerStyle: {
+              backgroundColor: '#131642',
+              color: 'white'
+          },
+          headerTitleStyle: {
+              fontWeight: 'bold',
+              color: 'white'
+          }
+      })
+  }
+});
 const DrawerStack = createDrawerNavigator({
   Dashboard: {
     screen: DashboardNavigator
   },
   FillCardDetailsView: {
-    screen: FillCardDetailsView,
+    screen: FillCardDetailsViewStack,
     navigationOptions: {
       headerTitle: "Add Card Details"
     }
   },
-  ListOfCardsView: {
-    screen: ListOfCardsView,
+  CardDetailsView: {
+    screen: CardDetailsViewStack,
     navigationOptions: {
       headerTitle: "Your Cards"
     }
   },
   TransactionDetailsView:
   {
-    screen: TransactionDetailsView,
+    screen: TransactionDetailsViewStack,
     navigationOptions: {
       headerTitle: "Make Transaction"
     }
   },
   KYCView:
   {
-    screen: KYCView,
+    screen: KYCViewStack,
     navigationOptions: {
       headerTitle: "Profile"
     }
-  },
-  CardDetailsView: {
-    screen: CardDetailsView
   },
 }, {
   gesturesEnabled: false,

@@ -476,7 +476,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const KYCViewStack = createStackNavigator({
+/*const KYCViewStack = createStackNavigator({
 
     KYCView: {
         screen: KYCView,
@@ -507,6 +507,6 @@ const DrawerStack = createDrawerNavigator({
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
-})
+})*/
 
-export default DrawerStack
+export default KYCView

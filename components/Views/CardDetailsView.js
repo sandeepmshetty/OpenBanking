@@ -459,7 +459,7 @@ const cardstyles = StyleSheet.create({
 });
 
 
-const CardDetailsViewStack = createStackNavigator({
+/*const CardDetailsViewStack = createStackNavigator({
 
     CardDetailsView: {
         screen: CardDetailsView,
@@ -490,6 +490,6 @@ const DrawerStack = createDrawerNavigator({
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
-})
+})*/
 
-export default DrawerStack
+export default CardDetailsView

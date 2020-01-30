@@ -275,7 +275,7 @@ const localstyles = StyleSheet.create({
     }
 });
 
-const FillCardDetailsViewStack = createStackNavigator({
+/*const FillCardDetailsViewStack = createStackNavigator({
 
     FillCardDetailsView: {
         screen: FillCardDetailsView,
@@ -312,6 +312,6 @@ const DrawerStack = createDrawerNavigator({
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
-})
+})*/
 
-export default DrawerStack
+export default FillCardDetailsView

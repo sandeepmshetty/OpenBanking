@@ -91,21 +91,28 @@ export default class DrawerContainer extends React.Component {
                 <Text style={styles.navItemStyle}>Dashboard</Text>
               </TouchableOpacity>
             </View>
-
             <View style={styles.navSectionStyle}>
               <TouchableOpacity
                 style={styles.drawerMenu}
-                onPress={this.navigateToScreen('TransactionDetailsView')}>
-                <Icon name='clipboard-text' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Transaction</Text>
+                onPress={this.navigateToScreen('FillCardDetailsView')}>
+                <Icon name='credit-card-plus' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Add Card</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.navSectionStyle}>
               <TouchableOpacity
                 style={styles.drawerMenu}
-                onPress={this.navigateToScreen('KYCView')}>
-                <MIcon name='person' size={iconSize} style={styles.drawerIcon}/>
-                <Text style={styles.navItemStyle}>Profile</Text>
+                onPress={this.navigateToScreen('TransactionDetailsView')}>
+                <MIcon name='payment' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Payment</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.navSectionStyle}>
+              <TouchableOpacity
+                style={styles.drawerMenu}
+                onPress={this.navigateToScreen('CardDetailsView')}>
+                <Icon name='cards-outline' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Cards</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.navSectionStyle}>
@@ -114,6 +121,14 @@ export default class DrawerContainer extends React.Component {
                 onPress={this.navigateToScreen('PersonalSpendView')}>
                 <FaIcons name="bar-chart" size={iconSize} style={styles.drawerIcon}/>
                 <Text style={styles.navItemStyle}>Insights</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.navSectionStyle}>
+              <TouchableOpacity
+                style={styles.drawerMenu}
+                onPress={this.navigateToScreen('KYCView')}>
+                <MIcon name='person' size={iconSize} style={styles.drawerIcon}/>
+                <Text style={styles.navItemStyle}>Profile</Text>
               </TouchableOpacity>
             </View>
           </View>

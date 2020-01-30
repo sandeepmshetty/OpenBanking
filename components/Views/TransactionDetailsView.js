@@ -411,37 +411,14 @@ const cardstyles = StyleSheet.create({
     }
 });
 
-const TransactionDetailsViewStack = createStackNavigator({
 
-    TransactionDetailsView: {
-        screen: TransactionDetailsView,
-
-        navigationOptions: ({navigation}) => ({
-            headerTitle: "Pay from card", headerLeft: <View>
-                <TouchableOpacity
-                    onPress={() => {
-                    navigation.toggleDrawer()
-                }}><Icon name='menu' size={35} color='white'/></TouchableOpacity>
-            </View>,
-            headerStyle: {
-                backgroundColor: '#131642',
-                color: 'white'
-            },
-            headerTitleStyle: {
-                fontWeight: 'bold',
-                color: 'white'
-            }
-        })
-    }
-});
-
-const DrawerStack = createDrawerNavigator({
+/*const DrawerStack = createDrawerNavigator({
     TransactionDetailsView: {
         screen: TransactionDetailsViewStack
     }
 }, {
     gesturesEnabled: false,
     contentComponent: DrawerContainer
-})
+})*/
 
-export default DrawerStack
+export default TransactionDetailsView;
