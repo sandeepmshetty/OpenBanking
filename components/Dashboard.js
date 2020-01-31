@@ -8,7 +8,8 @@ import {
   ImageBackground
 } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { createDrawerNavigator, createStackNavigator, 
+          createBottomTabNavigator, createMaterialBottomTabNavigator } from 'react-navigation';
 import { Button } from 'react-native-material-ui';
 import {Header,Left,Right} from 'native-base';
 import DrawerContainer from './DrawerContainer';
@@ -488,12 +489,115 @@ const localStyles = StyleSheet.create({
     width: '98%'
   }
 });
+const DashboardTabNavigator = createBottomTabNavigator(
+  {
+    Dashboard: { 
+      screen: Dashboard,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        barStyle: {backgroundColor:'blue'},
+        tabBarIcon: ({ tintColor }) => (
+            <View>
+                <Icon name={'animation'} size={25} style={[{ color: tintColor }]} />
+            </View>
+        ),
+        tabBarOptions: {
+          activeBackgroundColor: '#131642',
+          style: {
+              backgroundColor: '#131642',
+          }
+        }
+      }
+    },
+    CardDetailsView: { 
+      screen: CardDetailsView,
+      navigationOptions: {
+        tabBarLabel: 'Cards',
+        barStyle: {backgroundColor:'blue'},
+        tabBarIcon: ({ tintColor }) => (
+            <View>
+                <Icon name={'cards-outline'} size={25} style={[{ color: tintColor }]} />
+            </View>
+        ),
+        tabBarOptions: {
+          activeBackgroundColor: '#131642',
+          style: {
+              backgroundColor: '#131642',
+          }
+        }
+      }
+    },
+    TransactionDetailsView: { 
+      screen: TransactionDetailsView,
+      navigationOptions: {
+        tabBarLabel: 'Payment',
+        barStyle: {backgroundColor:'blue'},
+        tabBarIcon: ({ tintColor }) => (
+            <View>
+                <MIcons name={'payment'} size={25} style={[{ color: tintColor }]} />
+            </View>
+        ),
+        tabBarOptions: {
+          activeBackgroundColor: '#131642',
+          style: {
+              backgroundColor: '#131642',
+          }
+        }
+      }
+    },
+    KYCView: { 
+      screen: KYCView,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        barStyle: {color:'blue'},
+        tabBarIcon: ({ tintColor }) => (
+            <View>
+                <MIcons name={'person'} size={25} style={[{ color: tintColor }]} />
+            </View>
+        ),
+        tabBarOptions: {
+          activeBackgroundColor: '#131642',
+          style: {
+              backgroundColor: '#131642',
+          }
+        }
+      }
+    }
+  }
+);
 
-const DashboardNavigator = createStackNavigator({
+DashboardTabNavigator.navigationOptions = ({ navigation }) => {
+  // By default routeName will come from the BottomTabNav,
+  // but here we can access the children screens 
+  // and give the parent ParentStack that routeName
+  const { routeName } = navigation.state.routes[navigation.state.index];
+
+  // You can do whatever you like here to pick the title based on the route name
+  const headerTitle = routeName;
+
+  return {
+    headerTitle,
+      headerLeft: <View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.toggleDrawer()
+          }}><Icon name='menu' size={35} color='white' /></TouchableOpacity>
+      </View>,
+      headerStyle: {
+        backgroundColor: '#131642',
+        color: 'white'
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
+      }
+  };
+};
+const DashboardStackNavigator = createStackNavigator({
 
   Dashboard: {
-    screen: Dashboard,
-    navigationOptions: ({ navigation }) => ({
+    screen: DashboardTabNavigator,
+    defaultnavigationOptions: ({ navigation }) => ({
       headerTitle: "Dashboard",
       headerLeft: <View>
         <TouchableOpacity
@@ -609,7 +713,7 @@ const KYCViewStack = createStackNavigator({
 });
 const DrawerStack = createDrawerNavigator({
   Dashboard: {
-    screen: DashboardNavigator
+    screen: DashboardStackNavigator
   },
   FillCardDetailsView: {
     screen: FillCardDetailsViewStack,
