@@ -509,7 +509,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    CardDetailsView: { 
+    "Your Cards": { 
       screen: CardDetailsView,
       navigationOptions: {
         tabBarLabel: 'Cards',
@@ -527,7 +527,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    TransactionDetailsView: { 
+    Payment: { 
       screen: TransactionDetailsView,
       navigationOptions: {
         tabBarLabel: 'Payment',
@@ -545,7 +545,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    KYCView: { 
+    Profile: { 
       screen: KYCView,
       navigationOptions: {
         tabBarLabel: 'Profile',
@@ -644,7 +644,7 @@ const FillCardDetailsViewStack = createStackNavigator({
 const TransactionDetailsViewStack = createStackNavigator({
 
   TransactionDetailsView: {
-      screen: TransactionDetailsView,
+      screen: DashboardTabNavigator,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Pay from card", headerLeft: <View>
@@ -668,7 +668,7 @@ const TransactionDetailsViewStack = createStackNavigator({
 const CardDetailsViewStack = createStackNavigator({
 
   CardDetailsViewStack: {
-      screen: CardDetailsView,
+      screen: DashboardTabNavigator,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Your Cards", headerLeft: <View>
@@ -691,7 +691,7 @@ const CardDetailsViewStack = createStackNavigator({
 const KYCViewStack = createStackNavigator({
 
   KYCView: {
-      screen: KYCView,
+      screen: DashboardTabNavigator,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Profile", headerLeft: <View>
