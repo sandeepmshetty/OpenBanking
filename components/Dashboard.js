@@ -30,14 +30,14 @@ import MIcons from 'react-native-vector-icons/MaterialIcons';
 import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FA5Icons from 'react-native-vector-icons/FontAwesome5';
 import awsurl from './constants/AWSUrl';
-import {
+/*import {
   LineChart,
   BarChart,
   PieChart,
   ProgressChart,
   ContributionGraph,
   StackedBarChart
-} from "react-native-chart-kit";
+} from "react-native-chart-kit";*/
 
 class Dashboard extends Component {
 
