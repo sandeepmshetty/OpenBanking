@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  ScrollView,
+  Dimensions
 } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { createDrawerNavigator, createStackNavigator, 
@@ -28,7 +30,14 @@ import MIcons from 'react-native-vector-icons/MaterialIcons';
 import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FA5Icons from 'react-native-vector-icons/FontAwesome5';
 import awsurl from './constants/AWSUrl';
-
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
 
 class Dashboard extends Component {
 
@@ -129,11 +138,31 @@ class Dashboard extends Component {
     const travelIcon = <FA5Icons name="walking" size={28} color="white" />;
     const foodIcon = <MCIcons name="food" size={28} color="white" />;
     const medicalIcon = <MCIcons name="hospital" size={28} color="white" />;
-
-
-
+    const chartConfig = {
+      backgroundGradientFrom: "#1E2923",
+      backgroundGradientFromOpacity: 0,
+      backgroundGradientTo: "#08130D",
+      backgroundGradientToOpacity: 0.5,
+      color: (opacity = 1) => 'rgba(26, 255, 146, ${opacity})',
+      strokeWidth: 2, // optional, default 3
+      barPercentage: 0.5
+    };
+    const data = {
+      labels: ["January", "February", "March", "April", "May", "June"],
+      datasets: [
+        {
+          data: [20, 45, 28, 80, 99, 43],
+          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+          strokeWidth: 2 // optional
+        }
+      ],
+      legend: ["Rainy Days", "Sunny Days", "Snowy Days"] // optional
+    };
+    const screenWidth = Dimensions.get("window").width;
+    const screenHeight = Dimensions.get("window").height/2;
     return (
       <View style={styles.main}>
+        <ScrollView>
         <View>
           <View style={{
             marginLeft: 10,
@@ -391,68 +420,8 @@ class Dashboard extends Component {
               width: '100%',
               height: '100%'
             }}
-            source={require('../assets/mastercard.jpg')}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row'
-              }}>
-              <Text
-                style={{
-                  marginLeft: 30,
-                  marginTop: 30,
-                  fontSize: 25
-                }}>VISA</Text>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  marginRight: 10,
-                  marginTop: -15
-                }}>
-                <Image
-                  source={require('../assets/hsbc.jpg')}
-                  resizeMode='contain'
-                  style={{
-                    height: 100,
-                    width: 80
-                  }} />
-              </View>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row'
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                  marginLeft: 40,
-                  marginBottom: 36
-                }}>
-                <Text style={{
-                  fontSize: 17
-                }}>&bull; &bull; &bull; &bull; XXXX</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  marginRight: 10,
-                  marginTop: 10
-                }}>
-                <Image
-                  source={require('../assets/american_express.png')}
-                  resizeMode='contain'
-                  style={{
-                    height: 100,
-                    width: 80
-                  }} />
-              </View>
-            </View>
+            source={require('../assets/blankCard.jpg')}>
+            
           </ImageBackground>
         </View>
         <View>
@@ -467,6 +436,17 @@ class Dashboard extends Component {
             text="Add Card"
             onPress={() => this.navigateToAddCardPage()} />
         </View>
+        </ScrollView>
+        {/*
+        <View>
+          <LineChart
+            data={data}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+          />
+        </View>
+        */}
       </View>
 
     );
@@ -644,7 +624,7 @@ const FillCardDetailsViewStack = createStackNavigator({
 const TransactionDetailsViewStack = createStackNavigator({
 
   TransactionDetailsView: {
-      screen: DashboardTabNavigator,
+      screen: TransactionDetailsView,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Pay from card", headerLeft: <View>
@@ -668,7 +648,7 @@ const TransactionDetailsViewStack = createStackNavigator({
 const CardDetailsViewStack = createStackNavigator({
 
   CardDetailsViewStack: {
-      screen: DashboardTabNavigator,
+      screen: CardDetailsView,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Your Cards", headerLeft: <View>
@@ -691,7 +671,7 @@ const CardDetailsViewStack = createStackNavigator({
 const KYCViewStack = createStackNavigator({
 
   KYCView: {
-      screen: DashboardTabNavigator,
+      screen: KYCView,
 
       navigationOptions: ({navigation}) => ({
           headerTitle: "Profile", headerLeft: <View>
